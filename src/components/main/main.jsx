@@ -127,8 +127,8 @@ function Main({ adTitles }) {
                 */}
               </form>
               <div className="cities__places-list places__list tabs__content">
-                {adTitles.map((title) => (
-                  <article className="cities__place-card place-card">
+                {adTitles.map((title, index) => (
+                  <article key={`${title}_${index}`} className="cities__place-card place-card">
                     <div className="place-card__mark">
                       <span>Premium</span>
                     </div>
