@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-function Main({ adTitles }) {
+function Main({ adTitles, onAdTitleClick }) {
   return (
     <div className="page page--gray page--main">
       <header className="header">
@@ -171,7 +171,7 @@ function Main({ adTitles }) {
                           <span className="visually-hidden">Rating</span>
                         </div>
                       </div>
-                      <h2 className="place-card__name">
+                      <h2 className="place-card__name" onClick={onAdTitleClick}>
                         <a href="#">{title}</a>
                       </h2>
                       <p className="place-card__type">Apartment</p>
@@ -192,6 +192,7 @@ function Main({ adTitles }) {
 
 Main.propTypes = {
   adTitles: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+  onAdTitleClick: PropTypes.func.isRequired,
 };
 
 export default Main;
