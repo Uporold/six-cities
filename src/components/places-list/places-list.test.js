@@ -1,11 +1,11 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import Main from "./main";
+import PlacesList from "./places-list";
 import { hotels } from "../../mock/offers";
 
-it(`Should Main render correctly`, () => {
+it(`Should Places List render correctly`, () => {
   const tree = renderer
-    .create(<Main hotels={hotels} onPlaceCardClick={() => {}} />)
+    .create(<PlacesList hotels={hotels} onPlaceCardClick={() => {}} />)
     .toJSON();
 
   expect(tree).toMatchSnapshot();

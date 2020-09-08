@@ -1,9 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import App from "./components/app/app";
-import { fakeAdTitles } from "./mock";
+import { hotels } from "./mock/offers";
 
-ReactDOM.render(
-  <App adTitles={fakeAdTitles} />,
-  document.getElementById("root")
-);
+ReactDOM.render(<App hotels={hotels} />, document.getElementById("root"));

@@ -1,21 +1,12 @@
 import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import classNames from "classnames";
 import Main from "../main/main";
 import Property from "../property/property";
-import Page from "../page/page";
-/* const adTitleClickHandler = (hotel) => {
-  console.log(`---`);
-  console.log(hotel);
-  console.log(`---`);
-};
+import Header from "../header/header";
 
-function App({ hotels }) {
-  return <Main hotels={hotels} onPlaceCardClick={adTitleClickHandler} />;
-}
-*/
-
-class App extends PureComponent {
+class Page extends PureComponent {
   constructor(props) {
     super(props);
 
@@ -23,6 +14,7 @@ class App extends PureComponent {
       currentPage: `main`,
       currentHotel: this.props.hotels[0],
     };
+
     this.hotelTitleClickHandler = this.hotelTitleClickHandler.bind(this);
   }
 
@@ -33,7 +25,9 @@ class App extends PureComponent {
     });
   }
 
-  renderApp(currentPage, currentHotel) {
+  renderMain(currentPage, currentHotel) {
+    // const { currentPage, currentMovie } = this.state;
+
     if (currentPage === `main`) {
       return (
         <Main
@@ -55,33 +49,28 @@ class App extends PureComponent {
     return (
       <Router>
         <Switch>
-          <Route exact path="/">
-            {this.renderApp(currentPage, currentHotel)}
-          </Route>
-          <Route exact path="/dev-property">
-            <Property hotel={currentHotel} />;
-          </Route>
+          <div
+            className={classNames("page", {
+              "page--gray page--main":
+                this.state.currentPage === `main` &&
+                window.location.pathname === "/",
+              "": window.location.pathname === "/dev-property",
+            })}
+          >
+            <Header />
+            <Route exact path="/">
+              {this.renderMain(currentPage, currentHotel)}
+            </Route>
+            <Route exact path="/dev-property">
+              <Property hotel={currentHotel} />;
+            </Route>
+          </div>
         </Switch>
       </Router>
     );
   }
 }
 
-// function App({ hotels }) {
-//   return <Page hotels={hotels} />;
-// }
+Page.propTypes = {};
 
-App.propTypes = {
-  hotels: PropTypes.arrayOf(
-    PropTypes.shape({
-      type: PropTypes.string.isRequired,
-      previewImage: PropTypes.string.isRequired,
-      title: PropTypes.string.isRequired,
-      price: PropTypes.number.isRequired,
-      isPremium: PropTypes.bool.isRequired,
-      id: PropTypes.number.isRequired,
-    }).isRequired
-  ).isRequired,
-};
-
-export default App;
+export default Page;
