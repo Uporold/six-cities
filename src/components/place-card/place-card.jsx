@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { projectPropTypes } from "../../utilites/project-prop-types";
 
 const PlaceCard = ({ hotel, onPlaceCardClick, onHover }) => {
   const styledRating = hotel.rating * 20;
@@ -14,15 +15,16 @@ const PlaceCard = ({ hotel, onPlaceCardClick, onHover }) => {
   };
   const hotelType =
     hotel.type.charAt(0).toUpperCase() + hotel.type.replace(`-`, ` `).slice(1);
+
+  const onPlaceCardClickHandler = (evt) => {
+    evt.preventDefault();
+    onPlaceCardClick(hotel);
+  };
   return (
     <>
       <article
         className="cities__place-card place-card"
         key={`${hotel.id}`}
-        onClick={(evt) => {
-          evt.preventDefault();
-          onPlaceCardClick(hotel);
-        }}
         onMouseEnter={onHover}
       >
         {renderPremiumMark()}
@@ -34,6 +36,7 @@ const PlaceCard = ({ hotel, onPlaceCardClick, onHover }) => {
               width="260"
               height="200"
               alt={hotel.title}
+              onClick={onPlaceCardClickHandler}
             />
           </a>
         </div>
@@ -60,7 +63,9 @@ const PlaceCard = ({ hotel, onPlaceCardClick, onHover }) => {
             </div>
           </div>
           <h2 className="place-card__name">
-            <a href="#">{hotel.title}</a>
+            <a href="#" onClick={onPlaceCardClickHandler}>
+              {hotel.title}
+            </a>
           </h2>
           <p className="place-card__type">{hotelType}</p>
         </div>
@@ -70,15 +75,7 @@ const PlaceCard = ({ hotel, onPlaceCardClick, onHover }) => {
 };
 
 PlaceCard.propTypes = {
-  hotel: PropTypes.shape({
-    type: PropTypes.string.isRequired,
-    previewImage: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
-    isPremium: PropTypes.bool.isRequired,
-    id: PropTypes.number.isRequired,
-    rating: PropTypes.number.isRequired,
-  }).isRequired,
+  hotel: projectPropTypes.HOTEL.isRequired,
   onPlaceCardClick: PropTypes.func.isRequired,
   onHover: PropTypes.func.isRequired,
 };

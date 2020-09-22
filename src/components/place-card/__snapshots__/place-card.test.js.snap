@@ -3,7 +3,6 @@
 exports[`Should Place Card render correctly 1`] = `
 <article
   className="cities__place-card place-card"
-  onClick={[Function]}
   onMouseEnter={[Function]}
 >
   
@@ -17,6 +16,7 @@ exports[`Should Place Card render correctly 1`] = `
         alt="Nice, cozy, warm big bed apartment"
         className="place-card__image"
         height="200"
+        onClick={[Function]}
         src="https://htmlacademy-react-3.appspot.com/six-cities/static/hotel/15.jpg"
         width="260"
       />
@@ -88,6 +88,7 @@ exports[`Should Place Card render correctly 1`] = `
     >
       <a
         href="#"
+        onClick={[Function]}
       >
         Nice, cozy, warm big bed apartment
       </a>

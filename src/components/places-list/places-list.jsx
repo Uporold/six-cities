@@ -1,6 +1,8 @@
 import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
+import classNames from "classnames";
 import PlaceCard from "../place-card/place-card";
+import { projectPropTypes } from "../../utilites/project-prop-types";
 
 class PlacesList extends PureComponent {
   constructor(props) {
@@ -12,9 +14,14 @@ class PlacesList extends PureComponent {
   }
 
   render() {
-    const { hotels, onPlaceCardClick } = this.props;
+    const { hotels, onPlaceCardClick, isMain } = this.props;
     return (
-      <div className="cities__places-list places__list tabs__content">
+      <div
+        className={classNames("places__list", {
+          "cities__places-list tabs__content": isMain,
+          "near-places__list": !isMain,
+        })}
+      >
         {hotels.map((hotel) => (
           <PlaceCard
             key={hotel.id}
@@ -32,17 +39,13 @@ class PlacesList extends PureComponent {
 }
 
 PlacesList.propTypes = {
-  hotels: PropTypes.arrayOf(
-    PropTypes.shape({
-      type: PropTypes.string.isRequired,
-      previewImage: PropTypes.string.isRequired,
-      title: PropTypes.string.isRequired,
-      price: PropTypes.number.isRequired,
-      isPremium: PropTypes.bool.isRequired,
-      id: PropTypes.number.isRequired,
-    }).isRequired
-  ).isRequired,
+  hotels: PropTypes.arrayOf(projectPropTypes.HOTEL.isRequired).isRequired,
   onPlaceCardClick: PropTypes.func.isRequired,
+  isMain: PropTypes.bool,
+};
+
+PlacesList.defaultProps = {
+  isMain: false,
 };
 
 export default PlacesList;

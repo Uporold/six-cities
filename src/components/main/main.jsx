@@ -2,6 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 import PlacesList from "../places-list/places-list";
 import Header from "../header/header";
+import Map from "../map/map";
+import { projectPropTypes } from "../../utilites/project-prop-types";
 
 function Main({ hotels, onPlaceCardClick }) {
   return (
@@ -96,10 +98,14 @@ function Main({ hotels, onPlaceCardClick }) {
                 </select>
                 */}
               </form>
-              <PlacesList hotels={hotels} onPlaceCardClick={onPlaceCardClick} />
+              <PlacesList
+                hotels={hotels}
+                onPlaceCardClick={onPlaceCardClick}
+                isMain
+              />
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map" />
+              <Map hotels={hotels} />
             </div>
           </div>
         </div>
@@ -109,16 +115,7 @@ function Main({ hotels, onPlaceCardClick }) {
 }
 
 Main.propTypes = {
-  hotels: PropTypes.arrayOf(
-    PropTypes.shape({
-      type: PropTypes.string.isRequired,
-      previewImage: PropTypes.string.isRequired,
-      title: PropTypes.string.isRequired,
-      price: PropTypes.number.isRequired,
-      isPremium: PropTypes.bool.isRequired,
-      id: PropTypes.number.isRequired,
-    }).isRequired
-  ).isRequired,
+  hotels: PropTypes.arrayOf(projectPropTypes.HOTEL.isRequired).isRequired,
   onPlaceCardClick: PropTypes.func.isRequired,
 };
 

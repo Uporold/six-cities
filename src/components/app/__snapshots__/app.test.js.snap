@@ -221,11 +221,10 @@ exports[`Render App 1`] = `
             </ul>
           </form>
           <div
-            className="cities__places-list places__list tabs__content"
+            className="places__list cities__places-list tabs__content"
           >
             <article
               className="cities__place-card place-card"
-              onClick={[Function]}
               onMouseEnter={[Function]}
             >
               
@@ -239,6 +238,7 @@ exports[`Render App 1`] = `
                     alt="Nice, cozy, warm big bed apartment"
                     className="place-card__image"
                     height="200"
+                    onClick={[Function]}
                     src="https://htmlacademy-react-3.appspot.com/six-cities/static/hotel/15.jpg"
                     width="260"
                   />
@@ -310,6 +310,7 @@ exports[`Render App 1`] = `
                 >
                   <a
                     href="#"
+                    onClick={[Function]}
                   >
                     Nice, cozy, warm big bed apartment
                   </a>
@@ -323,7 +324,6 @@ exports[`Render App 1`] = `
             </article>
             <article
               className="cities__place-card place-card"
-              onClick={[Function]}
               onMouseEnter={[Function]}
             >
               
@@ -337,6 +337,7 @@ exports[`Render App 1`] = `
                     alt="Penthouse, 4-5 rooms + 5 balconies"
                     className="place-card__image"
                     height="200"
+                    onClick={[Function]}
                     src="https://htmlacademy-react-3.appspot.com/six-cities/static/hotel/12.jpg"
                     width="260"
                   />
@@ -408,6 +409,7 @@ exports[`Render App 1`] = `
                 >
                   <a
                     href="#"
+                    onClick={[Function]}
                   >
                     Penthouse, 4-5 rooms + 5 balconies
                   </a>
@@ -421,7 +423,6 @@ exports[`Render App 1`] = `
             </article>
             <article
               className="cities__place-card place-card"
-              onClick={[Function]}
               onMouseEnter={[Function]}
             >
               
@@ -435,6 +436,7 @@ exports[`Render App 1`] = `
                     alt="House in countryside"
                     className="place-card__image"
                     height="200"
+                    onClick={[Function]}
                     src="https://htmlacademy-react-3.appspot.com/six-cities/static/hotel/3.jpg"
                     width="260"
                   />
@@ -506,6 +508,7 @@ exports[`Render App 1`] = `
                 >
                   <a
                     href="#"
+                    onClick={[Function]}
                   >
                     House in countryside
                   </a>
@@ -519,7 +522,6 @@ exports[`Render App 1`] = `
             </article>
             <article
               className="cities__place-card place-card"
-              onClick={[Function]}
               onMouseEnter={[Function]}
             >
               
@@ -533,6 +535,7 @@ exports[`Render App 1`] = `
                     alt="Perfectly located Castro"
                     className="place-card__image"
                     height="200"
+                    onClick={[Function]}
                     src="https://htmlacademy-react-3.appspot.com/six-cities/static/hotel/12.jpg"
                     width="260"
                   />
@@ -604,6 +607,7 @@ exports[`Render App 1`] = `
                 >
                   <a
                     href="#"
+                    onClick={[Function]}
                   >
                     Perfectly located Castro
                   </a>
@@ -617,7 +621,6 @@ exports[`Render App 1`] = `
             </article>
             <article
               className="cities__place-card place-card"
-              onClick={[Function]}
               onMouseEnter={[Function]}
             >
               
@@ -631,6 +634,7 @@ exports[`Render App 1`] = `
                     alt="House in countryside"
                     className="place-card__image"
                     height="200"
+                    onClick={[Function]}
                     src="https://htmlacademy-react-3.appspot.com/six-cities/static/hotel/18.jpg"
                     width="260"
                   />
@@ -702,6 +706,7 @@ exports[`Render App 1`] = `
                 >
                   <a
                     href="#"
+                    onClick={[Function]}
                   >
                     House in countryside
                   </a>
@@ -720,7 +725,16 @@ exports[`Render App 1`] = `
         >
           <section
             className="cities__map map"
-          />
+          >
+            <div
+              id="map"
+              style={
+                Object {
+                  "height": "100%",
+                }
+              }
+            />
+          </section>
         </div>
       </div>
     </div>

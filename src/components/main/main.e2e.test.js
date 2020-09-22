@@ -16,7 +16,7 @@ it(`Should movie title button be pressed`, () => {
     <Main hotels={hotels} onPlaceCardClick={onAdTitleClick} />
   );
 
-  const adTitleButtons = main.find(`.cities__place-card`);
+  const adTitleButtons = main.find(`.place-card__image`);
 
   adTitleButtons.forEach((movieTitleButton) => {
     movieTitleButton.props().onClick(evt);

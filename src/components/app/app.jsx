@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Main from "../main/main";
 import Property from "../property/property";
+import { projectPropTypes } from "../../utilites/project-prop-types";
 import Page from "../page/page";
 /* const adTitleClickHandler = (hotel) => {
   console.log(`---`);
@@ -33,18 +34,21 @@ class App extends PureComponent {
     });
   }
 
-  renderApp(currentPage, currentHotel) {
+  renderApp(currentPage, currentHotel, hotels) {
     if (currentPage === `main`) {
       return (
-        <Main
-          hotels={this.props.hotels}
-          onPlaceCardClick={this.hotelTitleClickHandler}
-        />
+        <Main hotels={hotels} onPlaceCardClick={this.hotelTitleClickHandler} />
       );
     }
 
     if (currentPage === `property`) {
-      return <Property hotel={currentHotel} />;
+      return (
+        <Property
+          hotel={currentHotel}
+          hotels={hotels}
+          onPlaceCardClick={this.hotelTitleClickHandler}
+        />
+      );
     }
 
     return null;
@@ -52,14 +56,19 @@ class App extends PureComponent {
 
   render() {
     const { currentPage, currentHotel } = this.state;
+    const { hotels } = this.props;
     return (
       <Router>
         <Switch>
           <Route exact path="/">
-            {this.renderApp(currentPage, currentHotel)}
+            {this.renderApp(currentPage, currentHotel, hotels)}
           </Route>
           <Route exact path="/dev-property">
-            <Property hotel={currentHotel} />;
+            <Property
+              hotel={currentHotel}
+              hotels={hotels}
+              onPlaceCardClick={this.hotelTitleClickHandler}
+            />
           </Route>
         </Switch>
       </Router>
@@ -72,16 +81,7 @@ class App extends PureComponent {
 // }
 
 App.propTypes = {
-  hotels: PropTypes.arrayOf(
-    PropTypes.shape({
-      type: PropTypes.string.isRequired,
-      previewImage: PropTypes.string.isRequired,
-      title: PropTypes.string.isRequired,
-      price: PropTypes.number.isRequired,
-      isPremium: PropTypes.bool.isRequired,
-      id: PropTypes.number.isRequired,
-    }).isRequired
-  ).isRequired,
+  hotels: PropTypes.arrayOf(projectPropTypes.HOTEL.isRequired).isRequired,
 };
 
 export default App;
