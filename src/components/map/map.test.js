@@ -3,9 +3,9 @@ import renderer from "react-test-renderer";
 import Map from "./map";
 import { hotels } from "../../mock/offers";
 
-it(`Should Main render correctly`, () => {
+it(`Should Map render correctly`, () => {
   const tree = renderer
-    .create(<Map hotels={hotels} onPlaceCardClick={() => {}} />, {
+    .create(<Map hotels={hotels} />, {
       createNodeMock: () => {
         return document.createElement(`div`);
       },

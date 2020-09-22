@@ -1,70 +1,42 @@
 import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
-import leaflet from "leaflet";
+import { Map as LeafletMap, TileLayer, Marker, Popup } from "react-leaflet";
 import { projectPropTypes } from "../../utilites/project-prop-types";
-
-// TODO: Переделать карту под react-leaflet
-
-const icon = leaflet.icon({
-  iconUrl: `img/pin.svg`,
-  iconSize: [30, 45],
-});
+import PlaceCard from "../place-card/place-card";
 
 class Map extends PureComponent {
-  constructor(props) {
-    super(props);
-    this._map = null;
-
-    this.mapRef = React.createRef();
-  }
-
-  _initMap() {
-    this._map = leaflet.map(this.mapRef.current, {
-      center: [52.38333, 4.9],
-      zoom: 12,
-      zoomControl: false,
-      marker: true,
-    });
-    this._map.setView([52.38333, 4.9], 12);
-
-    leaflet
-      .tileLayer(
-        `https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png`,
-        {
-          attribution:
-            '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
-        }
-      )
-      .addTo(this._map);
-  }
-
-  _createMapPoints() {
+  renderMarkers() {
     const { hotels } = this.props;
-    /* const { location } = hotels;
-    const { latitude, longitude } = location; */
-
-    hotels.forEach((hotel) => {
-      const { location } = hotel;
-      const { latitude, longitude } = location;
-      leaflet.marker([latitude, longitude], { icon }).addTo(this._map);
-    });
-  }
-
-  componentDidMount() {
-    this._initMap();
-    this._createMapPoints();
-  }
-
-  componentWillUnmount() {
-    this.mapRef.current.remove();
-    this._map.remove();
-    this._map = null;
+    return (
+      <>
+        {hotels.map((hotel) => (
+          <Marker
+            position={[hotel.location.latitude, hotel.location.longitude]}
+          >
+            <Popup>
+              <PlaceCard
+                hotel={hotel}
+                onPlaceCardClick={() => {}}
+                onHover={() => {}}
+              />
+            </Popup>
+          </Marker>
+        ))}
+      </>
+    );
   }
 
   render() {
     return (
       <section className="cities__map map">
-        <div id="map" ref={this.mapRef} style={{ height: "100%" }} />
+        <LeafletMap
+          center={[52.38333, 4.9]}
+          zoom={12}
+          style={{ height: "100%" }}
+        >
+          <TileLayer url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png" />
+          {this.renderMarkers()}
+        </LeafletMap>
       </section>
     );
   }
