@@ -105,7 +105,9 @@ function Main({ hotels, onPlaceCardClick }) {
               />
             </section>
             <div className="cities__right-section">
-              <Map hotels={hotels} />
+              <section className="cities__map map">
+              <Map hotels={hotels} center={[52.38333, 4.9]} zoom={12} />
+              </section>
             </div>
           </div>
         </div>

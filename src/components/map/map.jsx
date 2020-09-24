@@ -27,23 +27,20 @@ class Map extends PureComponent {
   }
 
   render() {
+    const { center, zoom } = this.props;
     return (
-      <section className="cities__map map">
-        <LeafletMap
-          center={[52.38333, 4.9]}
-          zoom={12}
-          style={{ height: "100%" }}
-        >
-          <TileLayer url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png" />
-          {this.renderMarkers()}
-        </LeafletMap>
-      </section>
+      <LeafletMap center={center} zoom={zoom} style={{ height: "100%" }}>
+        <TileLayer url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png" />
+        {this.renderMarkers()}
+      </LeafletMap>
     );
   }
 }
 
 Map.propTypes = {
   hotels: PropTypes.arrayOf(projectPropTypes.HOTEL.isRequired).isRequired,
+  center: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
+  zoom: PropTypes.number.isRequired,
 };
 
 export default Map;

@@ -1,0 +1,61 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Should Reviews List render correctly 1`] = `
+<li
+  className="reviews__item"
+>
+  <div
+    className="reviews__user user"
+  >
+    <div
+      className="reviews__avatar-wrapper user__avatar-wrapper"
+    >
+      <img
+        alt="Reviews avatar"
+        className="reviews__avatar user__avatar"
+        height="54"
+        src="https://htmlacademy-react-3.appspot.com/six-cities/static/avatar/5.jpg"
+        width="54"
+      />
+    </div>
+    <span
+      className="reviews__user-name"
+    />
+  </div>
+  <div
+    className="reviews__info"
+  >
+    <div
+      className="reviews__rating rating"
+    >
+      <div
+        className="reviews__stars rating__stars"
+      >
+        <span
+          style={
+            Object {
+              "width": "80%",
+            }
+          }
+        />
+        <span
+          className="visually-hidden"
+        >
+          Rating
+        </span>
+      </div>
+    </div>
+    <p
+      className="reviews__text"
+    >
+      Home is amazing. It's like staying in a museum. The rooms, furnishings and artworks are incredible. The views of My Vesuvius
+    </p>
+    <time
+      className="reviews__time"
+      dateTime="2019-04-24"
+    >
+      April 2019
+    </time>
+  </div>
+</li>
+`;

@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 
+// eslint-disable-next-line import/prefer-default-export
 export const projectPropTypes = {
   HOTEL: PropTypes.shape({
     id: PropTypes.number.isRequired,
@@ -19,5 +20,16 @@ export const projectPropTypes = {
       isPro: PropTypes.bool.isRequired,
       avatarUrl: PropTypes.string.isRequired,
     }).isRequired,
+  }),
+  REVIEW: PropTypes.shape({
+    user: PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      isPro: PropTypes.bool.isRequired,
+      name: PropTypes.string.isRequired,
+      avatar: PropTypes.string.isRequired,
+    }).isRequired,
+    rating: PropTypes.number.isRequired,
+    comment: PropTypes.string.isRequired,
+    dateTime: PropTypes.string,
   }),
 };

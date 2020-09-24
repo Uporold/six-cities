@@ -6,7 +6,16 @@ import { hotels } from "../../mock/offers";
 it(`Should Property Page render correctly`, () => {
   const tree = renderer
     .create(
-      <Property hotel={hotels[0]} hotels={hotels} onPlaceCardClick={() => {}} />
+      <Property
+        hotel={hotels[0]}
+        hotels={hotels}
+        onPlaceCardClick={() => {}}
+      />,
+      {
+        createNodeMock: () => {
+          return document.createElement(`div`);
+        },
+      }
     )
     .toJSON();
 
