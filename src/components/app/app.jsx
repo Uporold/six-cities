@@ -5,71 +5,27 @@ import Main from "../main/main";
 import Property from "../property/property";
 import { projectPropTypes } from "../../utilites/project-prop-types";
 import Page from "../page/page";
-/* const adTitleClickHandler = (hotel) => {
-  console.log(`---`);
-  console.log(hotel);
-  console.log(`---`);
-};
-
-function App({ hotels }) {
-  return <Main hotels={hotels} onPlaceCardClick={adTitleClickHandler} />;
-}
-*/
 
 class App extends PureComponent {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      currentPage: `main`,
-      currentHotel: this.props.hotels[0],
-    };
-    this.hotelTitleClickHandler = this.hotelTitleClickHandler.bind(this);
-  }
-
-  hotelTitleClickHandler(hotel) {
-    this.setState({
-      currentPage: `property`,
-      currentHotel: hotel,
-    });
-  }
-
-  renderApp(currentPage, currentHotel, hotels) {
-    if (currentPage === `main`) {
-      return (
-        <Main hotels={hotels} onPlaceCardClick={this.hotelTitleClickHandler} />
-      );
-    }
-
-    if (currentPage === `property`) {
-      return (
-        <Property
-          hotel={currentHotel}
-          hotels={hotels}
-          onPlaceCardClick={this.hotelTitleClickHandler}
-        />
-      );
-    }
-
-    return null;
-  }
-
   render() {
-    const { currentPage, currentHotel } = this.state;
     const { hotels } = this.props;
+    const getHotelById = (id) => {
+      return hotels.find((hotel) => hotel.id === parseInt(id, 10));
+    };
     return (
       <Router>
         <Switch>
           <Route exact path="/">
-            {this.renderApp(currentPage, currentHotel, hotels)}
+            <Main hotels={hotels} />
           </Route>
-          <Route exact path="/dev-property">
-            <Property
-              hotel={currentHotel}
-              hotels={hotels}
-              onPlaceCardClick={this.hotelTitleClickHandler}
-            />
-          </Route>
+          <Route
+            path="/offers/:id"
+            render={({ match }) => {
+              const { id } = match.params;
+              const hotel = getHotelById(id);
+              return <Property hotel={hotel} hotels={hotels} />;
+            }}
+          />
         </Switch>
       </Router>
     );

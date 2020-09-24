@@ -14,7 +14,7 @@ class PlacesList extends PureComponent {
   }
 
   render() {
-    const { hotels, onPlaceCardClick, isMain } = this.props;
+    const { hotels, isMain } = this.props;
     return (
       <div
         className={classNames("places__list", {
@@ -26,7 +26,6 @@ class PlacesList extends PureComponent {
           <PlaceCard
             key={hotel.id}
             hotel={hotel}
-            onPlaceCardClick={onPlaceCardClick}
             onHover={() => {
               this.setState({ activePlaceCard: hotel });
               console.log(hotel);
@@ -40,7 +39,6 @@ class PlacesList extends PureComponent {
 
 PlacesList.propTypes = {
   hotels: PropTypes.arrayOf(projectPropTypes.HOTEL.isRequired).isRequired,
-  onPlaceCardClick: PropTypes.func.isRequired,
   isMain: PropTypes.bool,
 };
 

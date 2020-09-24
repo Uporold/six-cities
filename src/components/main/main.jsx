@@ -5,7 +5,7 @@ import Header from "../header/header";
 import Map from "../map/map";
 import { projectPropTypes } from "../../utilites/project-prop-types";
 
-function Main({ hotels, onPlaceCardClick }) {
+function Main({ hotels }) {
   return (
     <div className="page page--gray page--main">
       <Header />
@@ -98,15 +98,11 @@ function Main({ hotels, onPlaceCardClick }) {
                 </select>
                 */}
               </form>
-              <PlacesList
-                hotels={hotels}
-                onPlaceCardClick={onPlaceCardClick}
-                isMain
-              />
+              <PlacesList hotels={hotels} isMain />
             </section>
             <div className="cities__right-section">
               <section className="cities__map map">
-              <Map hotels={hotels} center={[52.38333, 4.9]} zoom={12} />
+                <Map hotels={hotels} center={[52.38333, 4.9]} zoom={12} />
               </section>
             </div>
           </div>
@@ -118,7 +114,6 @@ function Main({ hotels, onPlaceCardClick }) {
 
 Main.propTypes = {
   hotels: PropTypes.arrayOf(projectPropTypes.HOTEL.isRequired).isRequired,
-  onPlaceCardClick: PropTypes.func.isRequired,
 };
 
 export default Main;

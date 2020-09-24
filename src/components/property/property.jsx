@@ -7,7 +7,7 @@ import { projectPropTypes } from "../../utilites/project-prop-types";
 import Map from "../map/map";
 import { reviews } from "../../mock/reviews";
 
-const Property = ({ hotel, hotels, onPlaceCardClick }) => {
+const Property = ({ hotel, hotels }) => {
   const {
     previewImage,
     images,
@@ -126,7 +126,7 @@ const Property = ({ hotel, hotels, onPlaceCardClick }) => {
                   <div className="property__avatar-wrapper property__avatar-wrapper--pro user__avatar-wrapper">
                     <img
                       className="property__avatar user__avatar"
-                      src={host.avatarUrl}
+                      src={`/${host.avatarUrl}`}
                       width="74"
                       height="74"
                       alt="Host avatar"
@@ -159,10 +159,7 @@ const Property = ({ hotel, hotels, onPlaceCardClick }) => {
             <h2 className="near-places__title">
               Other places in the neighbourhood
             </h2>
-            <PlacesList
-              hotels={getNearestHotels()}
-              onPlaceCardClick={onPlaceCardClick}
-            />
+            <PlacesList hotels={getNearestHotels()} />
           </section>
         </div>
       </main>
@@ -173,7 +170,6 @@ const Property = ({ hotel, hotels, onPlaceCardClick }) => {
 Property.propTypes = {
   hotel: projectPropTypes.HOTEL.isRequired,
   hotels: PropTypes.arrayOf(projectPropTypes.HOTEL.isRequired).isRequired,
-  onPlaceCardClick: PropTypes.func.isRequired,
 };
 
 export default Property;
