@@ -1,57 +1,27 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { connect } from "react-redux";
 import PlacesList from "../places-list/places-list";
 import Header from "../header/header";
+import { ActionCreator } from "../../redux/reducer";
 import Map from "../map/map";
 import { projectPropTypes } from "../../utilites/project-prop-types";
+import CitiesTabs from "../cities-tabs/cities-tabs";
 
-function Main({ hotels }) {
+function Main({ hotels, hotelsByCity, currentCity, onCityClick }) {
   return (
     <div className="page page--gray page--main">
       <Header />
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
-        <div className="tabs">
-          <section className="locations container">
-            <ul className="locations__list tabs__list">
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Paris</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Cologne</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Brussels</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item tabs__item--active">
-                  <span>Amsterdam</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Hamburg</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Dusseldorf</span>
-                </a>
-              </li>
-            </ul>
-          </section>
-        </div>
+        <CitiesTabs currentCity={currentCity} onCityClick={onCityClick} />
         <div className="cities">
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">312 places to stay in Amsterdam</b>
+              <b className="places__found">
+                {hotelsByCity.length} places to stay in {currentCity}
+              </b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
                 <span className="places__sorting-type" tabIndex="0">
@@ -98,11 +68,11 @@ function Main({ hotels }) {
                 </select>
                 */}
               </form>
-              <PlacesList hotels={hotels} isMain />
+              <PlacesList hotels={hotelsByCity} isMain />
             </section>
             <div className="cities__right-section">
               <section className="cities__map map">
-                <Map hotels={hotels} center={[52.38333, 4.9]} zoom={12} />
+                <Map hotels={hotelsByCity} center={[52.38333, 4.9]} zoom={12} />
               </section>
             </div>
           </div>
@@ -114,6 +84,22 @@ function Main({ hotels }) {
 
 Main.propTypes = {
   hotels: PropTypes.arrayOf(projectPropTypes.HOTEL.isRequired).isRequired,
+  hotelsByCity: PropTypes.arrayOf(projectPropTypes.HOTEL.isRequired).isRequired,
+  currentCity: PropTypes.string.isRequired,
+  onCityClick: PropTypes.func.isRequired,
 };
 
-export default Main;
+const mapStateToProps = (state) => ({
+  currentCity: state.currentCity,
+  hotelsByCity: state.hotelsByCity,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onCityClick(city) {
+    dispatch(ActionCreator.getHotels(city));
+    dispatch(ActionCreator.setCity(city));
+  },
+});
+
+export { Main };
+export default connect(mapStateToProps, mapDispatchToProps)(Main);

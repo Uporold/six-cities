@@ -1,6 +1,7 @@
 import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { connect } from "react-redux";
 import Main from "../main/main";
 import Property from "../property/property";
 import { projectPropTypes } from "../../utilites/project-prop-types";
@@ -40,4 +41,9 @@ App.propTypes = {
   hotels: PropTypes.arrayOf(projectPropTypes.HOTEL.isRequired).isRequired,
 };
 
-export default App;
+const mapStateToProps = (state) => ({
+  hotels: state.hotels,
+});
+
+export { App };
+export default connect(mapStateToProps)(App);

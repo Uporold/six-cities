@@ -1,13 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import PropTypes from "prop-types";
+import { connect } from "react-redux";
 import Header from "../header/header";
 import PlacesList from "../places-list/places-list";
 import PropertyReviews from "../property-reviews/property-reviews";
 import { projectPropTypes } from "../../utilites/project-prop-types";
 import Map from "../map/map";
-import { reviews } from "../../mock/reviews";
+import { ActionCreator } from "../../redux/reducer";
 
-const Property = ({ hotel, hotels }) => {
+const Property = ({ hotel, hotels, getReviews, hotelReviews }) => {
   const {
     previewImage,
     images,
@@ -22,12 +23,10 @@ const Property = ({ hotel, hotels }) => {
     description,
   } = hotel;
 
+  useEffect(() => {
+    getReviews(hotel);
+  });
   const styledRating = rating * 20;
-
-  const getReviews = () => {
-    const hotelReviews = reviews.find((review) => review.offerId === hotel.id);
-    return hotelReviews ? hotelReviews.comments : [];
-  };
 
   const getNearestHotels = () => {
     return hotels.filter((item) => item.id !== hotel.id).slice(0, 3);
@@ -143,7 +142,7 @@ const Property = ({ hotel, hotels }) => {
                   <p className="property__text">{description}</p>
                 </div>
               </div>
-              <PropertyReviews reviews={getReviews()} />
+              <PropertyReviews reviews={hotelReviews} />
             </div>
           </div>
           <section className="property__map map">
@@ -170,6 +169,18 @@ const Property = ({ hotel, hotels }) => {
 Property.propTypes = {
   hotel: projectPropTypes.HOTEL.isRequired,
   hotels: PropTypes.arrayOf(projectPropTypes.HOTEL.isRequired).isRequired,
+  getReviews: PropTypes.func.isRequired,
 };
 
-export default Property;
+const mapStateToProps = (state) => ({
+  hotelReviews: state.hotelReviews,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  getReviews(hotel) {
+    dispatch(ActionCreator.getHotelReviews(hotel));
+  },
+});
+
+export { Property };
+export default connect(mapStateToProps, mapDispatchToProps)(Property);
