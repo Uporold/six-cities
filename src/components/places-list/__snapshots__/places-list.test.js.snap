@@ -13,13 +13,13 @@ exports[`Should Places List render correctly 1`] = `
       className="cities__image-wrapper place-card__image-wrapper"
     >
       <a
-        href="#"
+        href="/offers/1"
+        onClick={[Function]}
       >
         <img
           alt="Nice, cozy, warm big bed apartment"
           className="place-card__image"
           height="200"
-          onClick={[Function]}
           src="https://htmlacademy-react-3.appspot.com/six-cities/static/hotel/15.jpg"
           width="260"
         />
@@ -90,7 +90,7 @@ exports[`Should Places List render correctly 1`] = `
         className="place-card__name"
       >
         <a
-          href="#"
+          href="/offers/1"
           onClick={[Function]}
         >
           Nice, cozy, warm big bed apartment
@@ -112,13 +112,13 @@ exports[`Should Places List render correctly 1`] = `
       className="cities__image-wrapper place-card__image-wrapper"
     >
       <a
-        href="#"
+        href="/offers/2"
+        onClick={[Function]}
       >
         <img
           alt="Penthouse, 4-5 rooms + 5 balconies"
           className="place-card__image"
           height="200"
-          onClick={[Function]}
           src="https://htmlacademy-react-3.appspot.com/six-cities/static/hotel/12.jpg"
           width="260"
         />
@@ -189,7 +189,7 @@ exports[`Should Places List render correctly 1`] = `
         className="place-card__name"
       >
         <a
-          href="#"
+          href="/offers/2"
           onClick={[Function]}
         >
           Penthouse, 4-5 rooms + 5 balconies
@@ -211,13 +211,13 @@ exports[`Should Places List render correctly 1`] = `
       className="cities__image-wrapper place-card__image-wrapper"
     >
       <a
-        href="#"
+        href="/offers/3"
+        onClick={[Function]}
       >
         <img
           alt="House in countryside"
           className="place-card__image"
           height="200"
-          onClick={[Function]}
           src="https://htmlacademy-react-3.appspot.com/six-cities/static/hotel/3.jpg"
           width="260"
         />
@@ -288,7 +288,7 @@ exports[`Should Places List render correctly 1`] = `
         className="place-card__name"
       >
         <a
-          href="#"
+          href="/offers/3"
           onClick={[Function]}
         >
           House in countryside
@@ -310,13 +310,13 @@ exports[`Should Places List render correctly 1`] = `
       className="cities__image-wrapper place-card__image-wrapper"
     >
       <a
-        href="#"
+        href="/offers/4"
+        onClick={[Function]}
       >
         <img
           alt="Perfectly located Castro"
           className="place-card__image"
           height="200"
-          onClick={[Function]}
           src="https://htmlacademy-react-3.appspot.com/six-cities/static/hotel/12.jpg"
           width="260"
         />
@@ -387,7 +387,7 @@ exports[`Should Places List render correctly 1`] = `
         className="place-card__name"
       >
         <a
-          href="#"
+          href="/offers/4"
           onClick={[Function]}
         >
           Perfectly located Castro
@@ -409,13 +409,13 @@ exports[`Should Places List render correctly 1`] = `
       className="cities__image-wrapper place-card__image-wrapper"
     >
       <a
-        href="#"
+        href="/offers/5"
+        onClick={[Function]}
       >
         <img
           alt="House in countryside"
           className="place-card__image"
           height="200"
-          onClick={[Function]}
           src="https://htmlacademy-react-3.appspot.com/six-cities/static/hotel/18.jpg"
           width="260"
         />
@@ -486,7 +486,7 @@ exports[`Should Places List render correctly 1`] = `
         className="place-card__name"
       >
         <a
-          href="#"
+          href="/offers/5"
           onClick={[Function]}
         >
           House in countryside

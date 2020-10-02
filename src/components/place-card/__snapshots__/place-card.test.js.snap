@@ -10,13 +10,13 @@ exports[`Should Place Card render correctly 1`] = `
     className="cities__image-wrapper place-card__image-wrapper"
   >
     <a
-      href="#"
+      href="/offers/1"
+      onClick={[Function]}
     >
       <img
         alt="Nice, cozy, warm big bed apartment"
         className="place-card__image"
         height="200"
-        onClick={[Function]}
         src="https://htmlacademy-react-3.appspot.com/six-cities/static/hotel/15.jpg"
         width="260"
       />
@@ -87,7 +87,7 @@ exports[`Should Place Card render correctly 1`] = `
       className="place-card__name"
     >
       <a
-        href="#"
+        href="/offers/1"
         onClick={[Function]}
       >
         Nice, cozy, warm big bed apartment

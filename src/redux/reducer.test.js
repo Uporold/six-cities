@@ -56,3 +56,51 @@ it(`Reducer should return right hotel reviews`, () => {
     hotelReviews: reviews[0].comments,
   });
 });
+
+it(`Reducer should return right sorting type`, () => {
+  expect(
+    reducer(
+      {
+        currentSortType: `Popular`,
+      },
+      {
+        type: ActionType.SET_SORT_TYPE,
+        payload: `Price: low to high`,
+      }
+    )
+  ).toEqual({
+    currentSortType: `Price: low to high`,
+  });
+});
+
+it(`Reducer should return right default sort`, () => {
+  expect(
+    reducer(
+      {
+        currentSortType: `Price: low to high`,
+      },
+      {
+        type: ActionType.SET_DEFAULT_SORT_TYPE,
+        payload: `Popular`,
+      }
+    )
+  ).toEqual({
+    currentSortType: `Popular`,
+    isSortOpen: false,
+  });
+});
+
+it(`Reducer should return right sort form status`, () => {
+  expect(
+    reducer(
+      {
+        isSortOpen: true,
+      },
+      {
+        type: ActionType.SET_SORT_FORM_STATUS,
+      }
+    )
+  ).toEqual({
+    isSortOpen: false,
+  });
+});

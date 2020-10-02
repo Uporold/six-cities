@@ -170,7 +170,7 @@ export const hotels = [
   },
   {
     city: {
-      name: "Amsterdam",
+      name: "Brussels",
       location: { latitude: 48.85661, longitude: 2.351499, zoom: 13 },
     },
     previewImage:

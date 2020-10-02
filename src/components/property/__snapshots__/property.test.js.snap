@@ -23,7 +23,7 @@ exports[`Should Property Page render correctly 1`] = `
               alt="6 cities logo"
               className="header__logo"
               height="41"
-              src="img/logo.svg"
+              src="/img/logo.svg"
               width="81"
             />
           </a>
@@ -368,7 +368,7 @@ exports[`Should Property Page render correctly 1`] = `
                   alt="Host avatar"
                   className="property__avatar user__avatar"
                   height="74"
-                  src="img/avatar-angelina.jpg"
+                  src="/img/avatar-angelina.jpg"
                   width="74"
                 />
               </div>
@@ -404,70 +404,12 @@ exports[`Should Property Page render correctly 1`] = `
               <span
                 className="reviews__amount"
               >
-                1
+                0
               </span>
             </h2>
             <ul
               className="reviews__list"
-            >
-              <li
-                className="reviews__item"
-              >
-                <div
-                  className="reviews__user user"
-                >
-                  <div
-                    className="reviews__avatar-wrapper user__avatar-wrapper"
-                  >
-                    <img
-                      alt="Reviews avatar"
-                      className="reviews__avatar user__avatar"
-                      height="54"
-                      src="https://htmlacademy-react-3.appspot.com/six-cities/static/avatar/5.jpg"
-                      width="54"
-                    />
-                  </div>
-                  <span
-                    className="reviews__user-name"
-                  />
-                </div>
-                <div
-                  className="reviews__info"
-                >
-                  <div
-                    className="reviews__rating rating"
-                  >
-                    <div
-                      className="reviews__stars rating__stars"
-                    >
-                      <span
-                        style={
-                          Object {
-                            "width": "80%",
-                          }
-                        }
-                      />
-                      <span
-                        className="visually-hidden"
-                      >
-                        Rating
-                      </span>
-                    </div>
-                  </div>
-                  <p
-                    className="reviews__text"
-                  >
-                    The house is very good, very happy, hygienic and simple living conditions around it are also very good. I hope to have the opportunity to come back. Thank you.
-                  </p>
-                  <time
-                    className="reviews__time"
-                    dateTime="2019-04-24"
-                  >
-                    April 2019
-                  </time>
-                </div>
-              </li>
-            </ul>
+            />
             <form
               action="#"
               className="reviews__form form"
@@ -667,13 +609,13 @@ exports[`Should Property Page render correctly 1`] = `
               className="cities__image-wrapper place-card__image-wrapper"
             >
               <a
-                href="#"
+                href="/offers/2"
+                onClick={[Function]}
               >
                 <img
                   alt="Penthouse, 4-5 rooms + 5 balconies"
                   className="place-card__image"
                   height="200"
-                  onClick={[Function]}
                   src="https://htmlacademy-react-3.appspot.com/six-cities/static/hotel/12.jpg"
                   width="260"
                 />
@@ -744,7 +686,7 @@ exports[`Should Property Page render correctly 1`] = `
                 className="place-card__name"
               >
                 <a
-                  href="#"
+                  href="/offers/2"
                   onClick={[Function]}
                 >
                   Penthouse, 4-5 rooms + 5 balconies
@@ -766,13 +708,13 @@ exports[`Should Property Page render correctly 1`] = `
               className="cities__image-wrapper place-card__image-wrapper"
             >
               <a
-                href="#"
+                href="/offers/3"
+                onClick={[Function]}
               >
                 <img
                   alt="House in countryside"
                   className="place-card__image"
                   height="200"
-                  onClick={[Function]}
                   src="https://htmlacademy-react-3.appspot.com/six-cities/static/hotel/3.jpg"
                   width="260"
                 />
@@ -843,7 +785,7 @@ exports[`Should Property Page render correctly 1`] = `
                 className="place-card__name"
               >
                 <a
-                  href="#"
+                  href="/offers/3"
                   onClick={[Function]}
                 >
                   House in countryside
@@ -865,13 +807,13 @@ exports[`Should Property Page render correctly 1`] = `
               className="cities__image-wrapper place-card__image-wrapper"
             >
               <a
-                href="#"
+                href="/offers/4"
+                onClick={[Function]}
               >
                 <img
                   alt="Perfectly located Castro"
                   className="place-card__image"
                   height="200"
-                  onClick={[Function]}
                   src="https://htmlacademy-react-3.appspot.com/six-cities/static/hotel/12.jpg"
                   width="260"
                 />
@@ -942,7 +884,7 @@ exports[`Should Property Page render correctly 1`] = `
                 className="place-card__name"
               >
                 <a
-                  href="#"
+                  href="/offers/4"
                   onClick={[Function]}
                 >
                   Perfectly located Castro

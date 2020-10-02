@@ -1,15 +1,36 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import Map from "../map/map";
+import configureStore from "redux-mock-store";
+import { Provider } from "react-redux";
+import Main from "./main";
 import { hotels } from "../../mock/offers";
+import { getHotelsByCity } from "../../utilites/util";
 
-it(`Should Map render correctly`, () => {
+const DEFAULT_CITY = `Amsterdam`;
+const DEFAULT_SORT = `Popular`;
+
+const mockStore = configureStore([]);
+
+it(`Should Main render correctly`, () => {
+  const store = mockStore({
+    hotels,
+    hotelReviews: [],
+    hotelsByCity: getHotelsByCity(hotels, DEFAULT_CITY),
+    currentCity: DEFAULT_CITY,
+    currentSortType: DEFAULT_SORT,
+  });
+
   const tree = renderer
-    .create(<Map hotels={hotels} />, {
-      createNodeMock: () => {
-        return document.createElement(`div`);
-      },
-    })
+    .create(
+      <Provider store={store}>
+        <Main />
+      </Provider>,
+      {
+        createNodeMock: () => {
+          return document.createElement(`div`);
+        },
+      }
+    )
     .toJSON();
 
   expect(tree).toMatchSnapshot();
