@@ -1,20 +1,14 @@
 import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
+import { connect } from "react-redux";
 import PlaceCard from "../place-card/place-card";
 import { projectPropTypes } from "../../utilites/project-prop-types";
+import { ActionCreator } from "../../redux/reducer";
 
 class PlacesList extends PureComponent {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      activePlaceCard: null,
-    };
-  }
-
   render() {
-    const { hotels, isMain } = this.props;
+    const { hotels, isMain, onHotelCardHover, onHotelCardOut } = this.props;
     return (
       <div
         className={classNames("places__list", {
@@ -26,10 +20,8 @@ class PlacesList extends PureComponent {
           <PlaceCard
             key={hotel.id}
             hotel={hotel}
-            onHover={() => {
-              this.setState({ activePlaceCard: hotel });
-              console.log(hotel);
-            }}
+            onHover={onHotelCardHover}
+            onHotelCardOut={onHotelCardOut}
           />
         ))}
       </div>
@@ -40,10 +32,22 @@ class PlacesList extends PureComponent {
 PlacesList.propTypes = {
   hotels: PropTypes.arrayOf(projectPropTypes.HOTEL.isRequired).isRequired,
   isMain: PropTypes.bool,
+  onHotelCardHover: PropTypes.func.isRequired,
+  onHotelCardOut: PropTypes.func.isRequired,
 };
 
 PlacesList.defaultProps = {
   isMain: false,
 };
 
-export default PlacesList;
+const mapDispatchToProps = (dispatch) => ({
+  onHotelCardHover(hotel) {
+    dispatch(ActionCreator.getHoveredHotelId(hotel));
+  },
+  onHotelCardOut() {
+    dispatch(ActionCreator.resetHoveredHotelId());
+  },
+});
+
+export { PlacesList };
+export default connect(null, mapDispatchToProps)(PlacesList);
