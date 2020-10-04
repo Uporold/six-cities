@@ -9,9 +9,9 @@ it(`Should Place Card render correctly`, () => {
     .create(
       <Router>
         <PlaceCard
-          onPlaceCardClick={() => {}}
           hotel={hotels[0]}
           onHover={() => {}}
+          onHotelCardOut={() => {}}
         />
       </Router>
     )

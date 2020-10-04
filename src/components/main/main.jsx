@@ -11,7 +11,6 @@ import Sorting from "../sorting/sorting";
 import { getSortedHotels } from "../../utilites/util";
 
 const Main = ({
-  hotels,
   hotelsByCity,
   currentCity,
   onCityClick,
@@ -50,7 +49,6 @@ const Main = ({
 };
 
 Main.propTypes = {
-  hotels: PropTypes.arrayOf(projectPropTypes.HOTEL.isRequired).isRequired,
   hotelsByCity: PropTypes.arrayOf(projectPropTypes.HOTEL.isRequired).isRequired,
   currentCity: PropTypes.string.isRequired,
   onCityClick: PropTypes.func.isRequired,

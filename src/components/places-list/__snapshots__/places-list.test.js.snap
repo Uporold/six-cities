@@ -7,6 +7,7 @@ exports[`Should Places List render correctly 1`] = `
   <article
     className="cities__place-card place-card"
     onMouseEnter={[Function]}
+    onMouseOut={[Function]}
   >
     
     <div
@@ -106,6 +107,7 @@ exports[`Should Places List render correctly 1`] = `
   <article
     className="cities__place-card place-card"
     onMouseEnter={[Function]}
+    onMouseOut={[Function]}
   >
     
     <div
@@ -205,6 +207,7 @@ exports[`Should Places List render correctly 1`] = `
   <article
     className="cities__place-card place-card"
     onMouseEnter={[Function]}
+    onMouseOut={[Function]}
   >
     
     <div
@@ -304,6 +307,7 @@ exports[`Should Places List render correctly 1`] = `
   <article
     className="cities__place-card place-card"
     onMouseEnter={[Function]}
+    onMouseOut={[Function]}
   >
     
     <div
@@ -403,6 +407,7 @@ exports[`Should Places List render correctly 1`] = `
   <article
     className="cities__place-card place-card"
     onMouseEnter={[Function]}
+    onMouseOut={[Function]}
   >
     
     <div

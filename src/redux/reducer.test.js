@@ -104,3 +104,35 @@ it(`Reducer should return right sort form status`, () => {
     isSortOpen: false,
   });
 });
+
+it(`Reducer should return right hovered hotel id`, () => {
+  expect(
+    reducer(
+      {
+        hoveredHotelId: null,
+      },
+      {
+        type: ActionType.GET_HOVERED_HOTEL_ID,
+        payload: 1,
+      }
+    )
+  ).toEqual({
+    hoveredHotelId: 1,
+  });
+});
+
+it(`Reducer should reset hovered hotel id correctly`, () => {
+  expect(
+    reducer(
+      {
+        hoveredHotelId: 1,
+      },
+      {
+        type: ActionType.RESET_HOVERED_HOTEL_ID,
+        payload: null,
+      }
+    )
+  ).toEqual({
+    hoveredHotelId: null,
+  });
+});

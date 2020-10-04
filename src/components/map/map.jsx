@@ -56,7 +56,11 @@ Map.propTypes = {
   hotels: PropTypes.arrayOf(projectPropTypes.HOTEL.isRequired).isRequired,
   center: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
   zoom: PropTypes.number.isRequired,
-  hoveredHotelId: PropTypes.number.isRequired,
+  hoveredHotelId: PropTypes.number,
+};
+
+Map.defaultProps = {
+  hoveredHotelId: null,
 };
 
 const mapStateToProps = (state) => ({

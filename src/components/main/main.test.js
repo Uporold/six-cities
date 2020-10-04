@@ -2,6 +2,7 @@ import React from "react";
 import renderer from "react-test-renderer";
 import configureStore from "redux-mock-store";
 import { Provider } from "react-redux";
+import { BrowserRouter as Router } from "react-router-dom";
 import Main from "./main";
 import { hotels } from "../../mock/offers";
 import { getHotelsByCity } from "../../utilites/util";
@@ -18,12 +19,15 @@ it(`Should Main render correctly`, () => {
     hotelsByCity: getHotelsByCity(hotels, DEFAULT_CITY),
     currentCity: DEFAULT_CITY,
     currentSortType: DEFAULT_SORT,
+    isSortOpen: false,
   });
 
   const tree = renderer
     .create(
       <Provider store={store}>
-        <Main />
+        <Router>
+          <Main />
+        </Router>
       </Provider>,
       {
         createNodeMock: () => {

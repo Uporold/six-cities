@@ -18,6 +18,8 @@ exports[`Should Property Page render correctly 1`] = `
         >
           <a
             className="header__logo-link header__logo-link--active"
+            href="/"
+            onClick={[Function]}
           >
             <img
               alt="6 cities logo"
@@ -603,6 +605,7 @@ exports[`Should Property Page render correctly 1`] = `
           <article
             className="cities__place-card place-card"
             onMouseEnter={[Function]}
+            onMouseOut={[Function]}
           >
             
             <div
@@ -702,6 +705,7 @@ exports[`Should Property Page render correctly 1`] = `
           <article
             className="cities__place-card place-card"
             onMouseEnter={[Function]}
+            onMouseOut={[Function]}
           >
             
             <div
@@ -801,6 +805,7 @@ exports[`Should Property Page render correctly 1`] = `
           <article
             className="cities__place-card place-card"
             onMouseEnter={[Function]}
+            onMouseOut={[Function]}
           >
             
             <div
