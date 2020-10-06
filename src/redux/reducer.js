@@ -12,7 +12,7 @@ export const initialState = {
   currentCity: DEFAULT_CITY,
   currentSortType: DEFAULT_SORT,
   isSortOpen: false,
-  hoveredHotelId: null,
+  hoveredHotelId: -1,
 };
 
 export const ActionType = {
@@ -70,18 +70,10 @@ export const ActionCreator = {
     };
   },
 
-  getHoveredHotelId: (hotel) => {
-    const hotelId = hotel.id;
+  getHoveredHotelId: (hotelId) => {
     return {
       type: ActionType.GET_HOVERED_HOTEL_ID,
       payload: hotelId,
-    };
-  },
-
-  resetHoveredHotelId: () => {
-    return {
-      type: ActionType.RESET_HOVERED_HOTEL_ID,
-      payload: null,
     };
   },
 };
@@ -101,8 +93,6 @@ export const reducer = (state = initialState, action) => {
     case ActionType.SET_SORT_FORM_STATUS:
       return { ...state, isSortOpen: !state.isSortOpen };
     case ActionType.GET_HOVERED_HOTEL_ID:
-      return { ...state, hoveredHotelId: action.payload };
-    case ActionType.RESET_HOVERED_HOTEL_ID:
       return { ...state, hoveredHotelId: action.payload };
     default:
       return state;

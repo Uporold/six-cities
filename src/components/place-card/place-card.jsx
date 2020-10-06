@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { projectPropTypes } from "../../utilites/project-prop-types";
 
-const PlaceCard = ({ hotel, onHover, onHotelCardOut }) => {
+const PlaceCard = ({ hotel, onHover }) => {
   const styledRating = hotel.rating * 20;
   const renderPremiumMark = () => {
     return hotel.isPremium ? (
@@ -23,15 +23,20 @@ const PlaceCard = ({ hotel, onHover, onHotelCardOut }) => {
         className="cities__place-card place-card"
         key={`${hotel.id}`}
         onMouseEnter={() => {
-          onHover(hotel);
+          onHover(hotel.id);
         }}
         onMouseOut={() => {
-          onHotelCardOut();
+          onHover(-1);
         }}
       >
         {renderPremiumMark()}
         <div className="cities__image-wrapper place-card__image-wrapper">
-          <Link to={`/offers/${hotel.id}`}>
+          <Link
+            onClick={() => {
+              onHover(-1);
+            }}
+            to={`/offers/${hotel.id}`}
+          >
             <img
               className="place-card__image"
               src={hotel.previewImage}
@@ -76,7 +81,6 @@ const PlaceCard = ({ hotel, onHover, onHotelCardOut }) => {
 PlaceCard.propTypes = {
   hotel: projectPropTypes.HOTEL.isRequired,
   onHover: PropTypes.func.isRequired,
-  onHotelCardOut: PropTypes.func.isRequired,
 };
 
 export default PlaceCard;

@@ -8,7 +8,7 @@ import { ActionCreator } from "../../redux/reducer";
 
 class PlacesList extends PureComponent {
   render() {
-    const { hotels, isMain, onHotelCardHover, onHotelCardOut } = this.props;
+    const { hotels, isMain, onHotelCardHover } = this.props;
     return (
       <div
         className={classNames("places__list", {
@@ -17,12 +17,7 @@ class PlacesList extends PureComponent {
         })}
       >
         {hotels.map((hotel) => (
-          <PlaceCard
-            key={hotel.id}
-            hotel={hotel}
-            onHover={onHotelCardHover}
-            onHotelCardOut={onHotelCardOut}
-          />
+          <PlaceCard key={hotel.id} hotel={hotel} onHover={onHotelCardHover} />
         ))}
       </div>
     );
@@ -33,7 +28,6 @@ PlacesList.propTypes = {
   hotels: PropTypes.arrayOf(projectPropTypes.HOTEL.isRequired).isRequired,
   isMain: PropTypes.bool,
   onHotelCardHover: PropTypes.func.isRequired,
-  onHotelCardOut: PropTypes.func.isRequired,
 };
 
 PlacesList.defaultProps = {
@@ -43,9 +37,6 @@ PlacesList.defaultProps = {
 const mapDispatchToProps = (dispatch) => ({
   onHotelCardHover(hotel) {
     dispatch(ActionCreator.getHoveredHotelId(hotel));
-  },
-  onHotelCardOut() {
-    dispatch(ActionCreator.resetHoveredHotelId());
   },
 });
 
