@@ -1,15 +1,15 @@
 import React from "react";
-// import PropTypes from "prop-types";
+import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
-const Header = (props) => {
+const Header = ({ isMain }) => {
   return (
     <header className="header">
       <div className="container">
         <div className="header__wrapper">
           <div className="header__left">
             <Link
-              to="/"
+              to={isMain ? "#" : "/"}
               className="header__logo-link header__logo-link--active"
             >
               <img
@@ -41,7 +41,12 @@ const Header = (props) => {
     </header>
   );
 };
+Header.propTypes = {
+  isMain: PropTypes.bool,
+};
 
-// Header.propTypes = {};
+Header.defaultProps = {
+  isMain: false,
+};
 
 export default Header;

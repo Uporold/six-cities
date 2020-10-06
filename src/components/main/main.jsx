@@ -18,13 +18,18 @@ const Main = ({
   onSortingTabClick,
   currentSortType,
 }) => {
+  const sortedHotels =
+    hotelsByCity.length > 1
+      ? getSortedHotels(hotelsByCity, currentSortType)
+      : hotelsByCity;
+
   return (
     <div
       className={`page page--gray page--main ${
         !hotelsByCity.length ? `page__main--index-empty` : ``
       }`}
     >
-      <Header />
+      <Header isMain />
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
         <CitiesTabs currentCity={currentCity} onCityClick={onCityClick} />
@@ -40,7 +45,7 @@ const Main = ({
                   onSortingTabClick={onSortingTabClick}
                   currentSortType={currentSortType}
                 />
-                <PlacesList hotels={hotelsByCity} isMain />
+                <PlacesList hotels={sortedHotels} isMain />
               </section>
               <div className="cities__right-section">
                 <section className="cities__map map">
@@ -71,7 +76,7 @@ Main.propTypes = {
 
 const mapStateToProps = (state) => ({
   currentCity: state.currentCity,
-  hotelsByCity: getSortedHotels(state.hotelsByCity, state.currentSortType),
+  hotelsByCity: state.hotelsByCity,
   currentSortType: state.currentSortType,
 });
 
