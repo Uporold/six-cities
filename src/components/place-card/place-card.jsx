@@ -1,7 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
 import { projectPropTypes } from "../../utilites/project-prop-types";
+import { ActionCreator } from "../../redux/reducer";
 
 const PlaceCard = ({ hotel, onHover }) => {
   const styledRating = hotel.rating * 20;
@@ -83,4 +85,11 @@ PlaceCard.propTypes = {
   onHover: PropTypes.func.isRequired,
 };
 
-export default PlaceCard;
+const mapDispatchToProps = (dispatch) => ({
+  onHover(hotel) {
+    dispatch(ActionCreator.getHoveredHotelId(hotel));
+  },
+});
+
+export { PlaceCard };
+export default connect(null, mapDispatchToProps)(PlaceCard);

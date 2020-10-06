@@ -1,8 +1,8 @@
 import { reviews } from "../mock/reviews";
 import { hotels } from "../mock/offers";
-import { getHotelsByCity, getHotelReviews } from "../utilites/util";
+import { getHotelsByCity, getHotelReviews, extend } from "../utilites/util";
 
-const DEFAULT_CITY = `Amsterdam`;
+const DEFAULT_CITY = `Brussels`;
 const DEFAULT_SORT = `Popular`;
 
 export const initialState = {
@@ -98,3 +98,27 @@ export const reducer = (state = initialState, action) => {
       return state;
   }
 };
+
+// export const reducer = (state = initialState, action) => {
+//   switch (action.type) {
+//     case ActionType.GET_HOTELS_BY_CITY:
+//       return extend(state, { hotelsByCity: action.payload });
+//     case ActionType.SET_CITY:
+//       return extend(state, { currentCity: action.payload });
+//     case ActionType.GET_HOTEL_REVIEWS:
+//       return extend(state, { hotelReviews: action.payload });
+//     case ActionType.SET_SORT_TYPE:
+//       return extend(state, { currentSortType: action.payload });
+//     case ActionType.SET_DEFAULT_SORT_TYPE:
+//       return extend(state, {
+//         currentSortType: action.payload,
+//         isSortOpen: false,
+//       });
+//     case ActionType.SET_SORT_FORM_STATUS:
+//       return extend(state, { isSortOpen: !state.isSortOpen });
+//     case ActionType.GET_HOVERED_HOTEL_ID:
+//       return extend(state, { hoveredHotelId: action.payload });
+//     default:
+//       return state;
+//   }
+// };

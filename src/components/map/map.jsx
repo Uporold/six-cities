@@ -16,16 +16,23 @@ const createMarkerIcon = (url) => {
 
 const icon = createMarkerIcon("/img/pin.svg");
 const hoverIcon = createMarkerIcon("/img/pin-active.svg");
+const testIcon = createMarkerIcon("/img/pin-current-place.svg");
 
 class Map extends PureComponent {
   renderMarkers() {
-    const { hotels, hoveredHotelId } = this.props;
+    const { hotels, hoveredHotelId, currentHotel } = this.props;
     return (
       <>
         {hotels.map((hotel) => (
           <Marker
             position={[hotel.location.latitude, hotel.location.longitude]}
-            icon={hoveredHotelId === hotel.id ? hoverIcon : icon}
+            icon={
+              currentHotel.id === hotel.id
+                ? testIcon
+                : hoveredHotelId === hotel.id
+                ? hoverIcon
+                : icon
+            }
           >
             <Popup>
               <PlaceCard
@@ -57,10 +64,12 @@ Map.propTypes = {
   center: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
   zoom: PropTypes.number.isRequired,
   hoveredHotelId: PropTypes.number,
+  currentHotel: projectPropTypes.HOTEL,
 };
 
 Map.defaultProps = {
   hoveredHotelId: null,
+  currentHotel: {},
 };
 
 const mapStateToProps = (state) => ({
@@ -69,4 +78,4 @@ const mapStateToProps = (state) => ({
 
 export { Map };
 
-export default connect(mapStateToProps)(Map);
+export default connect(mapStateToProps, null)(Map);

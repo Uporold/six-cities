@@ -27,6 +27,7 @@ const Property = ({ hotel, hotels, getReviews, hotelReviews }) => {
     getReviews(hotel);
   });
   const styledRating = rating * 20;
+  const zoom = 13;
 
   const getNearestHotels = () => {
     return hotels.filter((item) => item.id !== hotel.id).slice(0, 3);
@@ -148,8 +149,9 @@ const Property = ({ hotel, hotels, getReviews, hotelReviews }) => {
           <section className="property__map map">
             <Map
               hotels={[hotel, ...getNearestHotels()]}
+              currentHotel={hotel}
               center={[hotel.location.latitude, hotel.location.longitude]}
-              zoom={13}
+              zoom={zoom}
             />
           </section>
         </section>

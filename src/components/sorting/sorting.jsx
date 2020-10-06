@@ -72,6 +72,9 @@ const mapDispatchToProps = (dispatch) => ({
   onSortFormClick() {
     dispatch(ActionCreator.setSortFormStatus());
   },
+  onSortingTabClick(sortType) {
+    dispatch(ActionCreator.setSort(sortType));
+  },
 });
 
 export { Sorting };
