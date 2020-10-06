@@ -19,7 +19,9 @@ const CitiesTabs = ({ currentCity, onCityClick }) => {
               <a
                 onClick={(evt) => {
                   evt.preventDefault();
-                  onCityClick(city);
+                  if (currentCity !== city) {
+                    onCityClick(city);
+                  }
                 }}
                 className={`locations__item-link tabs__item ${
                   city === currentCity ? `tabs__item--active` : ``

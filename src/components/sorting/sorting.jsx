@@ -13,7 +13,7 @@ const Sorting = ({
   const sortListClickHandler = (evt) => {
     evt.preventDefault();
     const { sortType } = evt.target.dataset;
-    if (sortType) {
+    if (sortType && sortType !== currentSortType) {
       onSortingTabClick(sortType);
     }
   };
