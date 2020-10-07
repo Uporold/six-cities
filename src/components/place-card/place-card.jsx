@@ -24,7 +24,7 @@ const PlaceCard = ({ hotel, onCardHover }) => {
   };
 
   const onCardMouseOut = () => {
-    onCardHover(hotel.id);
+    onCardHover(-1);
   };
 
   return (
