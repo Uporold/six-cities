@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import { projectPropTypes } from "../../utilites/project-prop-types";
 import { ActionCreator } from "../../redux/reducer";
 
-const PlaceCard = ({ hotel, onHover }) => {
+const PlaceCard = ({ hotel, onCardHover }) => {
   const styledRating = hotel.rating * 20;
   const renderPremiumMark = () => {
     return hotel.isPremium ? (
@@ -19,26 +19,25 @@ const PlaceCard = ({ hotel, onHover }) => {
   const hotelType =
     hotel.type.charAt(0).toUpperCase() + hotel.type.replace(`-`, ` `).slice(1);
 
+  const onCardMouseEnter = () => {
+    onCardHover(hotel.id);
+  };
+
+  const onCardMouseOut = () => {
+    onCardHover(hotel.id);
+  };
+
   return (
     <>
       <article
         className="cities__place-card place-card"
         key={`${hotel.id}`}
-        onMouseEnter={() => {
-          onHover(hotel.id);
-        }}
-        onMouseOut={() => {
-          onHover(-1);
-        }}
+        onMouseEnter={onCardMouseEnter}
+        onMouseOut={onCardMouseOut}
       >
         {renderPremiumMark()}
         <div className="cities__image-wrapper place-card__image-wrapper">
-          <Link
-            onClick={() => {
-              onHover(-1);
-            }}
-            to={`/offers/${hotel.id}`}
-          >
+          <Link onClick={onCardMouseOut} to={`/offers/${hotel.id}`}>
             <img
               className="place-card__image"
               src={hotel.previewImage}
@@ -82,11 +81,11 @@ const PlaceCard = ({ hotel, onHover }) => {
 
 PlaceCard.propTypes = {
   hotel: projectPropTypes.HOTEL.isRequired,
-  onHover: PropTypes.func.isRequired,
+  onCardHover: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  onHover(hotel) {
+  onCardHover(hotel) {
     dispatch(ActionCreator.getHoveredHotelId(hotel));
   },
 });

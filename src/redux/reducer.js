@@ -1,6 +1,6 @@
 import { reviews } from "../mock/reviews";
 import { hotels } from "../mock/offers";
-import { getHotelsByCity, getHotelReviews, extend } from "../utilites/util";
+import { getHotelsByCity, getHotelReviews } from "../utilites/util";
 
 const DEFAULT_CITY = `Brussels`;
 const DEFAULT_SORT = `Popular`;
@@ -11,7 +11,6 @@ export const initialState = {
   hotelsByCity: getHotelsByCity(hotels, DEFAULT_CITY),
   currentCity: DEFAULT_CITY,
   currentSortType: DEFAULT_SORT,
-  isSortOpen: false,
   hoveredHotelId: -1,
 };
 
@@ -21,7 +20,6 @@ export const ActionType = {
   GET_HOTEL_REVIEWS: `GET_HOTEL_REVIEWS`,
   SET_SORT_TYPE: `SET_SORT_TYPE`,
   SET_DEFAULT_SORT_TYPE: `SET_DEFAULT_SORT_TYPE`,
-  SET_SORT_FORM_STATUS: `SET_SORT_FORM_STATUS`,
   GET_HOVERED_HOTEL_ID: `GET_HOVERED_HOTEL_ID`,
   RESET_HOVERED_HOTEL_ID: `RESET_HOVERED_HOTEL_ID`,
 };
@@ -57,12 +55,6 @@ export const ActionCreator = {
     };
   },
 
-  setSortFormStatus: () => {
-    return {
-      type: ActionType.SET_SORT_FORM_STATUS,
-    };
-  },
-
   setDefaultSortType: () => {
     return {
       type: ActionType.SET_DEFAULT_SORT_TYPE,
@@ -89,9 +81,7 @@ export const reducer = (state = initialState, action) => {
     case ActionType.SET_SORT_TYPE:
       return { ...state, currentSortType: action.payload };
     case ActionType.SET_DEFAULT_SORT_TYPE:
-      return { ...state, currentSortType: action.payload, isSortOpen: false };
-    case ActionType.SET_SORT_FORM_STATUS:
-      return { ...state, isSortOpen: !state.isSortOpen };
+      return { ...state, currentSortType: action.payload };
     case ActionType.GET_HOVERED_HOTEL_ID:
       return { ...state, hoveredHotelId: action.payload };
     default:
