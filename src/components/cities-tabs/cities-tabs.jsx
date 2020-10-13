@@ -1,7 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { ActionCreator } from "../../redux/reducer";
+import { ActionCreator } from "../../redux/app/app";
+import NameSpace from "../../redux/name-space";
 
 const cities = [
   `Paris`,
@@ -48,13 +49,12 @@ CitiesTabs.propTypes = {
 const mapDispatchToProps = (dispatch) => ({
   onCityClick(city) {
     dispatch(ActionCreator.setCity(city));
-    dispatch(ActionCreator.getHotels(city));
     dispatch(ActionCreator.setDefaultSortType());
   },
 });
 
 const mapStateToProps = (state) => ({
-  currentCity: state.currentCity,
+  currentCity: state[NameSpace.APP].currentCity,
 });
 
 export { CitiesTabs };

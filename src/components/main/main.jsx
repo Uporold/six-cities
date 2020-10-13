@@ -6,8 +6,11 @@ import { projectPropTypes } from "../../utilites/project-prop-types";
 import CitiesTabs from "../cities-tabs/cities-tabs";
 import MainEmpty from "../main-empty/main-empty";
 import PlacesContainer from "../places-container/places-container";
+import { getHotelsByCity } from "../../utilites/util";
+import NameSpace from "../../redux/name-space";
 
-const Main = ({ hotelsByCity, currentCity }) => {
+const Main = ({ hotels, currentCity }) => {
+  const hotelsByCity = getHotelsByCity(hotels, currentCity);
   return (
     <div
       className={`page page--gray page--main ${
@@ -31,13 +34,13 @@ const Main = ({ hotelsByCity, currentCity }) => {
 };
 
 Main.propTypes = {
-  hotelsByCity: PropTypes.arrayOf(projectPropTypes.HOTEL.isRequired).isRequired,
+  hotels: PropTypes.arrayOf(projectPropTypes.HOTEL.isRequired).isRequired,
   currentCity: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  currentCity: state.currentCity,
-  hotelsByCity: state.hotelsByCity,
+  currentCity: state[NameSpace.APP].currentCity,
+  hotels: state[NameSpace.DATA].hotels,
 });
 
 export { Main };

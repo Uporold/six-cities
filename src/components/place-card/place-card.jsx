@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { projectPropTypes } from "../../utilites/project-prop-types";
-import { ActionCreator } from "../../redux/reducer";
+import { ActionCreator } from "../../redux/app/app";
 
 const PlaceCard = ({ hotel, onCardHover }) => {
   const styledRating = hotel.rating * 20;

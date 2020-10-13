@@ -2,7 +2,8 @@ import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { sortTypes } from "../../utilites/util";
-import { ActionCreator } from "../../redux/reducer";
+import { ActionCreator } from "../../redux/app/app";
+import NameSpace from "../../redux/name-space";
 
 class Sorting extends PureComponent {
   constructor(props) {
@@ -91,7 +92,7 @@ Sorting.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  currentCity: state.currentCity,
+  currentCity: state[NameSpace.APP].currentCity,
 });
 
 const mapDispatchToProps = (dispatch) => ({

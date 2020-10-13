@@ -6,7 +6,8 @@ import PlacesList from "../places-list/places-list";
 import PropertyReviews from "../property-reviews/property-reviews";
 import { projectPropTypes } from "../../utilites/project-prop-types";
 import Map from "../map/map";
-import { ActionCreator } from "../../redux/reducer";
+import { ActionCreator } from "../../redux/data/data";
+import NameSpace from "../../redux/name-space";
 
 const Property = ({ hotel, hotels, getReviews, hotelReviews }) => {
   const {
@@ -175,7 +176,7 @@ Property.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  hotelReviews: state.hotelReviews,
+  hotelReviews: state[NameSpace.DATA].hotelReviews,
 });
 
 const mapDispatchToProps = (dispatch) => ({

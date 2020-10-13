@@ -6,6 +6,7 @@ import Main from "../main/main";
 import Property from "../property/property";
 import { projectPropTypes } from "../../utilites/project-prop-types";
 import Page from "../page/page";
+import NameSpace from "../../redux/name-space";
 
 class App extends PureComponent {
   render() {
@@ -42,7 +43,7 @@ App.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  hotels: state.hotels,
+  hotels: state[NameSpace.DATA].hotels,
 });
 
 export { App };
