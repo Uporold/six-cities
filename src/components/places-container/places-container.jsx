@@ -8,11 +8,13 @@ import { getHotelsByCity, getSortedHotels } from "../../utilites/util";
 import { projectPropTypes } from "../../utilites/project-prop-types";
 import NameSpace from "../../redux/name-space";
 
-const coord = [52.38333, 4.9];
-const zoom = 12;
-
 const PlacesContainer = ({ hotels, currentSortType, currentCity }) => {
   const hotelsByCity = getHotelsByCity(hotels, currentCity);
+  const center = [
+    hotelsByCity[0].city.location.latitude,
+    hotelsByCity[0].city.location.longitude,
+  ];
+  const zoom = [hotelsByCity[0].city.location.zoom];
   const sortedHotels =
     hotelsByCity.length > 1
       ? getSortedHotels(hotelsByCity, currentSortType)
@@ -29,7 +31,7 @@ const PlacesContainer = ({ hotels, currentSortType, currentCity }) => {
       </section>
       <div className="cities__right-section">
         <section className="cities__map map">
-          <Map hotels={hotelsByCity} center={coord} zoom={zoom} />
+          <Map hotels={hotelsByCity} center={center} zoom={zoom} />
         </section>
       </div>
     </div>
