@@ -11,25 +11,25 @@ import NameSpace from "../../redux/name-space";
 
 class Property extends PureComponent {
   componentDidMount() {
-    const { hotel, getReviews } = this.props;
-    getReviews(hotel.id);
+    const { hotel, loadReviewsAndNearbyHotels } = this.props;
+    loadReviewsAndNearbyHotels(hotel.id);
   }
 
   componentDidUpdate(prevProps) {
-    const { hotel, getReviews } = this.props;
+    const { hotel, loadReviewsAndNearbyHotels } = this.props;
     if (prevProps.hotel.id !== hotel.id) {
-      getReviews(hotel.id);
+      loadReviewsAndNearbyHotels(hotel.id);
     }
   }
 
-  getNearestHotels() {
-    const { hotels, hotel } = this.props;
-    return hotels
-      .filter(
-        (item) => item.id !== hotel.id && item.city.name === hotel.city.name
-      )
-      .slice(0, 3);
-  }
+  // getNearestHotels() {
+  //   const { hotels, hotel } = this.props;
+  //   return hotels
+  //     .filter(
+  //       (item) => item.id !== hotel.id && item.city.name === hotel.city.name
+  //     )
+  //     .slice(0, 3);
+  // }
 
   renderPropertyImages() {
     const { images } = this.props.hotel;
@@ -59,7 +59,7 @@ class Property extends PureComponent {
   }
 
   render() {
-    const { hotel, hotelReviews } = this.props;
+    const { hotel, hotelReviews, nearbyHotels } = this.props;
     const {
       previewImage,
       title,
@@ -76,6 +76,7 @@ class Property extends PureComponent {
       hotel.city.location.longitude,
     ];
     const zoom = [hotel.city.location.zoom];
+
     return (
       <div className="page">
         <Header />
@@ -170,7 +171,7 @@ class Property extends PureComponent {
             </div>
             <section className="property__map map">
               <Map
-                hotels={[hotel, ...this.getNearestHotels()]}
+                hotels={[hotel, ...nearbyHotels]}
                 currentHotel={hotel}
                 center={center}
                 zoom={zoom}
@@ -182,7 +183,7 @@ class Property extends PureComponent {
               <h2 className="near-places__title">
                 Other places in the neighbourhood
               </h2>
-              <PlacesList hotels={this.getNearestHotels()} />
+              <PlacesList hotels={nearbyHotels} />
             </section>
           </div>
         </main>
@@ -353,17 +354,19 @@ class Property extends PureComponent {
 
 Property.propTypes = {
   hotel: projectPropTypes.HOTEL.isRequired,
-  hotels: PropTypes.arrayOf(projectPropTypes.HOTEL.isRequired).isRequired,
-  getReviews: PropTypes.func.isRequired,
+  nearbyHotels: PropTypes.arrayOf(projectPropTypes.HOTEL.isRequired).isRequired,
+  loadReviewsAndNearbyHotels: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   hotelReviews: state[NameSpace.DATA].hotelReviews,
+  nearbyHotels: state[NameSpace.DATA].nearbyHotels,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  getReviews(id) {
+  loadReviewsAndNearbyHotels(id) {
     dispatch(Operation.loadHotelReviews(id));
+    dispatch(Operation.loadNearbyHotels(id));
   },
 });
 

@@ -25,7 +25,7 @@ class App extends PureComponent {
             render={({ match }) => {
               const { id } = match.params;
               const hotel = getHotelById(id);
-              return <Property hotel={hotel} hotels={hotels} />;
+              return <Property hotel={hotel} />;
             }}
           />
         </Switch>
