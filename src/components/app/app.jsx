@@ -1,13 +1,14 @@
 import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { Router, Route, Switch } from "react-router-dom";
 import { connect } from "react-redux";
 import Main from "../main/main";
 import Property from "../property/property";
+import history from "../../history";
 
 const App = () => {
   return (
-    <Router>
+    <Router history={history}>
       <Switch>
         <Route exact path="/" component={Main} />
         <Route path="/offers/:id" component={Property} />
