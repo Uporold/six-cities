@@ -6,6 +6,7 @@ import { getHotelsByCity, getSortedHotels } from "../../utilites/util";
 export const getHotels = (state) => state[NameSpace.DATA].hotels;
 export const getHotelReviews = (state) => state[NameSpace.DATA].hotelReviews;
 export const getNearbyHotels = (state) => state[NameSpace.DATA].nearbyHotels;
+export const getLoadingStatus = (state) => state[NameSpace.DATA].isDataLoading;
 
 export const getHotelsSortedByCity = createSelector(
   getHotels,
