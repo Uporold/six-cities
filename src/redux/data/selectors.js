@@ -21,3 +21,8 @@ export const getHotelsSortedByForm = createSelector(
       ? getSortedHotels(hotels, currentSortType)
       : hotels
 );
+
+export const getCurrentHotel = (id) =>
+  createSelector(getHotels, (hotels) =>
+    hotels.find((hotel) => hotel.id === Number(id))
+  );

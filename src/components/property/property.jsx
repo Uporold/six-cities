@@ -7,7 +7,11 @@ import PropertyReviews from "../property-reviews/property-reviews";
 import { projectPropTypes } from "../../utilites/project-prop-types";
 import Map from "../map/map";
 import { Operation } from "../../redux/data/data";
-import { getHotelReviews, getNearbyHotels } from "../../redux/data/selectors";
+import {
+  getHotelReviews,
+  getNearbyHotels,
+  getCurrentHotel,
+} from "../../redux/data/selectors";
 
 class Property extends PureComponent {
   componentDidMount() {
@@ -194,7 +198,8 @@ Property.defaultProps = {
   hotelReviews: [],
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state, { match: { params } }) => ({
+  hotel: getCurrentHotel(params.id)(state),
   hotelReviews: getHotelReviews(state),
   nearbyHotels: getNearbyHotels(state),
 });
