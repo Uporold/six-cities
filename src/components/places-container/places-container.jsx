@@ -4,21 +4,24 @@ import { connect } from "react-redux";
 import Sorting from "../sorting/sorting";
 import PlacesList from "../places-list/places-list";
 import Map from "../map/map";
-import { getHotelsByCity, getSortedHotels } from "../../utilites/util";
 import { projectPropTypes } from "../../utilites/project-prop-types";
-import NameSpace from "../../redux/name-space";
+import { getCurrentCity, getCurrentSortType } from "../../redux/app/selectors";
+import {
+  getHotelsSortedByForm,
+  getHotelsSortedByCity,
+} from "../../redux/data/selectors";
 
-const PlacesContainer = ({ hotels, currentSortType, currentCity }) => {
-  const hotelsByCity = getHotelsByCity(hotels, currentCity);
+const PlacesContainer = ({
+  hotelsByCity,
+  sortedHotels,
+  currentSortType,
+  currentCity,
+}) => {
   const center = [
     hotelsByCity[0].city.location.latitude,
     hotelsByCity[0].city.location.longitude,
   ];
   const zoom = [hotelsByCity[0].city.location.zoom];
-  const sortedHotels =
-    hotelsByCity.length > 1
-      ? getSortedHotels(hotelsByCity, currentSortType)
-      : hotelsByCity;
   return (
     <div className="cities__places-container container">
       <section className="cities__places places">
@@ -39,15 +42,17 @@ const PlacesContainer = ({ hotels, currentSortType, currentCity }) => {
 };
 
 PlacesContainer.propTypes = {
-  hotels: PropTypes.arrayOf(projectPropTypes.HOTEL.isRequired).isRequired,
+  hotelsByCity: PropTypes.arrayOf(projectPropTypes.HOTEL.isRequired).isRequired,
+  sortedHotels: PropTypes.arrayOf(projectPropTypes.HOTEL.isRequired).isRequired,
   currentCity: PropTypes.string.isRequired,
   currentSortType: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  currentSortType: state[NameSpace.APP].currentSortType,
-  currentCity: state[NameSpace.APP].currentCity,
-  hotels: state[NameSpace.DATA].hotels,
+  currentSortType: getCurrentSortType(state),
+  currentCity: getCurrentCity(state),
+  hotelsByCity: getHotelsSortedByCity(state),
+  sortedHotels: getHotelsSortedByForm(state),
 });
 
 export { PlacesContainer };

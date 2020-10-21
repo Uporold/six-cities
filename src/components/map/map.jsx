@@ -5,7 +5,7 @@ import L from "leaflet";
 import { connect } from "react-redux";
 import { projectPropTypes } from "../../utilites/project-prop-types";
 import PlaceCard from "../place-card/place-card";
-import NameSpace from "../../redux/name-space";
+import { getHoveredHotelId } from "../../redux/app/selectors";
 
 const createMarkerIcon = (url) => {
   return new L.Icon({
@@ -74,7 +74,7 @@ Map.defaultProps = {
 };
 
 const mapStateToProps = (state) => ({
-  hoveredHotelId: state[NameSpace.APP].hoveredHotelId,
+  hoveredHotelId: getHoveredHotelId(state),
 });
 
 export { Map };

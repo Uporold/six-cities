@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { ActionCreator } from "../../redux/app/app";
-import NameSpace from "../../redux/name-space";
+import { getCurrentCity } from "../../redux/app/selectors";
 
 const cities = [
   `Paris`,
@@ -54,7 +54,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 const mapStateToProps = (state) => ({
-  currentCity: state[NameSpace.APP].currentCity,
+  currentCity: getCurrentCity(state),
 });
 
 export { CitiesTabs };

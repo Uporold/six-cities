@@ -6,15 +6,14 @@ import { projectPropTypes } from "../../utilites/project-prop-types";
 import CitiesTabs from "../cities-tabs/cities-tabs";
 import MainEmpty from "../main-empty/main-empty";
 import PlacesContainer from "../places-container/places-container";
-import { getHotelsByCity } from "../../utilites/util";
-import NameSpace from "../../redux/name-space";
+import { getHotelsSortedByCity } from "../../redux/data/selectors";
+import { getCurrentCity } from "../../redux/app/selectors";
 
 const Main = ({ hotels, currentCity }) => {
-  const hotelsByCity = getHotelsByCity(hotels, currentCity);
   return (
     <div
       className={`page page--gray page--main ${
-        !hotelsByCity.length ? `page__main--index-empty` : ``
+        !hotels.length ? `page__main--index-empty` : ``
       }`}
     >
       <Header isMain />
@@ -22,7 +21,7 @@ const Main = ({ hotels, currentCity }) => {
         <h1 className="visually-hidden">Cities</h1>
         <CitiesTabs />
         <div className="cities">
-          {hotelsByCity.length > 0 ? (
+          {hotels.length > 0 ? (
             <PlacesContainer />
           ) : (
             <MainEmpty currentCity={currentCity} />
@@ -39,8 +38,8 @@ Main.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  currentCity: state[NameSpace.APP].currentCity,
-  hotels: state[NameSpace.DATA].hotels,
+  currentCity: getCurrentCity(state),
+  hotels: getHotelsSortedByCity(state),
 });
 
 export { Main };
