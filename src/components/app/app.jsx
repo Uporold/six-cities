@@ -7,6 +7,7 @@ import Property from "../property/property";
 import history from "../../history";
 import { getLoadingStatus } from "../../redux/data/selectors";
 import LoaderSpinner from "../loader-spinner/loader-spinner";
+import Login from "../login/login";
 
 const App = ({ isDataLoading }) => {
   return (
@@ -16,6 +17,7 @@ const App = ({ isDataLoading }) => {
           <Switch>
             <Route exact path="/" component={Main} />
             <Route path="/offers/:id" component={Property} />
+            <Route exact path="/login" component={Login} />
           </Switch>
         </Router>
       ) : (
