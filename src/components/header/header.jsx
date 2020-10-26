@@ -1,8 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+import { getAuthorizationStatus, getUser } from "../../redux/user/selectors";
 
-const Header = ({ isMain }) => {
+const Header = ({ isMain, authorizationStatus, user }) => {
   return (
     <header className="header">
       <div className="container">
@@ -24,15 +26,19 @@ const Header = ({ isMain }) => {
           <nav className="header__nav">
             <ul className="header__nav-list">
               <li className="header__nav-item user">
-                <a
+                <Link
                   className="header__nav-link header__nav-link--profile"
-                  href="#"
+                  to={!authorizationStatus ? "/login" : "#"}
                 >
                   <div className="header__avatar-wrapper user__avatar-wrapper" />
-                  <span className="header__user-name user__name">
-                    Oliver.conner@gmail.com
-                  </span>
-                </a>
+                  {authorizationStatus ? (
+                    <span className="header__user-name user__name">
+                      {user.email}
+                    </span>
+                  ) : (
+                    <span className="header__login">Sign in</span>
+                  )}
+                </Link>
               </li>
             </ul>
           </nav>
@@ -43,10 +49,25 @@ const Header = ({ isMain }) => {
 };
 Header.propTypes = {
   isMain: PropTypes.bool,
+  user: PropTypes.shape({
+    id: PropTypes.number,
+    email: PropTypes.string,
+    name: PropTypes.string,
+    avatar: PropTypes.string,
+    isPro: PropTypes.bool,
+  }).isRequired,
+  authorizationStatus: PropTypes.bool.isRequired,
 };
 
 Header.defaultProps = {
   isMain: false,
 };
 
-export default Header;
+const mapStateToProps = (state) => ({
+  authorizationStatus: getAuthorizationStatus(state),
+  user: getUser(state),
+});
+
+export { Header };
+
+export default connect(mapStateToProps)(Header);

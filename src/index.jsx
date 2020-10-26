@@ -8,8 +8,13 @@ import App from "./components/app/app";
 import reducer from "./redux/reducer";
 import { createAPI } from "./api";
 import { Operation as DataOperation } from "./redux/data/data";
+import { Operation as UserOperation, ActionCreator } from "./redux/user/user";
 
-const api = createAPI();
+const onUnauthorized = () => {
+  store.dispatch(ActionCreator.setAuthorizationStatus(false));
+};
+
+const api = createAPI(onUnauthorized);
 
 const store = createStore(
   reducer,
@@ -17,6 +22,7 @@ const store = createStore(
 );
 
 store.dispatch(DataOperation.loadHotels());
+store.dispatch(UserOperation.checkAuth());
 
 ReactDOM.render(
   <Provider store={store}>

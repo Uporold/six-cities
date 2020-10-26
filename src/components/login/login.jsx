@@ -1,8 +1,28 @@
-import React, { PureComponent } from "react";
+import React, { PureComponent, createRef } from "react";
 import PropTypes from "prop-types";
+import { connect } from "react-redux";
 import Header from "../header/header";
+import { Operation } from "../../redux/user/user";
 
 class Login extends PureComponent {
+  constructor(props) {
+    super(props);
+
+    this.emailRef = createRef();
+    this.passwordRef = createRef();
+  }
+
+  handleSubmit = (evt) => {
+    const { onSubmit } = this.props;
+
+    evt.preventDefault();
+
+    onSubmit({
+      email: this.emailRef.current.value,
+      password: this.passwordRef.current.value,
+    });
+  };
+
   render() {
     return (
       <div className="page page--gray page--login">
@@ -12,7 +32,12 @@ class Login extends PureComponent {
           <div className="page__login-container container">
             <section className="login">
               <h1 className="login__title">Sign in</h1>
-              <form className="login__form form" action="#" method="post">
+              <form
+                className="login__form form"
+                action="#"
+                method="post"
+                onSubmit={this.handleSubmit}
+              >
                 <div className="login__input-wrapper form__input-wrapper">
                   <label className="visually-hidden">E-mail</label>
                   <input
@@ -21,6 +46,7 @@ class Login extends PureComponent {
                     name="email"
                     placeholder="Email"
                     required=""
+                    ref={this.emailRef}
                   />
                 </div>
                 <div className="login__input-wrapper form__input-wrapper">
@@ -31,6 +57,7 @@ class Login extends PureComponent {
                     name="password"
                     placeholder="Password"
                     required=""
+                    ref={this.passwordRef}
                   />
                 </div>
                 <button
@@ -55,6 +82,16 @@ class Login extends PureComponent {
   }
 }
 
-Login.propTypes = {};
+Login.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+};
 
-export default Login;
+export { Login };
+
+const mapDispatchToProps = (dispatch) => ({
+  onSubmit(authData) {
+    dispatch(Operation.login(authData));
+  },
+});
+
+export default connect(null, mapDispatchToProps)(Login);

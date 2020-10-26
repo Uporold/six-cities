@@ -49,3 +49,13 @@ export const reviewAdapter = (data) => {
     date: data.date,
   };
 };
+
+export const createUser = (data) => {
+  return {
+    id: data.id,
+    email: data.email,
+    name: data.name,
+    avatar: `https://4.react.pages.academy${data.avatar_url}`,
+    isPro: data.is_pro,
+  };
+};
