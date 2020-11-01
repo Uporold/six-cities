@@ -4,8 +4,9 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { projectPropTypes } from "../../utilites/project-prop-types";
 import { ActionCreator } from "../../redux/app/app";
+import { Operation } from "../../redux/data/data";
 
-const PlaceCard = ({ hotel, onCardHover }) => {
+const PlaceCard = ({ hotel, onCardHover, onButtonClick }) => {
   const styledRating = hotel.rating * 20;
   const renderPremiumMark = () => {
     return hotel.isPremium ? (
@@ -25,6 +26,11 @@ const PlaceCard = ({ hotel, onCardHover }) => {
 
   const onCardMouseOut = () => {
     onCardHover(-1);
+  };
+
+  const onButtonClickHandler = (hotelId, isFavorite) => (evt) => {
+    evt.preventDefault();
+    onButtonClick(hotelId, isFavorite);
   };
 
   return (
@@ -54,8 +60,11 @@ const PlaceCard = ({ hotel, onCardHover }) => {
               <span className="place-card__price-text">&#47;&nbsp;night</span>
             </div>
             <button
-              className="place-card__bookmark-button button"
+              className={`place-card__bookmark-button ${
+                hotel.isFavorite ? ` place-card__bookmark-button--active` : ``
+              } button`}
               type="button"
+              onClick={onButtonClickHandler(hotel.id, !hotel.isFavorite)}
             >
               <svg className="place-card__bookmark-icon" width="18" height="19">
                 <use xlinkHref="#icon-bookmark" />
@@ -82,11 +91,15 @@ const PlaceCard = ({ hotel, onCardHover }) => {
 PlaceCard.propTypes = {
   hotel: projectPropTypes.HOTEL.isRequired,
   onCardHover: PropTypes.func.isRequired,
+  onButtonClick: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({
   onCardHover(hotel) {
     dispatch(ActionCreator.getHoveredHotelId(hotel));
+  },
+  onButtonClick(hotelId, isFavorite) {
+    dispatch(Operation.changeHotelFavoriteStatus(hotelId, isFavorite));
   },
 });
 

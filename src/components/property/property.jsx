@@ -53,6 +53,11 @@ class Property extends PureComponent {
     ));
   }
 
+  onButtonClickHandler = (hotelId, isFavorite) => () => {
+    const { onButtonClick } = this.props;
+    onButtonClick(hotelId, isFavorite);
+  };
+
   render() {
     const { hotel, hotelReviews, nearbyHotels } = this.props;
     const {
@@ -95,11 +100,19 @@ class Property extends PureComponent {
                 <div className="property__name-wrapper">
                   <h1 className="property__name">{title}</h1>
                   <button
-                    className="property__bookmark-button button"
+                    className={`property__bookmark-button ${
+                      hotel.isFavorite
+                        ? `property__bookmark-button--active`
+                        : ``
+                    } button`}
                     type="button"
+                    onClick={this.onButtonClickHandler(
+                      hotel.id,
+                      !hotel.isFavorite
+                    )}
                   >
                     <svg
-                      className="property__bookmark-icon"
+                      className="place-card__bookmark-icon"
                       width="31"
                       height="33"
                     >
@@ -192,6 +205,7 @@ Property.propTypes = {
   nearbyHotels: PropTypes.arrayOf(projectPropTypes.HOTEL.isRequired).isRequired,
   loadReviewsAndNearbyHotels: PropTypes.func.isRequired,
   hotelReviews: PropTypes.arrayOf(projectPropTypes.REVIEW),
+  onButtonClick: PropTypes.func.isRequired,
 };
 
 Property.defaultProps = {
@@ -208,6 +222,9 @@ const mapDispatchToProps = (dispatch) => ({
   loadReviewsAndNearbyHotels(id) {
     dispatch(Operation.loadHotelReviews(id));
     dispatch(Operation.loadNearbyHotels(id));
+  },
+  onButtonClick(hotelId, isFavorite) {
+    dispatch(Operation.changeHotelFavoriteStatus(hotelId, isFavorite));
   },
 });
 

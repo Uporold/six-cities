@@ -12,6 +12,7 @@ export const ActionType = {
   LOAD_HOTEL_REVIEWS: `LOAD_HOTEL_REVIEWS`,
   LOAD_NEARBY_HOTELS: `LOAD_NEARBY_HOTELS`,
   FINISH_LOADING: `FINISH_LOADING`,
+  UPDATE_FAVORITE_STATUS: `UPDATE_FAVORITE_STATUS`,
 };
 
 export const ActionCreator = {
@@ -40,6 +41,12 @@ export const ActionCreator = {
     return {
       type: ActionType.FINISH_LOADING,
       payload: false,
+    };
+  },
+  updateFavoriteStatus: (hotel) => {
+    return {
+      type: ActionType.UPDATE_FAVORITE_STATUS,
+      payload: hotel,
     };
   },
 };
@@ -83,6 +90,20 @@ export const Operation = {
         }
       });
   },
+
+  changeHotelFavoriteStatus: (hotelId, isFavorite) => (
+    dispatch,
+    getState,
+    api
+  ) => {
+    return api
+      .post(`/favorite/${hotelId}/${isFavorite ? 1 : 0}`)
+      .then((response) => {
+        dispatch(
+          ActionCreator.updateFavoriteStatus(hotelAdapter(response.data))
+        );
+      });
+  },
 };
 
 export const reducer = (state = initialState, action) => {
@@ -95,6 +116,19 @@ export const reducer = (state = initialState, action) => {
       return { ...state, nearbyHotels: action.payload };
     case ActionType.FINISH_LOADING:
       return { ...state, isDataLoading: action.payload };
+    case ActionType.UPDATE_FAVORITE_STATUS: {
+      const favoriteIndex = state.hotels.findIndex(
+        (item) => item.id === action.payload.id
+      );
+      return {
+        ...state,
+        hotels: [].concat(
+          ...state.hotels.slice(0, favoriteIndex),
+          action.payload,
+          ...state.hotels.slice(favoriteIndex + 1, state.hotels.length)
+        ),
+      };
+    }
     default:
       return state;
   }
