@@ -70,6 +70,19 @@ export const Operation = {
       dispatch(ActionCreator.loadNearbyHotels(loadedNearbyHotels));
     });
   },
+
+  sendReview: (hotelId, review) => (dispatch, getState, api) => {
+    return api
+      .post(`/comments/${hotelId}`, {
+        comment: review.comment,
+        rating: review.rating,
+      })
+      .then((response) => {
+        if (response.status === 200) {
+          dispatch(Operation.loadHotelReviews(hotelId));
+        }
+      });
+  },
 };
 
 export const reducer = (state = initialState, action) => {

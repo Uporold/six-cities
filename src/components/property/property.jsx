@@ -161,7 +161,7 @@ class Property extends PureComponent {
                     <p className="property__text">{description}</p>
                   </div>
                 </div>
-                <PropertyReviews reviews={hotelReviews} />
+                <PropertyReviews reviews={hotelReviews} hotelId={hotel.id} />
               </div>
             </div>
             <section className="property__map map">

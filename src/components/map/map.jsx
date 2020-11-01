@@ -63,7 +63,7 @@ class Map extends PureComponent {
 Map.propTypes = {
   hotels: PropTypes.arrayOf(projectPropTypes.HOTEL.isRequired).isRequired,
   center: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
-  zoom: PropTypes.number.isRequired,
+  zoom: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
   hoveredHotelId: PropTypes.number,
   currentHotel: projectPropTypes.HOTEL,
 };
