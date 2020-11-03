@@ -12,6 +12,7 @@ import {
   getNearbyHotels,
   getCurrentHotel,
 } from "../../redux/data/selectors";
+import { PageType } from "../../utilites/const";
 
 class Property extends PureComponent {
   componentDidMount() {
@@ -191,7 +192,7 @@ class Property extends PureComponent {
               <h2 className="near-places__title">
                 Other places in the neighbourhood
               </h2>
-              <PlacesList hotels={nearbyHotels} />
+              <PlacesList hotels={nearbyHotels} pageType={PageType.PROPERTY} />
             </section>
           </div>
         </main>

@@ -26,3 +26,17 @@ export const getSortedHotels = (hotels, sortType) => {
       return hotels;
   }
 };
+
+export const getHotelsCities = (hotels) => {
+  return [
+    ...new Set(
+      hotels
+        .map((hotel) => hotel.city.name)
+        .sort((a, b) => {
+          if (a < b) return -1;
+          if (a > b) return 1;
+          return 0;
+        })
+    ),
+  ];
+};

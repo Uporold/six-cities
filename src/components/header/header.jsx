@@ -32,9 +32,11 @@ const Header = ({ isMain, authorizationStatus, user }) => {
                 >
                   <div className="header__avatar-wrapper user__avatar-wrapper" />
                   {authorizationStatus ? (
-                    <span className="header__user-name user__name">
-                      {user.email}
-                    </span>
+                    <Link to="/favorites">
+                      <span className="header__user-name user__name">
+                        {user.email}
+                      </span>
+                    </Link>
                   ) : (
                     <span className="header__login">Sign in</span>
                   )}

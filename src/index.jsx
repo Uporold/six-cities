@@ -22,6 +22,7 @@ const store = createStore(
 );
 
 store.dispatch(DataOperation.loadHotels());
+// store.dispatch(DataOperation.loadFavoriteHotels());
 store.dispatch(UserOperation.checkAuth());
 
 ReactDOM.render(

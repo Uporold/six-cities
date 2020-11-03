@@ -2,16 +2,20 @@ import { hotelAdapter, reviewAdapter } from "../adapter/adapter";
 
 export const initialState = {
   hotels: [],
+  favoriteHotels: [],
   hotelReviews: [],
   nearbyHotels: [],
   isDataLoading: true,
+  isFavoritesLoading: true,
 };
 
 export const ActionType = {
   LOAD_HOTELS: `LOAD_HOTELS`,
+  LOAD_FAVORITE_HOTELS: `LOAD_FAVORITE_HOTELS`,
   LOAD_HOTEL_REVIEWS: `LOAD_HOTEL_REVIEWS`,
   LOAD_NEARBY_HOTELS: `LOAD_NEARBY_HOTELS`,
   FINISH_LOADING: `FINISH_LOADING`,
+  FINISH_FAVORITES_LOADING: `FINISH_FAVORITES_LOADING`,
   UPDATE_FAVORITE_STATUS: `UPDATE_FAVORITE_STATUS`,
 };
 
@@ -19,6 +23,13 @@ export const ActionCreator = {
   loadHotels: (data) => {
     return {
       type: ActionType.LOAD_HOTELS,
+      payload: data,
+    };
+  },
+
+  loadFavoriteHotels: (data) => {
+    return {
+      type: ActionType.LOAD_FAVORITE_HOTELS,
       payload: data,
     };
   },
@@ -43,6 +54,14 @@ export const ActionCreator = {
       payload: false,
     };
   },
+
+  finishFavoritesLoading: () => {
+    return {
+      type: ActionType.FINISH_FAVORITES_LOADING,
+      payload: false,
+    };
+  },
+
   updateFavoriteStatus: (hotel) => {
     return {
       type: ActionType.UPDATE_FAVORITE_STATUS,
@@ -57,6 +76,14 @@ export const Operation = {
       const loadedHotels = response.data.map((hotel) => hotelAdapter(hotel));
       dispatch(ActionCreator.loadHotels(loadedHotels));
       dispatch(ActionCreator.finishLoading());
+    });
+  },
+
+  loadFavoriteHotels: () => (dispatch, getState, api) => {
+    return api.get(`/favorite`).then((response) => {
+      const loadedHotels = response.data.map((hotel) => hotelAdapter(hotel));
+      dispatch(ActionCreator.loadFavoriteHotels(loadedHotels));
+      dispatch(ActionCreator.finishFavoritesLoading());
     });
   },
 
@@ -110,12 +137,16 @@ export const reducer = (state = initialState, action) => {
   switch (action.type) {
     case ActionType.LOAD_HOTELS:
       return { ...state, hotels: action.payload };
+    case ActionType.LOAD_FAVORITE_HOTELS:
+      return { ...state, favoriteHotels: action.payload };
     case ActionType.LOAD_HOTEL_REVIEWS:
       return { ...state, hotelReviews: action.payload };
     case ActionType.LOAD_NEARBY_HOTELS:
       return { ...state, nearbyHotels: action.payload };
     case ActionType.FINISH_LOADING:
       return { ...state, isDataLoading: action.payload };
+    case ActionType.FINISH_FAVORITES_LOADING:
+      return { ...state, isFavoritesLoading: action.payload };
     case ActionType.UPDATE_FAVORITE_STATUS: {
       const favoriteIndex = state.hotels.findIndex(
         (item) => item.id === action.payload.id
@@ -126,6 +157,9 @@ export const reducer = (state = initialState, action) => {
           ...state.hotels.slice(0, favoriteIndex),
           action.payload,
           ...state.hotels.slice(favoriteIndex + 1, state.hotels.length)
+        ),
+        favoriteHotels: state.favoriteHotels.filter(
+          (item) => item.id !== action.payload.id
         ),
       };
     }

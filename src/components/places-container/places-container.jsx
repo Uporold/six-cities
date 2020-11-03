@@ -10,6 +10,7 @@ import {
   getHotelsSortedByForm,
   getHotelsSortedByCity,
 } from "../../redux/data/selectors";
+import { PageType } from "../../utilites/const";
 
 const PlacesContainer = ({
   hotelsByCity,
@@ -30,7 +31,7 @@ const PlacesContainer = ({
           {hotelsByCity.length} places to stay in {currentCity}
         </b>
         <Sorting currentSortType={currentSortType} />
-        <PlacesList hotels={sortedHotels} isMain />
+        <PlacesList hotels={sortedHotels} pageType={PageType.MAIN} />
       </section>
       <div className="cities__right-section">
         <section className="cities__map map">

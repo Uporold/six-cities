@@ -5,8 +5,21 @@ import { connect } from "react-redux";
 import { projectPropTypes } from "../../utilites/project-prop-types";
 import { ActionCreator } from "../../redux/app/app";
 import { Operation } from "../../redux/data/data";
+import { PageType } from "../../utilites/const";
 
-const PlaceCard = ({ hotel, onCardHover, onButtonClick }) => {
+const pageTypeToCardClass = {
+  [PageType.MAIN]: `cities__place-card`,
+  [PageType.PROPERTY]: `near-places__card`,
+  [PageType.FAVORITES]: `favorites__card`,
+};
+
+const pageTypeToImageWrapperClass = {
+  [PageType.MAIN]: `cities__image-wrapper`,
+  [PageType.PROPERTY]: `near-places__image-wrapper`,
+  [PageType.FAVORITES]: `favorites__image-wrapper`,
+};
+
+const PlaceCard = ({ hotel, onCardHover, onButtonClick, pageType }) => {
   const styledRating = hotel.rating * 20;
   const renderPremiumMark = () => {
     return hotel.isPremium ? (
@@ -36,24 +49,30 @@ const PlaceCard = ({ hotel, onCardHover, onButtonClick }) => {
   return (
     <>
       <article
-        className="cities__place-card place-card"
+        className={`${pageTypeToCardClass[pageType]} place-card`}
         key={`${hotel.id}`}
         onMouseEnter={onCardMouseEnter}
         onMouseOut={onCardMouseOut}
       >
         {renderPremiumMark()}
-        <div className="cities__image-wrapper place-card__image-wrapper">
+        <div
+          className={`${pageTypeToImageWrapperClass[pageType]} place-card__image-wrapper`}
+        >
           <Link onClick={onCardMouseOut} to={`/offers/${hotel.id}`}>
             <img
               className="place-card__image"
               src={hotel.previewImage}
-              width="260"
-              height="200"
+              width={pageType === PageType.FAVORITES ? `150` : `260`}
+              height={pageType === PageType.FAVORITES ? `110` : `200`}
               alt={hotel.title}
             />
           </Link>
         </div>
-        <div className="place-card__info">
+        <div
+          className={`${
+            pageType === PageType.FAVORITES && `favorites__card-info`
+          } place-card__info`}
+        >
           <div className="place-card__price-wrapper">
             <div className="place-card__price">
               <b className="place-card__price-value">&euro;{hotel.price}</b>
