@@ -13,6 +13,7 @@ import {
   getAuthorizationLoadingStatus,
 } from "../../redux/user/selectors";
 import Favorites from "../favorites/favorites";
+import PrivateRoute from "../private-route/private-route";
 
 const App = ({
   isDataLoading,
@@ -33,7 +34,11 @@ const App = ({
                 return !authorizationStatus ? <Login /> : <Redirect to="/" />;
               }}
             />
-            <Route exact path="/favorites" component={Favorites} />
+            <PrivateRoute
+              exact
+              path="/favorites"
+              render={() => <Favorites />}
+            />
           </Switch>
         </Router>
       ) : (
