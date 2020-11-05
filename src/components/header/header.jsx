@@ -28,15 +28,13 @@ const Header = ({ isMain, authorizationStatus, user }) => {
               <li className="header__nav-item user">
                 <Link
                   className="header__nav-link header__nav-link--profile"
-                  to={!authorizationStatus ? "/login" : "#"}
+                  to={!authorizationStatus ? "/login" : "/favorites"}
                 >
                   <div className="header__avatar-wrapper user__avatar-wrapper" />
                   {authorizationStatus ? (
-                    <Link to="/favorites">
-                      <span className="header__user-name user__name">
-                        {user.email}
-                      </span>
-                    </Link>
+                    <span className="header__user-name user__name">
+                      {user.email}
+                    </span>
                   ) : (
                     <span className="header__login">Sign in</span>
                   )}

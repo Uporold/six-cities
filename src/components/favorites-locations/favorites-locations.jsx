@@ -16,7 +16,11 @@ const FavoritesLocations = ({ city, hotels }) => {
       </div>
       <div className="favorites__places">
         {hotels.map((hotel) => (
-          <PlaceCard hotel={hotel} pageType={PageType.FAVORITES} />
+          <PlaceCard
+            key={`${PageType.FAVORITES} ${hotel.id} item`}
+            hotel={hotel}
+            pageType={PageType.FAVORITES}
+          />
         ))}
       </div>
     </li>

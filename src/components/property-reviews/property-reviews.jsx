@@ -15,7 +15,7 @@ const PropertyReviews = ({ reviews, hotelId, authorizationStatus }) => {
       </h2>
       <ul className="reviews__list">
         {reviews.map((review) => (
-          <PropertyReview review={review} />
+          <PropertyReview key={review.comment + review.id} review={review} />
         ))}
       </ul>
       {authorizationStatus && <AddReview hotelId={hotelId} />}

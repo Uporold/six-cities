@@ -27,10 +27,15 @@ class Property extends PureComponent {
     }
   }
 
+  onButtonClickHandler = (hotelId, isFavorite) => () => {
+    const { onButtonClick } = this.props;
+    onButtonClick(hotelId, isFavorite);
+  };
+
   renderPropertyImages() {
     const { images } = this.props.hotel;
     return images.map((image) => (
-      <div className="property__image-wrapper">
+      <div className="property__image-wrapper" key={image}>
         <img className="property__image" src={image} alt="Photo studio" />
       </div>
     ));
@@ -50,14 +55,9 @@ class Property extends PureComponent {
   renderInsideList() {
     const { goods } = this.props.hotel;
     return goods.map((good) => (
-      <li className="property__inside-item">{good}</li>
+      <li className="property__inside-item" key={good}>{good}</li>
     ));
   }
-
-  onButtonClickHandler = (hotelId, isFavorite) => () => {
-    const { onButtonClick } = this.props;
-    onButtonClick(hotelId, isFavorite);
-  };
 
   render() {
     const { hotel, hotelReviews, nearbyHotels } = this.props;
@@ -181,7 +181,7 @@ class Property extends PureComponent {
             <section className="property__map map">
               <Map
                 hotels={[hotel, ...nearbyHotels]}
-                currentHotel={hotel}
+                currentHotelId={hotel.id}
                 center={center}
                 zoom={zoom}
               />

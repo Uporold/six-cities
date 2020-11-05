@@ -18,7 +18,7 @@ const CitiesTabs = ({ currentCity, onCityClick }) => {
       <section className="locations container">
         <ul className="locations__list tabs__list">
           {cities.map((city) => (
-            <li className="locations__item">
+            <li className="locations__item" key={city}>
               <a
                 onClick={(evt) => {
                   evt.preventDefault();

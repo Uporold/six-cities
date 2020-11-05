@@ -161,6 +161,9 @@ export const reducer = (state = initialState, action) => {
         favoriteHotels: state.favoriteHotels.filter(
           (item) => item.id !== action.payload.id
         ),
+        nearbyHotels: state.nearbyHotels.map((item) =>
+          item.id === action.payload.id ? action.payload : item
+        ),
       };
     }
     default:

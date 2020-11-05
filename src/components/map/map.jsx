@@ -1,10 +1,9 @@
 import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
-import { Map as LeafletMap, TileLayer, Marker, Popup } from "react-leaflet";
+import { Map as LeafletMap, TileLayer, Marker } from "react-leaflet";
 import L from "leaflet";
 import { connect } from "react-redux";
 import { projectPropTypes } from "../../utilites/project-prop-types";
-import PlaceCard from "../place-card/place-card";
 import { getHoveredHotelId } from "../../redux/app/selectors";
 
 const createMarkerIcon = (url) => {
@@ -21,28 +20,21 @@ const testIcon = createMarkerIcon("/img/pin-current-place.svg");
 
 class Map extends PureComponent {
   renderMarkers() {
-    const { hotels, hoveredHotelId, currentHotel } = this.props;
+    const { hotels, hoveredHotelId, currentHotelId } = this.props;
     return (
       <>
-        {hotels.map((hotel) => (
+        {hotels.map((hotel, i) => (
           <Marker
+            key={i}
             position={[hotel.location.latitude, hotel.location.longitude]}
             icon={
-              currentHotel.id === hotel.id
+              currentHotelId === hotel.id
                 ? testIcon
                 : hoveredHotelId === hotel.id
                 ? hoverIcon
                 : icon
             }
           >
-            <Popup>
-              <PlaceCard
-                hotel={hotel}
-                onPlaceCardClick={() => {}}
-                onHover={() => {}}
-                onHotelCardOut={() => {}}
-              />
-            </Popup>
           </Marker>
         ))}
       </>
@@ -65,12 +57,12 @@ Map.propTypes = {
   center: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
   zoom: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
   hoveredHotelId: PropTypes.number,
-  currentHotel: projectPropTypes.HOTEL,
+  currentHotelId: PropTypes.number,
 };
 
 Map.defaultProps = {
   hoveredHotelId: null,
-  currentHotel: {},
+  currentHotelId: null,
 };
 
 const mapStateToProps = (state) => ({

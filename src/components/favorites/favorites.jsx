@@ -30,6 +30,7 @@ class Favorites extends PureComponent {
               <ul className="favorites__list">
                 {cities.map((city) => (
                   <FavoritesLocations
+                    key={`favorite-list-block-${city}`}
                     city={city}
                     hotels={favoriteHotels.filter(
                       (item) => item.city.name === city

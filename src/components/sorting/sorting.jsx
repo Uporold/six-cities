@@ -68,6 +68,7 @@ class Sorting extends PureComponent {
         >
           {Object.keys(sortTypes).map((key) => (
             <li
+              key={sortTypes[key]}
               data-sort-type={sortTypes[key]}
               className={`places__option ${
                 sortTypes[key] === currentSortType
