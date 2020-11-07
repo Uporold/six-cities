@@ -4,7 +4,7 @@ import { Map as LeafletMap, TileLayer, Marker } from "react-leaflet";
 import L from "leaflet";
 import { connect } from "react-redux";
 import { projectPropTypes } from "../../utilites/project-prop-types";
-import { getHoveredHotelId } from "../../redux/app/selectors";
+import { getCurrentCity, getHoveredHotelId } from "../../redux/app/selectors";
 
 const createMarkerIcon = (url) => {
   return new L.Icon({
@@ -19,6 +19,25 @@ const hoverIcon = createMarkerIcon("/img/pin-active.svg");
 const testIcon = createMarkerIcon("/img/pin-current-place.svg");
 
 class Map extends PureComponent {
+  constructor(props) {
+    super(props);
+    this.defaultCenter = props.center;
+  }
+
+  componentDidMount() {
+    this.map = this.mapInstance.leafletElement;
+  }
+
+  componentDidUpdate(prevProps) {
+    const { center, currentCity, zoom, currentHotelId } = this.props;
+    if (
+      currentCity !== prevProps.currentCity ||
+      currentHotelId !== prevProps.currentHotelId
+    ) {
+      this.map.flyTo(center, zoom);
+    }
+  }
+
   renderMarkers() {
     const { hotels, hoveredHotelId, currentHotelId } = this.props;
     return (
@@ -34,17 +53,21 @@ class Map extends PureComponent {
                 ? hoverIcon
                 : icon
             }
-          >
-          </Marker>
+          />
         ))}
       </>
     );
   }
 
   render() {
-    const { center, zoom } = this.props;
+    const { zoom } = this.props;
     return (
-      <LeafletMap center={center} zoom={zoom} style={{ height: "100%" }}>
+      <LeafletMap
+        ref={(mapEl) => (this.mapInstance = mapEl)}
+        center={this.defaultCenter}
+        zoom={zoom}
+        style={{ height: "100%" }}
+      >
         <TileLayer url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png" />
         {this.renderMarkers()}
       </LeafletMap>
@@ -58,6 +81,7 @@ Map.propTypes = {
   zoom: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
   hoveredHotelId: PropTypes.number,
   currentHotelId: PropTypes.number,
+  currentCity: PropTypes.string.isRequired,
 };
 
 Map.defaultProps = {
@@ -67,6 +91,7 @@ Map.defaultProps = {
 
 const mapStateToProps = (state) => ({
   hoveredHotelId: getHoveredHotelId(state),
+  currentCity: getCurrentCity(state),
 });
 
 export { Map };
