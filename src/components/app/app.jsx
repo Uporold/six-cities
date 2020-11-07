@@ -12,7 +12,7 @@ import {
   getAuthorizationStatus,
   getAuthorizationLoadingStatus,
 } from "../../redux/user/selectors";
-import Favorites from "../favorites/favorites";
+import FavoritesPage from "../favorites-page/favorites-page";
 import PrivateRoute from "../private-route/private-route";
 
 const App = ({
@@ -37,7 +37,7 @@ const App = ({
             <PrivateRoute
               exact
               path="/favorites"
-              render={() => <Favorites />}
+              render={() => <FavoritesPage />}
             />
           </Switch>
         </Router>
