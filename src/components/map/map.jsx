@@ -38,21 +38,26 @@ class Map extends PureComponent {
     }
   }
 
+  renderIcon(id) {
+    const { hoveredHotelId, currentHotelId } = this.props;
+    if (currentHotelId === id) {
+      return testIcon;
+    }
+    if (hoveredHotelId === id) {
+      return hoverIcon;
+    }
+    return icon;
+  }
+
   renderMarkers() {
-    const { hotels, hoveredHotelId, currentHotelId } = this.props;
+    const { hotels } = this.props;
     return (
       <>
         {hotels.map((hotel, i) => (
           <Marker
             key={i}
             position={[hotel.location.latitude, hotel.location.longitude]}
-            icon={
-              currentHotelId === hotel.id
-                ? testIcon
-                : hoveredHotelId === hotel.id
-                ? hoverIcon
-                : icon
-            }
+            icon={this.renderIcon(hotel.id)}
           />
         ))}
       </>

@@ -13,6 +13,8 @@ export const getFavoriteHotels = (state) =>
 export const getHotelReviews = (state) => state[NameSpace.DATA].hotelReviews;
 export const getNearbyHotels = (state) => state[NameSpace.DATA].nearbyHotels;
 export const getLoadingStatus = (state) => state[NameSpace.DATA].isDataLoading;
+export const getFavoritesLoadingStatus = (state) =>
+  state[NameSpace.DATA].isFavoritesLoading;
 
 export const getHotelsSortedByCity = createSelector(
   getHotels,
