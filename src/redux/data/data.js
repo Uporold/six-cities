@@ -7,6 +7,7 @@ export const initialState = {
   nearbyHotels: [],
   isDataLoading: true,
   isFavoritesLoading: true,
+  isSendingError: false,
 };
 
 export const ActionType = {
@@ -17,6 +18,7 @@ export const ActionType = {
   FINISH_LOADING: `FINISH_LOADING`,
   FINISH_FAVORITES_LOADING: `FINISH_FAVORITES_LOADING`,
   UPDATE_FAVORITE_STATUS: `UPDATE_FAVORITE_STATUS`,
+  SET_SENDING_STATUS: `SET_SENDING_STATUS`,
 };
 
 export const ActionCreator = {
@@ -68,6 +70,13 @@ export const ActionCreator = {
       payload: hotel,
     };
   },
+
+  setSendingStatus: (status) => {
+    return {
+      type: ActionType.SET_SENDING_STATUS,
+      payload: status,
+    };
+  },
 };
 
 export const Operation = {
@@ -113,8 +122,12 @@ export const Operation = {
       })
       .then((response) => {
         if (response.status === 200) {
+          dispatch(ActionCreator.setSendingStatus(false));
           dispatch(Operation.loadHotelReviews(hotelId));
         }
+      })
+      .catch(() => {
+        dispatch(ActionCreator.setSendingStatus(true));
       });
   },
 
@@ -166,6 +179,8 @@ export const reducer = (state = initialState, action) => {
         ),
       };
     }
+    case ActionType.SET_SENDING_STATUS:
+      return { ...state, isSendingError: action.payload };
     default:
       return state;
   }

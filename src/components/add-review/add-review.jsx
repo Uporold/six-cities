@@ -1,9 +1,16 @@
 import React, { PureComponent } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { Operation } from "../../redux/data/data";
+import { ActionCreator, Operation } from "../../redux/data/data";
+import { getSendingStatus } from "../../redux/data/selectors";
 
 const RATING_STARS = [5, 4, 3, 2, 1];
+
+const errorMessageStyle = {
+  display: `flex`,
+  justifyContent: `center`,
+  color: `red`,
+};
 
 class AddReview extends PureComponent {
   constructor(props) {
@@ -37,6 +44,7 @@ class AddReview extends PureComponent {
   };
 
   render() {
+    const { onTextInputFocus, isSendingError } = this.props;
     return (
       <form
         className="reviews__form form"
@@ -80,6 +88,7 @@ class AddReview extends PureComponent {
           name="review"
           placeholder="Tell how was your stay, what you like and what can be improved"
           onChange={this.onCommentChange}
+          onFocus={onTextInputFocus}
         />
         <div className="reviews__button-wrapper">
           <p className="reviews__help">
@@ -95,6 +104,12 @@ class AddReview extends PureComponent {
             Submit
           </button>
         </div>
+        {isSendingError && (
+          <p style={errorMessageStyle}>
+            An unknown error occurred while sending the message. Try again
+            later.
+          </p>
+        )}
       </form>
     );
   }
@@ -103,14 +118,23 @@ class AddReview extends PureComponent {
 AddReview.propTypes = {
   hotelId: PropTypes.number.isRequired,
   onFormSubmit: PropTypes.func.isRequired,
+  onTextInputFocus: PropTypes.func.isRequired,
+  isSendingError: PropTypes.bool.isRequired,
 };
+
+const mapStateToProps = (state) => ({
+  isSendingError: getSendingStatus(state),
+});
 
 const mapDispatchToProps = (dispatch) => ({
   onFormSubmit(movieId, review) {
     dispatch(Operation.sendReview(movieId, review));
   },
+  onTextInputFocus() {
+    dispatch(ActionCreator.setSendingStatus(false));
+  },
 });
 
 export { AddReview };
 
-export default connect(null, mapDispatchToProps)(AddReview);
+export default connect(mapStateToProps, mapDispatchToProps)(AddReview);
