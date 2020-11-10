@@ -8,6 +8,7 @@ export const initialState = {
   isDataLoading: true,
   isFavoritesLoading: true,
   isSendingError: false,
+  isReviewSending: false,
 };
 
 export const ActionType = {
@@ -18,7 +19,8 @@ export const ActionType = {
   FINISH_LOADING: `FINISH_LOADING`,
   FINISH_FAVORITES_LOADING: `FINISH_FAVORITES_LOADING`,
   UPDATE_FAVORITE_STATUS: `UPDATE_FAVORITE_STATUS`,
-  SET_SENDING_STATUS: `SET_SENDING_STATUS`,
+  SET_SENDING_ERROR_STATUS: `SET_SENDING_ERROR_STATUS`,
+  SET_REVIEW_SENDING_STATUS: `SET_REVIEW_SENDING_STATUS`,
 };
 
 export const ActionCreator = {
@@ -71,9 +73,16 @@ export const ActionCreator = {
     };
   },
 
-  setSendingStatus: (status) => {
+  setSendingErrorStatus: (status) => {
     return {
-      type: ActionType.SET_SENDING_STATUS,
+      type: ActionType.SET_SENDING_ERROR_STATUS,
+      payload: status,
+    };
+  },
+
+  setReviewSendingStatus: (status) => {
+    return {
+      type: ActionType.SET_REVIEW_SENDING_STATUS,
       payload: status,
     };
   },
@@ -115,6 +124,7 @@ export const Operation = {
   },
 
   sendReview: (hotelId, review) => (dispatch, getState, api) => {
+    dispatch(ActionCreator.setReviewSendingStatus(true));
     return api
       .post(`/comments/${hotelId}`, {
         comment: review.comment,
@@ -122,12 +132,14 @@ export const Operation = {
       })
       .then((response) => {
         if (response.status === 200) {
-          dispatch(ActionCreator.setSendingStatus(false));
+          dispatch(ActionCreator.setSendingErrorStatus(false));
+          dispatch(ActionCreator.setReviewSendingStatus(false));
           dispatch(Operation.loadHotelReviews(hotelId));
         }
       })
       .catch(() => {
-        dispatch(ActionCreator.setSendingStatus(true));
+        dispatch(ActionCreator.setSendingErrorStatus(true));
+        dispatch(ActionCreator.setReviewSendingStatus(false));
       });
   },
 
@@ -179,8 +191,10 @@ export const reducer = (state = initialState, action) => {
         ),
       };
     }
-    case ActionType.SET_SENDING_STATUS:
+    case ActionType.SET_SENDING_ERROR_STATUS:
       return { ...state, isSendingError: action.payload };
+    case ActionType.SET_REVIEW_SENDING_STATUS:
+      return { ...state, isReviewSending: action.payload };
     default:
       return state;
   }

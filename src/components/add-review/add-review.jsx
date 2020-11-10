@@ -2,7 +2,10 @@ import React, { PureComponent } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { ActionCreator, Operation } from "../../redux/data/data";
-import { getSendingStatus } from "../../redux/data/selectors";
+import {
+  getSendingErrorStatus,
+  getReviewSendingStatus,
+} from "../../redux/data/selectors";
 
 const RATING_STARS = [5, 4, 3, 2, 1];
 
@@ -44,7 +47,8 @@ class AddReview extends PureComponent {
   };
 
   render() {
-    const { onTextInputFocus, isSendingError } = this.props;
+    const { onTextInputFocus, isSendingError, isReviewSending } = this.props;
+    const { comment, stars } = this.state;
     return (
       <form
         className="reviews__form form"
@@ -68,6 +72,7 @@ class AddReview extends PureComponent {
                   value={elem}
                   id={`${elem}-stars`}
                   type="radio"
+                  disabled={isReviewSending}
                 />
                 <label
                   htmlFor={`${elem}-stars`}
@@ -99,9 +104,9 @@ class AddReview extends PureComponent {
           <button
             className="reviews__submit form__submit button"
             type="submit"
-            disabled=""
+            disabled={isReviewSending || comment.length < 50 || stars < 1}
           >
-            Submit
+            {isReviewSending ? `Sending...` : `Submit`}
           </button>
         </div>
         {isSendingError && (
@@ -120,10 +125,12 @@ AddReview.propTypes = {
   onFormSubmit: PropTypes.func.isRequired,
   onTextInputFocus: PropTypes.func.isRequired,
   isSendingError: PropTypes.bool.isRequired,
+  isReviewSending: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  isSendingError: getSendingStatus(state),
+  isSendingError: getSendingErrorStatus(state),
+  isReviewSending: getReviewSendingStatus(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -131,7 +138,7 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(Operation.sendReview(movieId, review));
   },
   onTextInputFocus() {
-    dispatch(ActionCreator.setSendingStatus(false));
+    dispatch(ActionCreator.setSendingErrorStatus(false));
   },
 });
 

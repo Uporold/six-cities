@@ -15,7 +15,10 @@ export const getNearbyHotels = (state) => state[NameSpace.DATA].nearbyHotels;
 export const getLoadingStatus = (state) => state[NameSpace.DATA].isDataLoading;
 export const getFavoritesLoadingStatus = (state) =>
   state[NameSpace.DATA].isFavoritesLoading;
-export const getSendingStatus = (state) => state[NameSpace.DATA].isSendingError
+export const getSendingErrorStatus = (state) =>
+  state[NameSpace.DATA].isSendingError;
+export const getReviewSendingStatus = (state) =>
+  state[NameSpace.DATA].isReviewSending;
 
 export const getHotelsSortedByCity = createSelector(
   getHotels,
