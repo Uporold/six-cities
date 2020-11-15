@@ -55,12 +55,13 @@ Header.propTypes = {
     name: PropTypes.string,
     avatar: PropTypes.string,
     isPro: PropTypes.bool,
-  }).isRequired,
+  }),
   authorizationStatus: PropTypes.bool.isRequired,
 };
 
 Header.defaultProps = {
   isMain: false,
+  user: null,
 };
 
 const mapStateToProps = (state) => ({
