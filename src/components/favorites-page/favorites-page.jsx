@@ -11,7 +11,7 @@ import { Operation } from "../../redux/data/data";
 import { projectPropTypes } from "../../utilites/project-prop-types";
 import Footer from "../footer/footer";
 import Favorites from "../favorites/favorites";
-import FavoritesEmpty from "../../favorites-empty/favorites-empty";
+import FavoritesEmpty from "../favorites-empty/favorites-empty";
 import LoaderSpinner from "../loader-spinner/loader-spinner";
 
 class FavoritesPage extends PureComponent {
