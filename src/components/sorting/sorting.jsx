@@ -5,6 +5,11 @@ import { sortTypes } from "../../utilites/util";
 import { ActionCreator } from "../../redux/app/app";
 import NameSpace from "../../redux/name-space";
 
+const arrowActiveStyle = {
+  transform: `rotate(180deg)`,
+  top: `45%`,
+};
+
 class Sorting extends PureComponent {
   constructor(props) {
     super(props);
@@ -54,7 +59,12 @@ class Sorting extends PureComponent {
           }}
         >
           {currentSortType}
-          <svg className="places__sorting-arrow" width="7" height="4">
+          <svg
+            className="places__sorting-arrow"
+            width="7"
+            height="4"
+            style={isSortOpen ? arrowActiveStyle : null}
+          >
             <use xlinkHref="#icon-arrow-select" />
           </svg>
         </span>

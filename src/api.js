@@ -22,11 +22,7 @@ export const createAPI = (onUnauthorized) => {
     if (response.status === Error.UNAUTHORIZED) {
       onUnauthorized();
     }
-    if (
-      response.status === Error.UNAUTHORIZED &&
-      err.response.config.method === `post`
-    ) {
-      onUnauthorized();
+    if (err.response.config.method === `post`) {
       history.push(`/login`);
     }
 
@@ -36,5 +32,4 @@ export const createAPI = (onUnauthorized) => {
   api.interceptors.response.use(onSuccess, onFail);
 
   return api;
-
 };
