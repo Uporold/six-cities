@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import Header from "../header/header";
 import { Operation } from "../../redux/user/user";
+import NameSpace from "../../redux/name-space";
 
 class Login extends PureComponent {
   constructor(props) {
@@ -24,9 +25,10 @@ class Login extends PureComponent {
   };
 
   render() {
+    const { currentCity } = this.props;
     return (
       <div className="page page--gray page--login">
-        <Header />
+        <Header isLogin />
 
         <main className="page__main page__main--login">
           <div className="page__login-container container">
@@ -71,7 +73,7 @@ class Login extends PureComponent {
             <section className="locations locations--login locations--current">
               <div className="locations__item">
                 <a className="locations__item-link" href="#">
-                  <span>Amsterdam</span>
+                  <span>{currentCity}</span>
                 </a>
               </div>
             </section>
@@ -84,9 +86,12 @@ class Login extends PureComponent {
 
 Login.propTypes = {
   onSubmit: PropTypes.func.isRequired,
+  currentCity: PropTypes.string.isRequired,
 };
 
-export { Login };
+const mapStateToProps = (state) => ({
+  currentCity: state[NameSpace.APP].currentCity,
+});
 
 const mapDispatchToProps = (dispatch) => ({
   onSubmit(authData) {
@@ -94,4 +99,4 @@ const mapDispatchToProps = (dispatch) => ({
   },
 });
 
-export default connect(null, mapDispatchToProps)(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

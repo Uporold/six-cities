@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { getAuthorizationStatus, getUser } from "../../redux/user/selectors";
 
-const Header = ({ isMain, authorizationStatus, user }) => {
+const Header = ({ isMain, isLogin, authorizationStatus, user }) => {
   return (
     <header className="header">
       <div className="container">
@@ -25,21 +25,23 @@ const Header = ({ isMain, authorizationStatus, user }) => {
           </div>
           <nav className="header__nav">
             <ul className="header__nav-list">
-              <li className="header__nav-item user">
-                <Link
-                  className="header__nav-link header__nav-link--profile"
-                  to={!authorizationStatus ? "/login" : "/favorites"}
-                >
-                  <div className="header__avatar-wrapper user__avatar-wrapper" />
-                  {authorizationStatus ? (
-                    <span className="header__user-name user__name">
-                      {user.email}
-                    </span>
-                  ) : (
-                    <span className="header__login">Sign in</span>
-                  )}
-                </Link>
-              </li>
+              {!isLogin && (
+                <li className="header__nav-item user">
+                  <Link
+                    className="header__nav-link header__nav-link--profile"
+                    to={!authorizationStatus ? "/login" : "/favorites"}
+                  >
+                    <div className="header__avatar-wrapper user__avatar-wrapper" />
+                    {authorizationStatus ? (
+                      <span className="header__user-name user__name">
+                        {user.email}
+                      </span>
+                    ) : (
+                      <span className="header__login">Sign in</span>
+                    )}
+                  </Link>
+                </li>
+              )}
             </ul>
           </nav>
         </div>
@@ -49,6 +51,7 @@ const Header = ({ isMain, authorizationStatus, user }) => {
 };
 Header.propTypes = {
   isMain: PropTypes.bool,
+  isLogin: PropTypes.bool,
   user: PropTypes.shape({
     id: PropTypes.number,
     email: PropTypes.string,
@@ -61,6 +64,7 @@ Header.propTypes = {
 
 Header.defaultProps = {
   isMain: false,
+  isLogin: false,
   user: null,
 };
 
