@@ -4,8 +4,13 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { projectPropTypes } from "../../utilites/project-prop-types";
 import { ActionCreator } from "../../redux/app/app";
-import { Operation } from "../../redux/data/data";
+import {
+  Operation,
+  ActionCreator as ActionCreatorData,
+} from "../../redux/data/data";
 import { PageType } from "../../utilites/const";
+import NameSpace from "../../redux/name-space";
+import PlaceCardError from "../place-card-error/place-card-error";
 
 const pageTypeToCardClass = {
   [PageType.MAIN]: `cities__place-card`,
@@ -19,7 +24,14 @@ const pageTypeToImageWrapperClass = {
   [PageType.FAVORITES]: `favorites__image-wrapper`,
 };
 
-const PlaceCard = ({ hotel, onCardHover, onButtonClick, pageType }) => {
+const PlaceCard = ({
+  hotel,
+  onCardHover,
+  onButtonClick,
+  pageType,
+  errorHotelIds,
+  clearErrorHotelIds,
+}) => {
   const styledRating = hotel.rating * 20;
   const renderPremiumMark = () => {
     return hotel.isPremium ? (
@@ -41,6 +53,11 @@ const PlaceCard = ({ hotel, onCardHover, onButtonClick, pageType }) => {
     onCardHover(-1);
   };
 
+  const onCardClickHandler = () => {
+    onCardMouseOut();
+    clearErrorHotelIds();
+  };
+
   const onButtonClickHandler = (hotelId, isFavorite) => (evt) => {
     evt.preventDefault();
     onButtonClick(hotelId, isFavorite);
@@ -54,11 +71,14 @@ const PlaceCard = ({ hotel, onCardHover, onButtonClick, pageType }) => {
         onMouseEnter={onCardMouseEnter}
         onMouseOut={onCardMouseOut}
       >
+        {errorHotelIds.some((id) => id === hotel.id) && (
+          <PlaceCardError hotelId={hotel.id} />
+        )}
         {renderPremiumMark()}
         <div
           className={`${pageTypeToImageWrapperClass[pageType]} place-card__image-wrapper`}
         >
-          <Link onClick={onCardMouseOut} to={`/offers/${hotel.id}`}>
+          <Link onClick={onCardClickHandler} to={`/offers/${hotel.id}`}>
             <img
               className="place-card__image"
               src={hotel.previewImage}
@@ -111,7 +131,14 @@ PlaceCard.propTypes = {
   hotel: projectPropTypes.HOTEL.isRequired,
   onCardHover: PropTypes.func.isRequired,
   onButtonClick: PropTypes.func.isRequired,
+  pageType: PropTypes.string.isRequired,
+  errorHotelIds: PropTypes.arrayOf(PropTypes.number).isRequired,
+  clearErrorHotelIds: PropTypes.func.isRequired,
 };
+
+const mapStateToProps = (state) => ({
+  errorHotelIds: state[NameSpace.DATA].errorHotelIds,
+});
 
 const mapDispatchToProps = (dispatch) => ({
   onCardHover(hotel) {
@@ -120,7 +147,10 @@ const mapDispatchToProps = (dispatch) => ({
   onButtonClick(hotelId, isFavorite) {
     dispatch(Operation.changeHotelFavoriteStatus(hotelId, isFavorite));
   },
+  clearErrorHotelIds() {
+    dispatch(ActionCreatorData.clearErrorHotelIds());
+  },
 });
 
 export { PlaceCard };
-export default connect(null, mapDispatchToProps)(PlaceCard);
+export default connect(mapStateToProps, mapDispatchToProps)(PlaceCard);

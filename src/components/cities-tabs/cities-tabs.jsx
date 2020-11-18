@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { ActionCreator } from "../../redux/app/app";
 import { getCurrentCity } from "../../redux/app/selectors";
+import { ActionCreator as ActionCreatorData } from "../../redux/data/data";
 
 const cities = [
   `Paris`,
@@ -50,6 +51,7 @@ const mapDispatchToProps = (dispatch) => ({
   onCityClick(city) {
     dispatch(ActionCreator.setCity(city));
     dispatch(ActionCreator.setDefaultSortType());
+    dispatch(ActionCreatorData.clearErrorHotelIds());
   },
 });
 

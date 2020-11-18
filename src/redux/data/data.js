@@ -9,6 +9,8 @@ export const initialState = {
   isFavoritesLoading: true,
   isSendingError: false,
   isReviewSending: false,
+  errorMessage: ``,
+  errorHotelIds: [],
 };
 
 export const ActionType = {
@@ -21,6 +23,10 @@ export const ActionType = {
   UPDATE_FAVORITE_STATUS: `UPDATE_FAVORITE_STATUS`,
   SET_SENDING_ERROR_STATUS: `SET_SENDING_ERROR_STATUS`,
   SET_REVIEW_SENDING_STATUS: `SET_REVIEW_SENDING_STATUS`,
+  SET_ERROR_MESSAGE: `SET_ERROR_MESSAGE`,
+  SET_ERROR_HOTEL_ID: `SET_ERROR_HOTEL_ID`,
+  REMOVE_FROM_ERROR_HOTEL_ID: `REMOVE_FROM_ERROR_HOTEL_ID`,
+  CLEAR_ERROR_HOTEL_IDS: `CLEAR_ERROR_HOTEL_IDS`,
 };
 
 export const ActionCreator = {
@@ -84,6 +90,33 @@ export const ActionCreator = {
     return {
       type: ActionType.SET_REVIEW_SENDING_STATUS,
       payload: status,
+    };
+  },
+
+  setErrorMessage: (message) => {
+    return {
+      type: ActionType.SET_ERROR_MESSAGE,
+      payload: message,
+    };
+  },
+
+  setErrorHotelId: (id) => {
+    return {
+      type: ActionType.SET_ERROR_HOTEL_ID,
+      payload: id,
+    };
+  },
+
+  removeErrorHotelId: (id) => {
+    return {
+      type: ActionType.REMOVE_FROM_ERROR_HOTEL_ID,
+      payload: id,
+    };
+  },
+
+  clearErrorHotelIds: () => {
+    return {
+      type: ActionType.CLEAR_ERROR_HOTEL_IDS,
     };
   },
 };
@@ -154,6 +187,12 @@ export const Operation = {
         dispatch(
           ActionCreator.updateFavoriteStatus(hotelAdapter(response.data))
         );
+      })
+      .catch((err) => {
+        if (err.message !== "Request failed with status code 401") {
+          dispatch(ActionCreator.setErrorMessage(err.toJSON().message));
+          dispatch(ActionCreator.setErrorHotelId(hotelId));
+        }
       });
   },
 };
@@ -195,6 +234,22 @@ export const reducer = (state = initialState, action) => {
       return { ...state, isSendingError: action.payload };
     case ActionType.SET_REVIEW_SENDING_STATUS:
       return { ...state, isReviewSending: action.payload };
+    case ActionType.SET_ERROR_MESSAGE:
+      return { ...state, errorMessage: action.payload };
+    case ActionType.SET_ERROR_HOTEL_ID:
+      return {
+        ...state,
+        errorHotelIds: state.errorHotelIds.concat(action.payload),
+      };
+    case ActionType.REMOVE_FROM_ERROR_HOTEL_ID:
+      return {
+        ...state,
+        errorHotelIds: state.errorHotelIds.filter(
+          (item) => item !== action.payload
+        ),
+      };
+    case ActionType.CLEAR_ERROR_HOTEL_IDS:
+      return { ...state, errorHotelIds: [] };
     default:
       return state;
   }

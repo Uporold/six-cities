@@ -5,9 +5,19 @@ import { ActionCreator, Operation as UserOperation } from "./redux/user/user";
 import { createAPI } from "./api";
 import reducer from "./redux/reducer";
 import { Operation as DataOperation } from "./redux/data/data";
+import history from "./history";
 
-const onUnauthorized = () => {
-  store.dispatch(ActionCreator.setAuthorizationStatus(false));
+const Error = {
+  UNAUTHORIZED: 401,
+};
+
+const onUnauthorized = (err) => {
+  if (err.response && err.response.status === Error.UNAUTHORIZED) {
+    store.dispatch(ActionCreator.setAuthorizationStatus(false));
+    if (err.response.config.method === `post`) {
+      history.push(`/login`);
+    }
+  }
 };
 
 const api = createAPI(onUnauthorized);
