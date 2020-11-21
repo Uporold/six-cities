@@ -4,17 +4,21 @@ import configureStore from "redux-mock-store";
 import { Provider } from "react-redux";
 import Map from "./map";
 import { hotels } from "../../mock/offers";
+import NameSpace from "../../redux/name-space";
 
 const mockStore = configureStore([]);
 
 it(`Should Map render correctly`, () => {
   const store = mockStore({
-    hoveredHotelId: 1,
+    [NameSpace.APP]: {
+      currentCity: `Paris`,
+      hoveredHotelId: -1,
+    },
   });
   const tree = renderer
     .create(
       <Provider store={store}>
-        <Map hotels={hotels} center={[52.38333, 4.9]} zoom={12} />
+        <Map hotels={hotels} center={[52.38333, 4.9]} zoom={[12]} />
       </Provider>,
       {
         createNodeMock: () => {

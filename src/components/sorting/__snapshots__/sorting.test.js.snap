@@ -20,6 +20,7 @@ exports[`Should Places List render correctly 1`] = `
     <svg
       className="places__sorting-arrow"
       height="4"
+      style={null}
       width="7"
     >
       <use
@@ -28,7 +29,7 @@ exports[`Should Places List render correctly 1`] = `
     </svg>
   </span>
   <ul
-    className="places__options places__options--custom places__options--opened"
+    className="places__options places__options--custom "
     onClick={[Function]}
   >
     <li

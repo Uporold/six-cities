@@ -6,6 +6,13 @@ import AddReview from "./add-review";
 import NameSpace from "../../redux/name-space";
 import { hotels } from "../../mock/offers";
 
+const userData = {
+  id: 1,
+  email: `test@gmail.com`,
+  name: `test`,
+  avatar: `https://assets.htmlacademy.ru/intensives/javascript-3/avatar/4.jpg`,
+};
+
 describe(`Add Review tests`, () => {
   const mockStore = configureStore([]);
   let store = null;
@@ -14,8 +21,9 @@ describe(`Add Review tests`, () => {
   beforeEach(() => {
     store = mockStore({
       [NameSpace.USER]: {
-        authorizationStatus: false,
+        authorizationStatus: true,
         isAuthorizationLoading: false,
+        user: userData,
       },
       [NameSpace.DATA]: {
         hotels,

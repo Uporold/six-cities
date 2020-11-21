@@ -11,7 +11,7 @@ const mockStore = configureStore([]);
 it(`Render App`, () => {
   const store = mockStore({
     [NameSpace.APP]: {
-      currentCity: `Amsterdam`,
+      currentCity: `Paris`,
       currentSortType: `Popular`,
     },
     [NameSpace.USER]: {
@@ -19,10 +19,13 @@ it(`Render App`, () => {
       isAuthorizationLoading: false,
     },
     [NameSpace.DATA]: {
-      isDataLoading: false,
       hotels,
+      isDataLoading: false,
+      errorHotelIds: [],
     },
   });
+
+  store.dispatch = jest.fn();
 
   const tree = renderer
     .create(
@@ -31,7 +34,7 @@ it(`Render App`, () => {
       </Provider>,
       {
         createNodeMock: () => {
-          return {};
+          return document.createElement(`div`);
         },
       }
     )

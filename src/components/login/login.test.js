@@ -2,35 +2,29 @@ import React from "react";
 import renderer from "react-test-renderer";
 import configureStore from "redux-mock-store";
 import { Provider } from "react-redux";
-import { BrowserRouter as Router } from "react-router-dom";
-import Main from "./main";
-import { hotels } from "../../mock/offers";
+import Login from "./login";
 import NameSpace from "../../redux/name-space";
-
-const DEFAULT_CITY = `Amsterdam`;
+import { BrowserRouter as Router } from "react-router-dom";
 
 const mockStore = configureStore([]);
 
-it(`Should Main render correctly`, () => {
+it(`Sign in page component render`, () => {
   const store = mockStore({
-    [NameSpace.DATA]: {
-      hotels,
-    },
-    [NameSpace.APP]: {
-      currentCity: DEFAULT_CITY,
-    },
     [NameSpace.USER]: {
       authorizationStatus: false,
+    },
+    [NameSpace.APP]: {
+      currentCity: "Paris",
     },
   });
 
   const tree = renderer
     .create(
-      <Provider store={store}>
-        <Router>
-          <Main />
-        </Router>
-      </Provider>,
+      <Router>
+        <Provider store={store}>
+          <Login />
+        </Provider>
+      </Router>,
       {
         createNodeMock: () => {
           return {};

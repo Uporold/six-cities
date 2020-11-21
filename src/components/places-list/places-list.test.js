@@ -5,21 +5,22 @@ import configureStore from "redux-mock-store";
 import { Provider } from "react-redux";
 import PlacesList from "./places-list";
 import { hotels } from "../../mock/offers";
+import { PageType } from "../../utilites/const";
+import NameSpace from "../../redux/name-space";
 
 const mockStore = configureStore([]);
 
 it(`Should Places List render correctly`, () => {
-  const store = mockStore({});
+  const store = mockStore({
+    [NameSpace.DATA]: {
+      errorHotelIds: [],
+    },
+  });
   const tree = renderer
     .create(
       <Provider store={store}>
         <Router>
-          <PlacesList
-            hotels={hotels}
-            onPlaceCardClick={() => {}}
-            onHotelCardOut={() => {}}
-            onHotelCardHover={() => {}}
-          />
+          <PlacesList hotels={hotels} pageType={PageType.MAIN} />
         </Router>
       </Provider>,
       {

@@ -5,7 +5,7 @@ import Sorting from "../sorting/sorting";
 import PlacesList from "../places-list/places-list";
 import Map from "../map/map";
 import { projectPropTypes } from "../../utilites/project-prop-types";
-import { getCurrentCity, getCurrentSortType } from "../../redux/app/selectors";
+import { getCurrentCity } from "../../redux/app/selectors";
 import {
   getHotelsSortedByForm,
   getHotelsSortedByCity,
@@ -15,7 +15,6 @@ import { PageType } from "../../utilites/const";
 const PlacesContainer = ({
   hotelsByCity,
   sortedHotels,
-  currentSortType,
   currentCity,
 }) => {
   const center = [
@@ -30,7 +29,7 @@ const PlacesContainer = ({
         <b className="places__found">
           {hotelsByCity.length} places to stay in {currentCity}
         </b>
-        <Sorting currentSortType={currentSortType} />
+        <Sorting />
         <PlacesList hotels={sortedHotels} pageType={PageType.MAIN} />
       </section>
       <div className="cities__right-section">
@@ -46,11 +45,9 @@ PlacesContainer.propTypes = {
   hotelsByCity: PropTypes.arrayOf(projectPropTypes.HOTEL.isRequired).isRequired,
   sortedHotels: PropTypes.arrayOf(projectPropTypes.HOTEL.isRequired).isRequired,
   currentCity: PropTypes.string.isRequired,
-  currentSortType: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  currentSortType: getCurrentSortType(state),
   currentCity: getCurrentCity(state),
   hotelsByCity: getHotelsSortedByCity(state),
   sortedHotels: getHotelsSortedByForm(state),

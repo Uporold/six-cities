@@ -90,7 +90,7 @@ const PlaceCard = ({
         </div>
         <div
           className={`${
-            pageType === PageType.FAVORITES && `favorites__card-info`
+            pageType === PageType.FAVORITES ? `favorites__card-info` : ``
           } place-card__info`}
         >
           <div className="place-card__price-wrapper">

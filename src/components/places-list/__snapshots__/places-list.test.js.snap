@@ -2,7 +2,7 @@
 
 exports[`Should Places List render correctly 1`] = `
 <div
-  className="places__list near-places__list"
+  className="cities__places-list places__list"
 >
   <article
     className="cities__place-card place-card"
@@ -27,7 +27,7 @@ exports[`Should Places List render correctly 1`] = `
       </a>
     </div>
     <div
-      className="place-card__info"
+      className=" place-card__info"
     >
       <div
         className="place-card__price-wrapper"
@@ -48,7 +48,8 @@ exports[`Should Places List render correctly 1`] = `
           </span>
         </div>
         <button
-          className="place-card__bookmark-button button"
+          className="place-card__bookmark-button  button"
+          onClick={[Function]}
           type="button"
         >
           <svg
@@ -127,7 +128,7 @@ exports[`Should Places List render correctly 1`] = `
       </a>
     </div>
     <div
-      className="place-card__info"
+      className=" place-card__info"
     >
       <div
         className="place-card__price-wrapper"
@@ -148,7 +149,8 @@ exports[`Should Places List render correctly 1`] = `
           </span>
         </div>
         <button
-          className="place-card__bookmark-button button"
+          className="place-card__bookmark-button  button"
+          onClick={[Function]}
           type="button"
         >
           <svg
@@ -227,7 +229,7 @@ exports[`Should Places List render correctly 1`] = `
       </a>
     </div>
     <div
-      className="place-card__info"
+      className=" place-card__info"
     >
       <div
         className="place-card__price-wrapper"
@@ -248,7 +250,8 @@ exports[`Should Places List render correctly 1`] = `
           </span>
         </div>
         <button
-          className="place-card__bookmark-button button"
+          className="place-card__bookmark-button  button"
+          onClick={[Function]}
           type="button"
         >
           <svg
@@ -327,7 +330,7 @@ exports[`Should Places List render correctly 1`] = `
       </a>
     </div>
     <div
-      className="place-card__info"
+      className=" place-card__info"
     >
       <div
         className="place-card__price-wrapper"
@@ -348,7 +351,8 @@ exports[`Should Places List render correctly 1`] = `
           </span>
         </div>
         <button
-          className="place-card__bookmark-button button"
+          className="place-card__bookmark-button  button"
+          onClick={[Function]}
           type="button"
         >
           <svg
@@ -427,7 +431,7 @@ exports[`Should Places List render correctly 1`] = `
       </a>
     </div>
     <div
-      className="place-card__info"
+      className=" place-card__info"
     >
       <div
         className="place-card__price-wrapper"
@@ -448,7 +452,8 @@ exports[`Should Places List render correctly 1`] = `
           </span>
         </div>
         <button
-          className="place-card__bookmark-button button"
+          className="place-card__bookmark-button  button"
+          onClick={[Function]}
           type="button"
         >
           <svg

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Favorites section 1`] = `
+exports[`Favorites locations 1`] = `
 <li
   className="favorites__locations-items"
 >

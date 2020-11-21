@@ -2,7 +2,7 @@
 
 exports[`Should Main render correctly 1`] = `
 <div
-  className="page page--gray page--main"
+  className="page page--gray page--main page__main--index-empty"
 >
   <header
     className="header"
@@ -41,15 +41,16 @@ exports[`Should Main render correctly 1`] = `
             >
               <a
                 className="header__nav-link header__nav-link--profile"
-                href="#"
+                href="/login"
+                onClick={[Function]}
               >
                 <div
                   className="header__avatar-wrapper user__avatar-wrapper"
                 />
                 <span
-                  className="header__user-name user__name"
+                  className="header__login"
                 >
-                  Oliver.conner@gmail.com
+                  Sign in
                 </span>
               </a>
             </li>
@@ -160,102 +161,31 @@ exports[`Should Main render correctly 1`] = `
       className="cities"
     >
       <div
-        className="cities__places-container container"
+        className="cities__places-container cities__places-container--empty container"
       >
         <section
-          className="cities__places places"
+          className="cities__no-places"
         >
-          <h2
-            className="visually-hidden"
-          >
-            Places
-          </h2>
-          <b
-            className="places__found"
-          >
-            0
-             places to stay in 
-            Amsterdam
-          </b>
-          <form
-            action="#"
-            className="places__sorting"
-            method="get"
-          >
-            <span
-              className="places__sorting-caption"
-            >
-              Sort by
-            </span>
-            <span
-              className="places__sorting-type"
-              onClick={[Function]}
-              tabIndex="0"
-            >
-              Popular
-              <svg
-                className="places__sorting-arrow"
-                height="4"
-                width="7"
-              >
-                <use
-                  xlinkHref="#icon-arrow-select"
-                />
-              </svg>
-            </span>
-            <ul
-              className="places__options places__options--custom "
-              onClick={[Function]}
-            >
-              <li
-                className="places__option places__option--active"
-                data-sort-type="Popular"
-                tabIndex="0"
-              >
-                Popular
-              </li>
-              <li
-                className="places__option "
-                data-sort-type="Price: low to high"
-                tabIndex="0"
-              >
-                Price: low to high
-              </li>
-              <li
-                className="places__option "
-                data-sort-type="Price: high to low"
-                tabIndex="0"
-              >
-                Price: high to low
-              </li>
-              <li
-                className="places__option "
-                data-sort-type="Top rated first"
-                tabIndex="0"
-              >
-                Top rated first
-              </li>
-            </ul>
-          </form>
           <div
-            className="places__list cities__places-list tabs__content"
-          />
+            className="cities__status-wrapper tabs__content"
+          >
+            <b
+              className="cities__status"
+            >
+              No places to stay available
+            </b>
+            <p
+              className="cities__status-description"
+            >
+              We could not find any property available at the moment in
+               
+              Amsterdam
+            </p>
+          </div>
         </section>
         <div
           className="cities__right-section"
-        >
-          <section
-            className="cities__map map"
-          >
-            <div
-              style={
-                Object {
-                  "height": "100%",
-                }
-              }
-            />
-          </section>
-        </div>
+        />
       </div>
     </div>
   </main>

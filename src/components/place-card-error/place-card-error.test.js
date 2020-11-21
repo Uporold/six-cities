@@ -2,34 +2,25 @@ import React from "react";
 import renderer from "react-test-renderer";
 import configureStore from "redux-mock-store";
 import { Provider } from "react-redux";
-import PropertyReviews from "./property-reviews";
-import { reviews } from "../../mock/reviews";
+import PlaceCardError from "./place-card-error";
 import NameSpace from "../../redux/name-space";
 
 const mockStore = configureStore([]);
 
-const userData = {
-  id: 1,
-  email: `test@gmail.com`,
-  name: `test`,
-  avatar: `https://assets.htmlacademy.ru/intensives/javascript-3/avatar/4.jpg`,
-};
-
-it(`Should Reviews List render correctly`, () => {
+it(`PlaceCardError render correctly`, () => {
   const store = mockStore({
     [NameSpace.DATA]: {
-      isSendingError: false,
-      isReviewSending: false,
+      errorHotelIds: [0, 1, 2, 3],
+      errorMessage: `Test error`,
     },
     [NameSpace.USER]: {
       authorizationStatus: true,
-      user: userData,
     },
   });
   const tree = renderer
     .create(
       <Provider store={store}>
-        <PropertyReviews reviews={reviews} hotelId={1} />
+        <PlaceCardError hotelId={0} />
       </Provider>
     )
     .toJSON();

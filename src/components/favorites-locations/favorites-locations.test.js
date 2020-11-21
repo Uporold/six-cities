@@ -6,13 +6,18 @@ import { Router } from "react-router-dom";
 import FavoritesLocations from "./favorites-locations";
 import { hotels } from "../../mock/offers";
 import history from "../../history";
+import NameSpace from "../../redux/name-space";
 
 const city = `Paris`;
 
 const mockStore = configureStore([]);
 
-it(`Favorites section`, () => {
-  const store = mockStore({});
+it(`Favorites locations`, () => {
+  const store = mockStore({
+    [NameSpace.DATA]: {
+      errorHotelIds: [],
+    },
+  });
 
   const tree = renderer
     .create(
