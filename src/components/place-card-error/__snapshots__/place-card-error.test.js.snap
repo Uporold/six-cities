@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PlaceCardError render correctly 1`] = `
+<div
+  onClick={[Function]}
+  style={
+    Object {
+      "alignItems": "center",
+      "background": "rgba(50,50,50,0.6)",
+      "color": "white",
+      "cursor": "pointer",
+      "display": "flex",
+      "flexDirection": "column",
+      "height": "100%",
+      "justifyContent": "center",
+      "left": "0",
+      "position": "absolute",
+      "top": "0",
+      "width": "100%",
+      "zIndex": "999",
+    }
+  }
+>
+  <p>
+    Test error
+  </p>
+  <p>
+    Click to close
+  </p>
+</div>
+`;

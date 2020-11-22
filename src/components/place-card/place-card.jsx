@@ -13,15 +13,15 @@ import NameSpace from "../../redux/name-space";
 import PlaceCardError from "../place-card-error/place-card-error";
 
 const pageTypeToCardClass = {
-  [PageType.MAIN]: `cities__place-card`,
-  [PageType.PROPERTY]: `near-places__card`,
-  [PageType.FAVORITES]: `favorites__card`,
+  MAIN: `cities__place-card`,
+  PROPERTY: `near-places__card`,
+  FAVORITES: `favorites__card`,
 };
 
 const pageTypeToImageWrapperClass = {
-  [PageType.MAIN]: `cities__image-wrapper`,
-  [PageType.PROPERTY]: `near-places__image-wrapper`,
-  [PageType.FAVORITES]: `favorites__image-wrapper`,
+  MAIN: `cities__image-wrapper`,
+  PROPERTY: `near-places__image-wrapper`,
+  FAVORITES: `favorites__image-wrapper`,
 };
 
 const PlaceCard = ({
