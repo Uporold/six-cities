@@ -480,4 +480,49 @@ describe(`Operations work correctly`, () => {
       });
     });
   });
+
+  it(`Operation should check POST to /comments/0`, () => {
+    const apiMock = new MockAdapter(api);
+    const dispatch = jest.fn();
+    const fakeReview = { comment: `Test comment`, email: `test@test.ru` };
+    const sendReview = Operation.sendReview(0, fakeReview);
+
+    apiMock.onPost(`/comments/0`).reply(200, [{ fake: true }]);
+
+    return sendReview(dispatch, () => {}, api).then(() => {
+      expect(dispatch).toHaveBeenCalledTimes(4);
+      expect(dispatch).toHaveBeenNthCalledWith(1, {
+        type: ActionType.SET_REVIEW_SENDING_STATUS,
+        payload: true,
+      });
+
+      expect(dispatch).toHaveBeenNthCalledWith(2, {
+        type: ActionType.SET_SENDING_ERROR_STATUS,
+        payload: false,
+      });
+
+      expect(dispatch).toHaveBeenNthCalledWith(3, {
+        type: ActionType.SET_REVIEW_SENDING_STATUS,
+        payload: false,
+      });
+
+      expect(dispatch).toHaveBeenNthCalledWith(4, expect.any(Function));
+    });
+  });
+
+  it(`Operation should check POST to /favorite/0/1`, () => {
+    const apiMock = new MockAdapter(api);
+    const dispatch = jest.fn();
+    const changeFavorite = Operation.changeHotelFavoriteStatus(0, true);
+
+    apiMock.onPost(`/favorite/0/1`).reply(200, pureHotels[0]);
+
+    return changeFavorite(dispatch, () => {}, api).then(() => {
+      expect(dispatch).toHaveBeenCalledTimes(1);
+      expect(dispatch).toHaveBeenNthCalledWith(1, {
+        type: ActionType.UPDATE_FAVORITE_STATUS,
+        payload: hotels[0],
+      });
+    });
+  });
 });
