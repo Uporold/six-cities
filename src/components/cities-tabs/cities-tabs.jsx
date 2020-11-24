@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { ActionCreator } from "../../redux/app/app";
 import { getCurrentCity } from "../../redux/app/selectors";
 import { ActionCreator as ActionCreatorData } from "../../redux/data/data";
+import NameSpace from "../../redux/name-space";
 
 const cities = [
   `Paris`,
@@ -13,7 +14,22 @@ const cities = [
   `Hamburg`,
   `Dusseldorf`,
 ];
-const CitiesTabs = ({ currentCity, onCityClick }) => {
+const CitiesTabs = ({
+  currentCity,
+  onCityClick,
+  errorHotelIds,
+  clearErrorHotelIds,
+}) => {
+  const onCityTabClickHandler = (city) => (evt) => {
+    evt.preventDefault();
+    if (currentCity !== city) {
+      onCityClick(city);
+    }
+    if (errorHotelIds.length > 0) {
+      clearErrorHotelIds();
+    }
+  };
+
   return (
     <div className="tabs">
       <section className="locations container">
@@ -21,12 +37,7 @@ const CitiesTabs = ({ currentCity, onCityClick }) => {
           {cities.map((city) => (
             <li className="locations__item" key={city}>
               <a
-                onClick={(evt) => {
-                  evt.preventDefault();
-                  if (currentCity !== city) {
-                    onCityClick(city);
-                  }
-                }}
+                onClick={onCityTabClickHandler(city)}
                 className={`locations__item-link tabs__item ${
                   city === currentCity ? `tabs__item--active` : ``
                 }`}
@@ -45,18 +56,23 @@ const CitiesTabs = ({ currentCity, onCityClick }) => {
 CitiesTabs.propTypes = {
   currentCity: PropTypes.string.isRequired,
   onCityClick: PropTypes.func.isRequired,
+  errorHotelIds: PropTypes.arrayOf(PropTypes.number).isRequired,
+  clearErrorHotelIds: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({
   onCityClick(city) {
     dispatch(ActionCreator.setCity(city));
     dispatch(ActionCreator.setDefaultSortType());
+  },
+  clearErrorHotelIds() {
     dispatch(ActionCreatorData.clearErrorHotelIds());
   },
 });
 
 const mapStateToProps = (state) => ({
   currentCity: getCurrentCity(state),
+  errorHotelIds: state[NameSpace.DATA].errorHotelIds,
 });
 
 export { CitiesTabs };

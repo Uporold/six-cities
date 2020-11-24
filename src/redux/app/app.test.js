@@ -1,6 +1,4 @@
-import MockAdapter from "axios-mock-adapter";
-import { reducer, ActionCreator, ActionType, Operation } from "./app";
-import { createAPI } from "../../api";
+import { reducer, ActionCreator, ActionType } from "./app";
 
 const DEFAULT_CITY = `Brussels`;
 const DEFAULT_SORT = `Popular`;
@@ -106,4 +104,3 @@ describe(`Action creators work correctly`, () => {
     });
   });
 });
-

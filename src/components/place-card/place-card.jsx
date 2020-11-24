@@ -55,7 +55,9 @@ const PlaceCard = ({
 
   const onCardClickHandler = () => {
     onCardMouseOut();
-    clearErrorHotelIds();
+    if (errorHotelIds.length > 0) {
+      clearErrorHotelIds();
+    }
   };
 
   const onButtonClickHandler = (hotelId, isFavorite) => (evt) => {

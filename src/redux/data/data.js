@@ -117,6 +117,7 @@ export const ActionCreator = {
   clearErrorHotelIds: () => {
     return {
       type: ActionType.CLEAR_ERROR_HOTEL_IDS,
+      payload: [],
     };
   },
 };
@@ -249,7 +250,7 @@ export const reducer = (state = initialState, action) => {
         ),
       };
     case ActionType.CLEAR_ERROR_HOTEL_IDS:
-      return { ...state, errorHotelIds: [] };
+      return { ...state, errorHotelIds: action.payload };
     default:
       return state;
   }

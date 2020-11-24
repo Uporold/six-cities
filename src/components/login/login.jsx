@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import Header from "../header/header";
 import { Operation } from "../../redux/user/user";
 import NameSpace from "../../redux/name-space";
+import { ActionCreator as ActionCreatorData } from "../../redux/data/data";
 
 class Login extends PureComponent {
   constructor(props) {
@@ -11,6 +12,13 @@ class Login extends PureComponent {
 
     this.emailRef = createRef();
     this.passwordRef = createRef();
+  }
+
+  componentWillUnmount() {
+    const { errorHotelIds, clearErrorHotelIds } = this.props;
+    if (errorHotelIds.length > 0) {
+      clearErrorHotelIds();
+    }
   }
 
   handleSubmit = (evt) => {
@@ -87,15 +95,21 @@ class Login extends PureComponent {
 Login.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   currentCity: PropTypes.string.isRequired,
+  errorHotelIds: PropTypes.arrayOf(PropTypes.number).isRequired,
+  clearErrorHotelIds: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   currentCity: state[NameSpace.APP].currentCity,
+  errorHotelIds: state[NameSpace.DATA].errorHotelIds,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   onSubmit(authData) {
     dispatch(Operation.login(authData));
+  },
+  clearErrorHotelIds() {
+    dispatch(ActionCreatorData.clearErrorHotelIds());
   },
 });
 
