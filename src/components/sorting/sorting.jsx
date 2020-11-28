@@ -29,14 +29,13 @@ class Sorting extends PureComponent {
     this.setState({ isSortOpen: !isSortOpen });
   }
 
-  sortListClickHandler(evt) {
+  sortItemClickHandler = (sortType) => (evt) => {
     const { currentSortType, onSortingTabClick } = this.props;
     evt.preventDefault();
-    const { sortType } = evt.target.dataset;
     if (sortType && sortType !== currentSortType) {
       onSortingTabClick(sortType);
     }
-  }
+  };
 
   closeSortForm(prevProps) {
     const { currentCity } = this.props;
@@ -70,9 +69,6 @@ class Sorting extends PureComponent {
           </svg>
         </span>
         <ul
-          onClick={(evt) => {
-            this.sortListClickHandler(evt);
-          }}
           className={`places__options places__options--custom ${
             isSortOpen ? `places__options--opened` : ``
           }`}
@@ -81,6 +77,7 @@ class Sorting extends PureComponent {
             <li
               key={sortTypes[key]}
               data-sort-type={sortTypes[key]}
+              onClick={this.sortItemClickHandler(sortTypes[key])}
               className={`places__option ${
                 sortTypes[key] === currentSortType
                   ? `places__option--active`
