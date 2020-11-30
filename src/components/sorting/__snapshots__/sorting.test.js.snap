@@ -30,11 +30,11 @@ exports[`Should Places List render correctly 1`] = `
   </span>
   <ul
     className="places__options places__options--custom "
-    onClick={[Function]}
   >
     <li
       className="places__option places__option--active"
       data-sort-type="Popular"
+      onClick={[Function]}
       tabIndex="0"
     >
       Popular
@@ -42,6 +42,7 @@ exports[`Should Places List render correctly 1`] = `
     <li
       className="places__option "
       data-sort-type="Price: low to high"
+      onClick={[Function]}
       tabIndex="0"
     >
       Price: low to high
@@ -49,6 +50,7 @@ exports[`Should Places List render correctly 1`] = `
     <li
       className="places__option "
       data-sort-type="Price: high to low"
+      onClick={[Function]}
       tabIndex="0"
     >
       Price: high to low
@@ -56,6 +58,7 @@ exports[`Should Places List render correctly 1`] = `
     <li
       className="places__option "
       data-sort-type="Top rated first"
+      onClick={[Function]}
       tabIndex="0"
     >
       Top rated first

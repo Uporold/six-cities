@@ -2,9 +2,9 @@ import React from "react";
 import renderer from "react-test-renderer";
 import configureStore from "redux-mock-store";
 import { Provider } from "react-redux";
+import { BrowserRouter as Router } from "react-router-dom";
 import Login from "./login";
 import NameSpace from "../../redux/name-space";
-import { BrowserRouter as Router } from "react-router-dom";
 
 const mockStore = configureStore([]);
 
@@ -15,6 +15,9 @@ it(`Sign in page component render`, () => {
     },
     [NameSpace.APP]: {
       currentCity: "Paris",
+    },
+    [NameSpace.DATA]: {
+      errorHotelIds: [],
     },
   });
 

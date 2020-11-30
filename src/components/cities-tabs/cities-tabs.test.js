@@ -12,6 +12,9 @@ it(`Should Cities tabs render correctly`, () => {
     [NameSpace.APP]: {
       currentCity: `Amsterdam`,
     },
+    [NameSpace.DATA]: {
+      errorHotelIds: [],
+    },
   });
   const tree = renderer
     .create(
