@@ -1,5 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { getCurrentCity } from "../../redux/app/selectors";
 
 const MainEmpty = ({ currentCity }) => {
   return (
@@ -22,4 +24,9 @@ MainEmpty.propTypes = {
   currentCity: PropTypes.string.isRequired,
 };
 
-export default MainEmpty;
+const mapStateToProps = (state) => ({
+  currentCity: getCurrentCity(state),
+});
+
+export { MainEmpty };
+export default connect(mapStateToProps, null)(MainEmpty);

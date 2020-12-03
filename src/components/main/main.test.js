@@ -15,6 +15,7 @@ it(`Should Main render correctly`, () => {
   const store = mockStore({
     [NameSpace.DATA]: {
       hotels,
+      errorHotelIds: [],
     },
     [NameSpace.APP]: {
       currentCity: DEFAULT_CITY,

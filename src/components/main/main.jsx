@@ -7,9 +7,8 @@ import CitiesTabs from "../cities-tabs/cities-tabs";
 import MainEmpty from "../main-empty/main-empty";
 import PlacesContainer from "../places-container/places-container";
 import { getHotelsSortedByCity } from "../../redux/data/selectors";
-import { getCurrentCity } from "../../redux/app/selectors";
 
-const Main = ({ hotels, currentCity }) => {
+const Main = ({ hotels }) => {
   return (
     <div
       className={`page page--gray page--main ${
@@ -21,11 +20,7 @@ const Main = ({ hotels, currentCity }) => {
         <h1 className="visually-hidden">Cities</h1>
         <CitiesTabs />
         <div className="cities">
-          {hotels.length > 0 ? (
-            <PlacesContainer />
-          ) : (
-            <MainEmpty currentCity={currentCity} />
-          )}
+          {hotels.length > 0 ? <PlacesContainer /> : <MainEmpty />}
         </div>
       </main>
     </div>
@@ -34,11 +29,9 @@ const Main = ({ hotels, currentCity }) => {
 
 Main.propTypes = {
   hotels: PropTypes.arrayOf(projectPropTypes.HOTEL.isRequired).isRequired,
-  currentCity: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  currentCity: getCurrentCity(state),
   hotels: getHotelsSortedByCity(state),
 });
 

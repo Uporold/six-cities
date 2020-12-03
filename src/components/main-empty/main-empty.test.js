@@ -1,6 +1,6 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import MainEmpty from "./main-empty";
+import { MainEmpty } from "./main-empty";
 
 const city = `Paris`;
 
