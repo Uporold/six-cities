@@ -19,6 +19,8 @@ export const getSendingErrorStatus = (state) =>
   state[NameSpace.DATA].isSendingError;
 export const getReviewSendingStatus = (state) =>
   state[NameSpace.DATA].isReviewSending;
+export const getErrorHotelIds = (state) => state[NameSpace.DATA].errorHotelIds;
+export const getErrorMessage = (state) => state[NameSpace.DATA].errorMessage;
 
 export const getHotelsSortedByCity = createSelector(
   getHotels,

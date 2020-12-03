@@ -3,8 +3,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { sortTypes } from "../../utilites/util";
 import { ActionCreator } from "../../redux/app/app";
-import NameSpace from "../../redux/name-space";
-import { getCurrentSortType } from "../../redux/app/selectors";
+import { getCurrentCity, getCurrentSortType } from "../../redux/app/selectors";
 
 const arrowActiveStyle = {
   transform: `rotate(180deg)`,
@@ -101,8 +100,8 @@ Sorting.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  currentCity: getCurrentSortType(state),
-  currentSortType: state[NameSpace.APP].currentSortType,
+  currentCity: getCurrentCity(state),
+  currentSortType: getCurrentSortType(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

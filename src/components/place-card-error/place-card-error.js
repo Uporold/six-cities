@@ -1,8 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import NameSpace from "../../redux/name-space";
 import { ActionCreator } from "../../redux/data/data";
+import { getErrorMessage } from "../../redux/data/selectors";
 
 const styles = {
   position: "absolute",
@@ -41,7 +41,7 @@ PlaceCardError.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  errorMessage: state[NameSpace.DATA].errorMessage,
+  errorMessage: getErrorMessage(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { ActionCreator } from "../../redux/app/app";
 import { getCurrentCity } from "../../redux/app/selectors";
 import { ActionCreator as ActionCreatorData } from "../../redux/data/data";
-import NameSpace from "../../redux/name-space";
+import { getErrorHotelIds } from "../../redux/data/selectors";
 
 const cities = [
   `Paris`,
@@ -72,7 +72,7 @@ const mapDispatchToProps = (dispatch) => ({
 
 const mapStateToProps = (state) => ({
   currentCity: getCurrentCity(state),
-  errorHotelIds: state[NameSpace.DATA].errorHotelIds,
+  errorHotelIds: getErrorHotelIds(state),
 });
 
 export { CitiesTabs };

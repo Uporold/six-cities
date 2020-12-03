@@ -3,8 +3,9 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import Header from "../header/header";
 import { Operation } from "../../redux/user/user";
-import NameSpace from "../../redux/name-space";
 import { ActionCreator as ActionCreatorData } from "../../redux/data/data";
+import { getCurrentCity } from "../../redux/app/selectors";
+import { getErrorHotelIds } from "../../redux/data/selectors";
 
 class Login extends PureComponent {
   constructor(props) {
@@ -100,8 +101,8 @@ Login.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  currentCity: state[NameSpace.APP].currentCity,
-  errorHotelIds: state[NameSpace.DATA].errorHotelIds,
+  currentCity: getCurrentCity(state),
+  errorHotelIds: getErrorHotelIds(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

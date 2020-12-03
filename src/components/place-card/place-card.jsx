@@ -9,8 +9,8 @@ import {
   ActionCreator as ActionCreatorData,
 } from "../../redux/data/data";
 import { PageType } from "../../utilites/const";
-import NameSpace from "../../redux/name-space";
 import PlaceCardError from "../place-card-error/place-card-error";
+import { getErrorHotelIds } from "../../redux/data/selectors";
 
 const pageTypeToCardClass = {
   MAIN: `cities__place-card`,
@@ -139,7 +139,7 @@ PlaceCard.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  errorHotelIds: state[NameSpace.DATA].errorHotelIds,
+  errorHotelIds: getErrorHotelIds(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

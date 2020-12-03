@@ -4,10 +4,14 @@ import { connect } from "react-redux";
 import Header from "../header/header";
 import {
   getCitiesOfFavoriteHotels,
+  getErrorHotelIds,
   getFavoriteHotels,
   getFavoritesLoadingStatus,
 } from "../../redux/data/selectors";
-import { Operation } from "../../redux/data/data";
+import {
+  ActionCreator as ActionCreatorData,
+  Operation,
+} from "../../redux/data/data";
 import { projectPropTypes } from "../../utilites/project-prop-types";
 import Footer from "../footer/footer";
 import Favorites from "../favorites/favorites";
@@ -16,8 +20,11 @@ import LoaderSpinner from "../loader-spinner/loader-spinner";
 
 class FavoritesPage extends PureComponent {
   componentDidMount() {
-    const { loadFavorites } = this.props;
+    const { loadFavorites, errorHotelIds, clearErrorHotelIds } = this.props;
     loadFavorites();
+    if (errorHotelIds.length > 0) {
+      clearErrorHotelIds();
+    }
   }
 
   render() {
@@ -59,11 +66,15 @@ const mapStateToProps = (state) => ({
   cities: getCitiesOfFavoriteHotels(state),
   favoriteHotels: getFavoriteHotels(state),
   isFavoritesLoading: getFavoritesLoadingStatus(state),
+  errorHotelIds: getErrorHotelIds(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
   loadFavorites() {
     dispatch(Operation.loadFavoriteHotels());
+  },
+  clearErrorHotelIds() {
+    dispatch(ActionCreatorData.clearErrorHotelIds());
   },
 });
 
