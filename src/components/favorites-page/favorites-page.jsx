@@ -60,6 +60,8 @@ FavoritesPage.propTypes = {
     .isRequired,
   isFavoritesLoading: PropTypes.bool.isRequired,
   loadFavorites: PropTypes.func.isRequired,
+  errorHotelIds: PropTypes.arrayOf(PropTypes.number).isRequired,
+  clearErrorHotelIds: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
