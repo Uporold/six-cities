@@ -11,6 +11,7 @@ import {
 import { PageType } from "../../utilites/const";
 import PlaceCardError from "../place-card-error/place-card-error";
 import { getErrorHotelIds } from "../../redux/data/selectors";
+import { PagePath } from "../../utilites/const";
 
 const pageTypeToCardClass = {
   MAIN: `cities__place-card`,
@@ -80,7 +81,7 @@ const PlaceCard = ({
         <div
           className={`${pageTypeToImageWrapperClass[pageType]} place-card__image-wrapper`}
         >
-          <Link onClick={onCardClickHandler} to={`/offers/${hotel.id}`}>
+          <Link onClick={onCardClickHandler} to={PagePath.PROPERTY(hotel.id)}>
             <img
               className="place-card__image"
               src={hotel.previewImage}
@@ -120,7 +121,7 @@ const PlaceCard = ({
             </div>
           </div>
           <h2 className="place-card__name">
-            <Link to={`/offers/${hotel.id}`}>{hotel.title}</Link>
+            <Link to={PagePath.PROPERTY(hotel.id)}>{hotel.title}</Link>
           </h2>
           <p className="place-card__type">{hotelType}</p>
         </div>

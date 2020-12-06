@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { getAuthorizationStatus, getUser } from "../../redux/user/selectors";
+import { PagePath } from "../../utilites/const";
 
 const Header = ({ isMain, isLogin, authorizationStatus, user }) => {
   return (
@@ -11,8 +12,9 @@ const Header = ({ isMain, isLogin, authorizationStatus, user }) => {
         <div className="header__wrapper">
           <div className="header__left">
             <Link
-              to={isMain ? "#" : "/"}
+              to={PagePath.MAIN}
               className="header__logo-link header__logo-link--active"
+              onClick={isMain ? (event) => event.preventDefault() : () => {}}
             >
               <img
                 className="header__logo"
@@ -29,7 +31,9 @@ const Header = ({ isMain, isLogin, authorizationStatus, user }) => {
                 <li className="header__nav-item user">
                   <Link
                     className="header__nav-link header__nav-link--profile"
-                    to={!authorizationStatus ? "/login" : "/favorites"}
+                    to={
+                      !authorizationStatus ? PagePath.LOGIN : PagePath.FAVORITES
+                    }
                   >
                     <div className="header__avatar-wrapper user__avatar-wrapper" />
                     {authorizationStatus ? (

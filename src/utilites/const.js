@@ -27,3 +27,10 @@ export const months = [
   `November`,
   `December`,
 ];
+
+export const PagePath = {
+  MAIN: `/`,
+  PROPERTY: (id = `:id`) => `/offers/${id}`,
+  FAVORITES: `/favorites`,
+  LOGIN: `/login`,
+};

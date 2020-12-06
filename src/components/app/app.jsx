@@ -14,6 +14,7 @@ import {
 } from "../../redux/user/selectors";
 import FavoritesPage from "../favorites-page/favorites-page";
 import PrivateRoute from "../private-route/private-route";
+import { PagePath } from "../../utilites/const";
 
 const App = ({
   isDataLoading,
@@ -25,18 +26,18 @@ const App = ({
       {!isDataLoading && !isAuthorizationLoading ? (
         <Router history={history}>
           <Switch>
-            <Route exact path="/" component={Main} />
-            <Route path="/offers/:id" component={Property} />
+            <Route exact path={PagePath.MAIN} component={Main} />
+            <Route path={PagePath.PROPERTY()} component={Property} />
             <Route
               exact
-              path="/login"
+              path={PagePath.LOGIN}
               render={() => {
                 return !authorizationStatus ? <Login /> : <Redirect to="/" />;
               }}
             />
             <PrivateRoute
               exact
-              path="/favorites"
+              path={PagePath.FAVORITES}
               render={() => <FavoritesPage />}
             />
           </Switch>

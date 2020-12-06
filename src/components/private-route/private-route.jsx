@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { Route, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { getAuthorizationStatus } from "../../redux/user/selectors";
+import { PagePath } from "../../utilites/const";
 
 const PrivateRoute = (props) => {
   const { render, path, exact, authorizationStatus } = props;
@@ -15,7 +16,7 @@ const PrivateRoute = (props) => {
         return authorizationStatus ? (
           render(routeProps)
         ) : (
-          <Redirect to="/login" />
+          <Redirect to={PagePath.LOGIN} />
         );
       }}
     />

@@ -21,13 +21,11 @@ const styles = {
 };
 
 const PlaceCardError = ({ hotelId, errorMessage, onClose }) => {
+  const onCloseClickHandler = () => {
+    onClose(hotelId);
+  };
   return (
-    <div
-      style={styles}
-      onClick={() => {
-        onClose(hotelId);
-      }}
-    >
+    <div style={styles} onClick={onCloseClickHandler}>
       <p>{errorMessage}</p>
       <p>Click to close</p>
     </div>

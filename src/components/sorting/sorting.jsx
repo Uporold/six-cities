@@ -23,10 +23,10 @@ class Sorting extends PureComponent {
     this.closeSortForm(prevProps);
   }
 
-  onSortFormClick() {
+  onSortFormClick = () => {
     const { isSortOpen } = this.state;
     this.setState({ isSortOpen: !isSortOpen });
-  }
+  };
 
   sortItemClickHandler = (sortType) => (evt) => {
     const { currentSortType, onSortingTabClick } = this.props;
@@ -53,9 +53,7 @@ class Sorting extends PureComponent {
         <span
           className="places__sorting-type"
           tabIndex="0"
-          onClick={() => {
-            this.onSortFormClick();
-          }}
+          onClick={this.onSortFormClick}
         >
           {currentSortType}
           <svg
