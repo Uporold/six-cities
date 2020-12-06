@@ -1,11 +1,17 @@
 import React from "react";
 import { projectPropTypes } from "../../utilites/project-prop-types";
+import { getDate } from "../../utilites/util";
 
 const PropertyReview = ({ review }) => {
+  const date = getDate(review.date);
   return (
     <li className="reviews__item">
       <div className="reviews__user user">
-        <div className="reviews__avatar-wrapper user__avatar-wrapper">
+        <div
+          className={`reviews__avatar-wrapper user__avatar-wrapper  ${
+            review.user.isPro ? `property__avatar-wrapper--pro` : ``
+          }`}
+        >
           <img
             className="reviews__avatar user__avatar"
             src={review.user.avatar}
@@ -14,7 +20,7 @@ const PropertyReview = ({ review }) => {
             alt="Reviews avatar"
           />
         </div>
-        <span className="reviews__user-name">{review.name}</span>
+        <span className="reviews__user-name">{review.user.name}</span>
       </div>
       <div className="reviews__info">
         <div className="reviews__rating rating">
@@ -24,8 +30,8 @@ const PropertyReview = ({ review }) => {
           </div>
         </div>
         <p className="reviews__text">{review.comment}</p>
-        <time className="reviews__time" dateTime="2019-04-24">
-          April 2019
+        <time className="reviews__time" dateTime={review.date}>
+          {date}
         </time>
       </div>
     </li>

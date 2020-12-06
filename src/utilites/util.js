@@ -1,3 +1,5 @@
+import {months} from "./const";
+
 export const getHotelsByCity = (hotels, city) => {
   return hotels.filter((hotel) => hotel.city.name === city);
 };
@@ -39,4 +41,8 @@ export const getHotelsCities = (hotels) => {
         })
     ),
   ];
+};
+
+export const getDate = (date) => {
+  return `${months[new Date(date).getMonth()]} ${new Date(date).getFullYear()}`;
 };

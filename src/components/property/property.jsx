@@ -171,7 +171,7 @@ class Property extends PureComponent {
                       />
                     </div>
                     <span className="property__user-name">{host.name}</span>
-                    {host.isPro !== true && (
+                    {host.isPro && (
                       <span className="property__user-status">Pro</span>
                     )}
                   </div>
