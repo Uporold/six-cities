@@ -5,15 +5,8 @@ import { ActionCreator } from "../../redux/app/app";
 import { getCurrentCity } from "../../redux/app/selectors";
 import { ActionCreator as ActionCreatorData } from "../../redux/data/data";
 import { getErrorHotelIds } from "../../redux/data/selectors";
+import {cities} from "../../utilites/const";
 
-const cities = [
-  `Paris`,
-  `Cologne`,
-  `Brussels`,
-  `Amsterdam`,
-  `Hamburg`,
-  `Dusseldorf`,
-];
 const CitiesTabs = ({
   currentCity,
   onCityClick,

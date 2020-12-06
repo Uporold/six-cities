@@ -3,3 +3,12 @@ export const PageType = {
   PROPERTY: `PROPERTY`,
   FAVORITES: `FAVORITES`,
 };
+
+export const cities = [
+  `Paris`,
+  `Cologne`,
+  `Brussels`,
+  `Amsterdam`,
+  `Hamburg`,
+  `Dusseldorf`,
+];
