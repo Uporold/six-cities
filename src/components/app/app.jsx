@@ -32,7 +32,11 @@ const App = ({
               exact
               path={PagePath.LOGIN}
               render={() => {
-                return !authorizationStatus ? <Login /> : <Redirect to="/" />;
+                return !authorizationStatus ? (
+                  <Login />
+                ) : (
+                  <Redirect to={PagePath.MAIN} />
+                );
               }}
             />
             <PrivateRoute

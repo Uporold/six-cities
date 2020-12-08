@@ -40,12 +40,8 @@ class Map extends PureComponent {
 
   renderIcon(id) {
     const { hoveredHotelId, currentHotelId } = this.props;
-    if (currentHotelId === id) {
-      return testIcon;
-    }
-    if (hoveredHotelId === id) {
-      return hoverIcon;
-    }
+    if (currentHotelId === id) return testIcon;
+    if (hoveredHotelId === id) return hoverIcon;
     return icon;
   }
 

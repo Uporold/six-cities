@@ -15,6 +15,11 @@ const errorMessageStyle = {
   color: `red`,
 };
 
+const ButtonText = {
+  SENDING: `Sending...`,
+  SUBMIT: `Submit`,
+};
+
 class AddReview extends PureComponent {
   constructor(props) {
     super(props);
@@ -106,7 +111,7 @@ class AddReview extends PureComponent {
             type="submit"
             disabled={isReviewSending || comment.length < 50 || stars < 1}
           >
-            {isReviewSending ? `Sending...` : `Submit`}
+            {isReviewSending ? ButtonText.SENDING : ButtonText.SUBMIT}
           </button>
         </div>
         {isSendingError && (
