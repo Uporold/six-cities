@@ -1,11 +1,11 @@
 import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import Header from "../header/header";
-import PlacesList from "../places-list/places-list";
-import PropertyReviews from "../property-reviews/property-reviews";
+import Header from "../../components/header/header";
+import PlacesList from "../../components/places-list/places-list";
+import PropertyReviews from "../../components/property-reviews/property-reviews";
 import { projectPropTypes } from "../../utilites/project-prop-types";
-import Map from "../map/map";
+import Map from "../../components/map/map";
 import { Operation } from "../../redux/data/data";
 import {
   getHotelReviews,

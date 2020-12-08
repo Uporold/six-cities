@@ -1,11 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import Header from "../header/header";
+import Header from "../../components/header/header";
 import { projectPropTypes } from "../../utilites/project-prop-types";
-import CitiesTabs from "../cities-tabs/cities-tabs";
-import MainEmpty from "../main-empty/main-empty";
-import PlacesContainer from "../places-container/places-container";
+import CitiesTabs from "../../components/cities-tabs/cities-tabs";
+import MainEmpty from "../../components/main-empty/main-empty";
+import PlacesContainer from "../../components/places-container/places-container";
 import { getHotelsSortedByCity } from "../../redux/data/selectors";
 
 const Main = ({ hotels }) => {

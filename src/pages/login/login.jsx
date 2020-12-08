@@ -1,7 +1,7 @@
 import React, { PureComponent, createRef } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import Header from "../header/header";
+import Header from "../../components/header/header";
 import { Operation } from "../../redux/user/user";
 import { ActionCreator as ActionCreatorData } from "../../redux/data/data";
 import { getCurrentCity } from "../../redux/app/selectors";

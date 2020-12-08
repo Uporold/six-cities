@@ -1,7 +1,7 @@
 import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import Header from "../header/header";
+import Header from "../../components/header/header";
 import {
   getCitiesOfFavoriteHotels,
   getErrorHotelIds,
@@ -13,12 +13,12 @@ import {
   Operation,
 } from "../../redux/data/data";
 import { projectPropTypes } from "../../utilites/project-prop-types";
-import Footer from "../footer/footer";
-import Favorites from "../favorites/favorites";
-import FavoritesEmpty from "../favorites-empty/favorites-empty";
-import LoaderSpinner from "../loader-spinner/loader-spinner";
+import Footer from "../../components/footer/footer";
+import FavoritesLists from "../../components/favorites-lists/favorites-lists";
+import FavoritesEmpty from "../../components/favorites-empty/favorites-empty";
+import LoaderSpinner from "../../components/loader-spinner/loader-spinner";
 
-class FavoritesPage extends PureComponent {
+class Favorites extends PureComponent {
   componentDidMount() {
     const { loadFavorites, errorHotelIds, clearErrorHotelIds } = this.props;
     loadFavorites();
@@ -38,7 +38,10 @@ class FavoritesPage extends PureComponent {
             <main className="page__main page__main--favorites">
               <div className="page__favorites-container container">
                 {favoriteHotels.length ? (
-                  <Favorites cities={cities} favoriteHotels={favoriteHotels} />
+                  <FavoritesLists
+                    cities={cities}
+                    favoriteHotels={favoriteHotels}
+                  />
                 ) : (
                   <FavoritesEmpty />
                 )}
@@ -54,7 +57,7 @@ class FavoritesPage extends PureComponent {
   }
 }
 
-FavoritesPage.propTypes = {
+Favorites.propTypes = {
   cities: PropTypes.arrayOf(PropTypes.string).isRequired,
   favoriteHotels: PropTypes.arrayOf(projectPropTypes.HOTEL.isRequired)
     .isRequired,
@@ -80,5 +83,5 @@ const mapDispatchToProps = (dispatch) => ({
   },
 });
 
-export { FavoritesPage };
-export default connect(mapStateToProps, mapDispatchToProps)(FavoritesPage);
+export { Favorites };
+export default connect(mapStateToProps, mapDispatchToProps)(Favorites);

@@ -3,40 +3,37 @@ import renderer from "react-test-renderer";
 import configureStore from "redux-mock-store";
 import { Provider } from "react-redux";
 import { Router } from "react-router-dom";
-import FavoritesPage from "./favorites-page";
+import FavoritesLists from "./favorites-lists";
 import { hotels } from "../../mock/offers";
 import history from "../../history";
 import NameSpace from "../../redux/name-space";
 
-const userData = {
-  id: 1,
-  email: `test@gmail.com`,
-  name: `test`,
-  avatar: `https://assets.htmlacademy.ru/intensives/javascript-3/avatar/4.jpg`,
-};
+const cities = [
+  `Paris`,
+  `Cologne`,
+  `Brussels`,
+  `Amsterdam`,
+  `Hamburg`,
+  `Dusseldorf`,
+];
 
 const mockStore = configureStore([]);
 
-it(`Favorites locations`, () => {
+it(`Favorites section`, () => {
   const store = mockStore({
     [NameSpace.DATA]: {
-      favoriteHotels: hotels,
-      isFavoritesLoading: false,
       errorHotelIds: [],
     },
     [NameSpace.USER]: {
       authorizationStatus: true,
-      user: userData,
     },
   });
-
-  store.dispatch = jest.fn();
 
   const tree = renderer
     .create(
       <Router history={history}>
         <Provider store={store}>
-          <FavoritesPage />
+          <FavoritesLists favoriteHotels={hotels} cities={cities} />
         </Provider>
       </Router>
     )
