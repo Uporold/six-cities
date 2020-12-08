@@ -25,6 +25,7 @@ describe(`Should card be hovered`, () => {
         onButtonClick={onFavButtonClick}
         onCardHover={onCardHover}
         pageType="MAIN"
+        authorizationStatus
       />
     );
   });

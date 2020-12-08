@@ -8,10 +8,11 @@ import {
   Operation,
   ActionCreator as ActionCreatorData,
 } from "../../redux/data/data";
-import { PageType } from "../../utilites/const";
+import { PageType, PagePath } from "../../utilites/const";
 import PlaceCardError from "../place-card-error/place-card-error";
 import { getErrorHotelIds } from "../../redux/data/selectors";
-import { PagePath } from "../../utilites/const";
+import history from "../../history";
+import { getAuthorizationStatus } from "../../redux/user/selectors";
 
 const pageTypeToCardClass = {
   MAIN: `cities__place-card`,
@@ -32,6 +33,7 @@ const PlaceCard = ({
   pageType,
   errorHotelIds,
   clearErrorHotelIds,
+  authorizationStatus,
 }) => {
   const styledRating = hotel.rating * 20;
   const renderPremiumMark = () => {
@@ -63,6 +65,10 @@ const PlaceCard = ({
 
   const onButtonClickHandler = (hotelId, isFavorite) => (evt) => {
     evt.preventDefault();
+    if (!authorizationStatus) {
+      history.push(PagePath.LOGIN);
+      return;
+    }
     onButtonClick(hotelId, isFavorite);
   };
 
@@ -137,10 +143,12 @@ PlaceCard.propTypes = {
   pageType: PropTypes.string.isRequired,
   errorHotelIds: PropTypes.arrayOf(PropTypes.number).isRequired,
   clearErrorHotelIds: PropTypes.func.isRequired,
+  authorizationStatus: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   errorHotelIds: getErrorHotelIds(state),
+  authorizationStatus: getAuthorizationStatus(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

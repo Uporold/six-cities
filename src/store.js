@@ -5,8 +5,6 @@ import { ActionCreator, Operation as UserOperation } from "./redux/user/user";
 import { createAPI } from "./api";
 import reducer from "./redux/reducer";
 import { Operation as DataOperation } from "./redux/data/data";
-import history from "./history";
-import { PagePath } from "./utilites/const";
 
 const Error = {
   UNAUTHORIZED: 401,
@@ -15,9 +13,6 @@ const Error = {
 const onUnauthorized = (err) => {
   if (err.response && err.response.status === Error.UNAUTHORIZED) {
     store.dispatch(ActionCreator.setAuthorizationStatus(false));
-    if (err.response.config.method === `post`) {
-      history.push(PagePath.LOGIN);
-    }
   }
 };
 

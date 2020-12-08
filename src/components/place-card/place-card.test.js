@@ -16,6 +16,9 @@ describe(`Place Card tests`, () => {
       [NameSpace.DATA]: {
         errorHotelIds: [],
       },
+      [NameSpace.USER]: {
+        authorizationStatus: true,
+      },
     });
   });
 

@@ -19,6 +19,9 @@ it(`PlacesContainer render correctly`, () => {
       hotels,
       errorHotelIds: [],
     },
+    [NameSpace.USER]: {
+      authorizationStatus: true,
+    },
   });
   const tree = renderer
     .create(

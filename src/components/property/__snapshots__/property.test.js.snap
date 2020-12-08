@@ -404,7 +404,6 @@ exports[`Should Property Page render correctly 1`] = `
               className="reviews__title"
             >
               Reviews ·
-               
               <span
                 className="reviews__amount"
               >
@@ -421,7 +420,7 @@ exports[`Should Property Page render correctly 1`] = `
                   className="reviews__user user"
                 >
                   <div
-                    className="reviews__avatar-wrapper user__avatar-wrapper"
+                    className="reviews__avatar-wrapper user__avatar-wrapper  property__avatar-wrapper--pro"
                   >
                     <img
                       alt="Reviews avatar"
@@ -433,7 +432,9 @@ exports[`Should Property Page render correctly 1`] = `
                   </div>
                   <span
                     className="reviews__user-name"
-                  />
+                  >
+                    Corey
+                  </span>
                 </div>
                 <div
                   className="reviews__info"
@@ -465,9 +466,9 @@ exports[`Should Property Page render correctly 1`] = `
                   </p>
                   <time
                     className="reviews__time"
-                    dateTime="2019-04-24"
+                    dateTime="2020-07-29T07:00:10.725Z"
                   >
-                    April 2019
+                    July 2020
                   </time>
                 </div>
               </li>
@@ -478,7 +479,7 @@ exports[`Should Property Page render correctly 1`] = `
                   className="reviews__user user"
                 >
                   <div
-                    className="reviews__avatar-wrapper user__avatar-wrapper"
+                    className="reviews__avatar-wrapper user__avatar-wrapper  property__avatar-wrapper--pro"
                   >
                     <img
                       alt="Reviews avatar"
@@ -490,7 +491,9 @@ exports[`Should Property Page render correctly 1`] = `
                   </div>
                   <span
                     className="reviews__user-name"
-                  />
+                  >
+                    Isaac
+                  </span>
                 </div>
                 <div
                   className="reviews__info"
@@ -522,9 +525,9 @@ exports[`Should Property Page render correctly 1`] = `
                   </p>
                   <time
                     className="reviews__time"
-                    dateTime="2019-04-24"
+                    dateTime="2020-07-29T07:00:10.725Z"
                   >
-                    April 2019
+                    July 2020
                   </time>
                 </div>
               </li>

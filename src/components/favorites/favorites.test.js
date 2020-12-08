@@ -24,6 +24,9 @@ it(`Favorites section`, () => {
     [NameSpace.DATA]: {
       errorHotelIds: [],
     },
+    [NameSpace.USER]: {
+      authorizationStatus: true,
+    },
   });
 
   const tree = renderer

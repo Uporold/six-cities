@@ -15,6 +15,9 @@ it(`Should Places List render correctly`, () => {
     [NameSpace.DATA]: {
       errorHotelIds: [],
     },
+    [NameSpace.USER]: {
+      authorizationStatus: true,
+    },
   });
   const tree = renderer
     .create(
