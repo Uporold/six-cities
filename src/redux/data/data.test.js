@@ -194,7 +194,7 @@ it(`Reducer should finish favorite hotels loading correctly`, () => {
         isFavoritesLoading: true,
       },
       {
-        type: ActionType.FINISH_FAVORITES_LOADING,
+        type: ActionType.SET_FAVORITES_LOADING_STATUS,
         payload: false,
       }
     )
@@ -356,8 +356,8 @@ describe(`Action creators work correctly`, () => {
   });
 
   it(`Action creator for finish favorites loading returns correct action`, () => {
-    expect(ActionCreator.finishFavoritesLoading()).toEqual({
-      type: ActionType.FINISH_FAVORITES_LOADING,
+    expect(ActionCreator.setFavoritesLoadingStatus(false)).toEqual({
+      type: ActionType.SET_FAVORITES_LOADING_STATUS,
       payload: false,
     });
   });
@@ -439,13 +439,17 @@ describe(`Operations work correctly`, () => {
 
     apiMock.onGet(`/favorite`).reply(200, pureHotels);
     return favoriteHotelsLoader(dispatch, () => {}, api).then(() => {
-      expect(dispatch).toHaveBeenCalledTimes(2);
+      expect(dispatch).toHaveBeenCalledTimes(3);
       expect(dispatch).toHaveBeenNthCalledWith(1, {
+        type: ActionType.SET_FAVORITES_LOADING_STATUS,
+        payload: true,
+      });
+      expect(dispatch).toHaveBeenNthCalledWith(2, {
         type: ActionType.LOAD_FAVORITE_HOTELS,
         payload: [hotels[0]],
       });
-      expect(dispatch).toHaveBeenNthCalledWith(2, {
-        type: ActionType.FINISH_FAVORITES_LOADING,
+      expect(dispatch).toHaveBeenNthCalledWith(3, {
+        type: ActionType.SET_FAVORITES_LOADING_STATUS,
         payload: false,
       });
     });

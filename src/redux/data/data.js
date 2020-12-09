@@ -19,7 +19,7 @@ export const ActionType = {
   LOAD_HOTEL_REVIEWS: `LOAD_HOTEL_REVIEWS`,
   LOAD_NEARBY_HOTELS: `LOAD_NEARBY_HOTELS`,
   FINISH_LOADING: `FINISH_LOADING`,
-  FINISH_FAVORITES_LOADING: `FINISH_FAVORITES_LOADING`,
+  SET_FAVORITES_LOADING_STATUS: `SET_FAVORITES_LOADING_STATUS`,
   UPDATE_FAVORITE_STATUS: `UPDATE_FAVORITE_STATUS`,
   SET_SENDING_ERROR_STATUS: `SET_SENDING_ERROR_STATUS`,
   SET_REVIEW_SENDING_STATUS: `SET_REVIEW_SENDING_STATUS`,
@@ -65,10 +65,10 @@ export const ActionCreator = {
     };
   },
 
-  finishFavoritesLoading: () => {
+  setFavoritesLoadingStatus: (status) => {
     return {
-      type: ActionType.FINISH_FAVORITES_LOADING,
-      payload: false,
+      type: ActionType.SET_FAVORITES_LOADING_STATUS,
+      payload: status,
     };
   },
 
@@ -132,10 +132,11 @@ export const Operation = {
   },
 
   loadFavoriteHotels: () => (dispatch, getState, api) => {
+    dispatch(ActionCreator.setFavoritesLoadingStatus(true));
     return api.get(`/favorite`).then((response) => {
       const loadedHotels = response.data.map((hotel) => hotelAdapter(hotel));
       dispatch(ActionCreator.loadFavoriteHotels(loadedHotels));
-      dispatch(ActionCreator.finishFavoritesLoading());
+      dispatch(ActionCreator.setFavoritesLoadingStatus(false));
     });
   },
 
@@ -210,7 +211,7 @@ export const reducer = (state = initialState, action) => {
       return { ...state, nearbyHotels: action.payload };
     case ActionType.FINISH_LOADING:
       return { ...state, isDataLoading: action.payload };
-    case ActionType.FINISH_FAVORITES_LOADING:
+    case ActionType.SET_FAVORITES_LOADING_STATUS:
       return { ...state, isFavoritesLoading: action.payload };
     case ActionType.UPDATE_FAVORITE_STATUS: {
       const favoriteIndex = state.hotels.findIndex(
