@@ -1,119 +1,88 @@
-import React, { PureComponent, createRef } from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
+import React, { useEffect, useRef } from "react";
 import Header from "../../components/header/header";
-import { Operation } from "../../redux/user/user";
-import { ActionCreator as ActionCreatorData } from "../../redux/data/data";
-import { getCurrentCity } from "../../redux/app/selectors";
-import { getErrorHotelIds } from "../../redux/data/selectors";
+import { useLogin } from "../../redux/user/hooks/useLogin";
+import { useClearErrorIds } from "../../redux/data/hooks/useClearErrorIds";
+import { useCurrentCity } from "../../redux/app/hooks/selectors";
+import { useErrorHotelIds } from "../../redux/data/hooks/selectors";
 
-class Login extends PureComponent {
-  constructor(props) {
-    super(props);
+const Login = () => {
+  const onSubmit = useLogin();
+  const clearErrorIds = useClearErrorIds();
+  const emailRef = useRef();
+  const passwordRef = useRef();
+  const currentCity = useCurrentCity();
+  const errorHotelIds = useErrorHotelIds();
 
-    this.emailRef = createRef();
-    this.passwordRef = createRef();
-  }
-
-  componentWillUnmount() {
-    const { errorHotelIds, clearErrorHotelIds } = this.props;
-    if (errorHotelIds.length > 0) {
-      clearErrorHotelIds();
-    }
-  }
-
-  handleSubmit = (evt) => {
-    const { onSubmit } = this.props;
-
+  const handleSubmit = (evt) => {
     evt.preventDefault();
 
     onSubmit({
-      email: this.emailRef.current.value,
-      password: this.passwordRef.current.value,
+      email: emailRef.current.value,
+      password: passwordRef.current.value,
     });
   };
 
-  render() {
-    const { currentCity } = this.props;
-    return (
-      <div className="page page--gray page--login">
-        <Header isLogin />
+  useEffect(() => {
+    if (errorHotelIds.length > 0) {
+      clearErrorIds();
+    }
+  }, [clearErrorIds, errorHotelIds.length]);
 
-        <main className="page__main page__main--login">
-          <div className="page__login-container container">
-            <section className="login">
-              <h1 className="login__title">Sign in</h1>
-              <form
-                className="login__form form"
-                action="#"
-                method="post"
-                onSubmit={this.handleSubmit}
-              >
-                <div className="login__input-wrapper form__input-wrapper">
-                  <label className="visually-hidden">E-mail</label>
-                  <input
-                    className="login__input form__input"
-                    type="email"
-                    name="email"
-                    placeholder="Email"
-                    required=""
-                    ref={this.emailRef}
-                  />
-                </div>
-                <div className="login__input-wrapper form__input-wrapper">
-                  <label className="visually-hidden">Password</label>
-                  <input
-                    className="login__input form__input"
-                    type="password"
-                    name="password"
-                    placeholder="Password"
-                    required=""
-                    ref={this.passwordRef}
-                  />
-                </div>
-                <button
-                  className="login__submit form__submit button"
-                  type="submit"
-                >
-                  Sign in
-                </button>
-              </form>
-            </section>
-            <section className="locations locations--login locations--current">
-              <div className="locations__item">
-                <a className="locations__item-link" href="#">
-                  <span>{currentCity}</span>
-                </a>
+  return (
+    <div className="page page--gray page--login">
+      <Header isLogin />
+
+      <main className="page__main page__main--login">
+        <div className="page__login-container container">
+          <section className="login">
+            <h1 className="login__title">Sign in</h1>
+            <form
+              className="login__form form"
+              action="#"
+              method="post"
+              onSubmit={handleSubmit}
+            >
+              <div className="login__input-wrapper form__input-wrapper">
+                <label className="visually-hidden">E-mail</label>
+                <input
+                  className="login__input form__input"
+                  type="email"
+                  name="email"
+                  placeholder="Email"
+                  required=""
+                  ref={emailRef}
+                />
               </div>
-            </section>
-          </div>
-        </main>
-      </div>
-    );
-  }
-}
-
-Login.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
-  currentCity: PropTypes.string.isRequired,
-  errorHotelIds: PropTypes.arrayOf(PropTypes.number).isRequired,
-  clearErrorHotelIds: PropTypes.func.isRequired,
+              <div className="login__input-wrapper form__input-wrapper">
+                <label className="visually-hidden">Password</label>
+                <input
+                  className="login__input form__input"
+                  type="password"
+                  name="password"
+                  placeholder="Password"
+                  required=""
+                  ref={passwordRef}
+                />
+              </div>
+              <button
+                className="login__submit form__submit button"
+                type="submit"
+              >
+                Sign in
+              </button>
+            </form>
+          </section>
+          <section className="locations locations--login locations--current">
+            <div className="locations__item">
+              <a className="locations__item-link" href="#">
+                <span>{currentCity}</span>
+              </a>
+            </div>
+          </section>
+        </div>
+      </main>
+    </div>
+  );
 };
 
-const mapStateToProps = (state) => ({
-  currentCity: getCurrentCity(state),
-  errorHotelIds: getErrorHotelIds(state),
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  onSubmit(authData) {
-    dispatch(Operation.login(authData));
-  },
-  clearErrorHotelIds() {
-    dispatch(ActionCreatorData.clearErrorHotelIds());
-  },
-});
-
-export { Login };
-
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default Login;
