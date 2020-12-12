@@ -1,8 +1,8 @@
-import React from "react";
+import React, { memo } from "react";
 import { Link } from "react-router-dom";
 import { PagePath } from "../../utilites/const";
 
-const Footer = () => {
+const Footer = memo(() => {
   return (
     <footer className="footer container">
       <Link className="footer__logo-link" to={PagePath.MAIN}>
@@ -16,6 +16,6 @@ const Footer = () => {
       </Link>
     </footer>
   );
-};
+});
 
 export default Footer;

@@ -1,10 +1,10 @@
-import React from "react";
+import React, { memo } from "react";
 import PropTypes from "prop-types";
 import PlaceCard from "../place-card/place-card";
 import { PageType } from "../../utilites/const";
 import { projectPropTypes } from "../../utilites/project-prop-types";
 
-const FavoritesLocations = ({ city, hotels }) => {
+const FavoritesLocations = memo(({ city, hotels }) => {
   return (
     <li key={city} className="favorites__locations-items">
       <div className="favorites__locations locations locations--current">
@@ -25,7 +25,7 @@ const FavoritesLocations = ({ city, hotels }) => {
       </div>
     </li>
   );
-};
+});
 
 FavoritesLocations.propTypes = {
   hotels: PropTypes.arrayOf(projectPropTypes.HOTEL.isRequired).isRequired,
