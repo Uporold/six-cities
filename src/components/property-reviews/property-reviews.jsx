@@ -1,12 +1,12 @@
-import React from "react";
+import React, { memo } from "react";
 import PropTypes from "prop-types";
-import { connect } from "react-redux";
 import PropertyReview from "../property-review/property-review";
 import { projectPropTypes } from "../../utilites/project-prop-types";
 import AddReview from "../add-review/add-review";
-import { getAuthorizationStatus } from "../../redux/user/selectors";
+import { useAuthorizationStatus } from "../../redux/user/hooks/selectors";
 
-const PropertyReviews = ({ reviews, hotelId, authorizationStatus }) => {
+const PropertyReviews = memo(({ reviews, hotelId }) => {
+  const authorizationStatus = useAuthorizationStatus();
   return (
     <section className="property__reviews reviews">
       <h2 className="reviews__title">
@@ -21,17 +21,11 @@ const PropertyReviews = ({ reviews, hotelId, authorizationStatus }) => {
       {authorizationStatus && <AddReview hotelId={hotelId} />}
     </section>
   );
-};
+});
 
 PropertyReviews.propTypes = {
   reviews: PropTypes.arrayOf(projectPropTypes.REVIEW.isRequired).isRequired,
   hotelId: PropTypes.number.isRequired,
-  authorizationStatus: PropTypes.bool.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  authorizationStatus: getAuthorizationStatus(state),
-});
-
-export { PropertyReviews };
-export default connect(mapStateToProps)(PropertyReviews);
+export default PropertyReviews;
