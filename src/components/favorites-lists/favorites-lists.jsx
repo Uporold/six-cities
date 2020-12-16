@@ -1,9 +1,9 @@
-import React from "react";
+import React, { memo } from "react";
 import PropTypes from "prop-types";
 import FavoritesLocations from "../favorites-locations/favorites-locations";
 import { projectPropTypes } from "../../utilites/project-prop-types";
 
-const FavoritesLists = ({ cities, favoriteHotels }) => {
+const FavoritesLists = memo(({ cities, favoriteHotels }) => {
   return (
     <section className="favorites">
       <h1 className="favorites__title">Saved listing</h1>
@@ -18,7 +18,7 @@ const FavoritesLists = ({ cities, favoriteHotels }) => {
       </ul>
     </section>
   );
-};
+});
 
 FavoritesLists.propTypes = {
   cities: PropTypes.arrayOf(PropTypes.string).isRequired,

@@ -1,11 +1,15 @@
-import React from "react";
+import React, { memo } from "react";
 import PropTypes from "prop-types";
-import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { getAuthorizationStatus, getUser } from "../../redux/user/selectors";
 import { PagePath } from "../../utilites/const";
+import {
+  useAuthorizationStatus,
+  useUser,
+} from "../../redux/user/hooks/selectors";
 
-const Header = ({ isMain, isLogin, authorizationStatus, user }) => {
+const Header = memo(({ isMain, isLogin }) => {
+  const authorizationStatus = useAuthorizationStatus();
+  const user = useUser();
   return (
     <header className="header">
       <div className="container">
@@ -52,7 +56,8 @@ const Header = ({ isMain, isLogin, authorizationStatus, user }) => {
       </div>
     </header>
   );
-};
+});
+
 Header.propTypes = {
   isMain: PropTypes.bool,
   isLogin: PropTypes.bool,
@@ -63,7 +68,6 @@ Header.propTypes = {
     avatar: PropTypes.string,
     isPro: PropTypes.bool,
   }),
-  authorizationStatus: PropTypes.bool.isRequired,
 };
 
 Header.defaultProps = {
@@ -72,11 +76,4 @@ Header.defaultProps = {
   user: null,
 };
 
-const mapStateToProps = (state) => ({
-  authorizationStatus: getAuthorizationStatus(state),
-  user: getUser(state),
-});
-
-export { Header };
-
-export default connect(mapStateToProps)(Header);
+export default Header;
