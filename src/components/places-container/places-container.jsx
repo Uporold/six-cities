@@ -12,11 +12,7 @@ import {
 } from "../../redux/data/selectors";
 import { PageType } from "../../utilites/const";
 
-const PlacesContainer = ({
-  hotelsByCity,
-  sortedHotels,
-  currentCity,
-}) => {
+const PlacesContainer = ({ hotelsByCity, sortedHotels, currentCity }) => {
   const center = [
     hotelsByCity[0].city.location.latitude,
     hotelsByCity[0].city.location.longitude,
@@ -29,7 +25,7 @@ const PlacesContainer = ({
         <b className="places__found">
           {hotelsByCity.length} places to stay in {currentCity}
         </b>
-        <Sorting />
+        <Sorting currentCity={currentCity} />
         <PlacesList hotels={sortedHotels} pageType={PageType.MAIN} />
       </section>
       <div className="cities__right-section">

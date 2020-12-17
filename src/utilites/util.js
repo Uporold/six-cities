@@ -1,4 +1,5 @@
-import {months} from "./const";
+import { useEffect, useRef } from "react";
+import { months } from "./const";
 
 export const getHotelsByCity = (hotels, city) => {
   return hotels.filter((hotel) => hotel.city.name === city);
@@ -45,4 +46,12 @@ export const getHotelsCities = (hotels) => {
 
 export const getDate = (date) => {
   return `${months[new Date(date).getMonth()]} ${new Date(date).getFullYear()}`;
+};
+
+export const usePrevious = (value) => {
+  const ref = useRef();
+  useEffect(() => {
+    ref.current = value;
+  });
+  return ref.current;
 };
