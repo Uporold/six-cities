@@ -9,18 +9,15 @@ const pageTypeToListClass = {
   [PageType.PROPERTY]: `near-places__list`,
 };
 
-class PlacesList extends PureComponent {
-  render() {
-    const { hotels, pageType } = this.props;
-    return (
-      <div className={`${pageTypeToListClass[pageType]} places__list`}>
-        {hotels.map((hotel) => (
-          <PlaceCard key={hotel.id} hotel={hotel} pageType={pageType} />
-        ))}
-      </div>
-    );
-  }
-}
+const PlacesList = ({ hotels, pageType }) => {
+  return (
+    <div className={`${pageTypeToListClass[pageType]} places__list`}>
+      {hotels.map((hotel) => (
+        <PlaceCard key={hotel.id} hotel={hotel} pageType={pageType} />
+      ))}
+    </div>
+  );
+};
 
 PlacesList.propTypes = {
   hotels: PropTypes.arrayOf(projectPropTypes.HOTEL.isRequired).isRequired,

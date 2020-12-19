@@ -1,18 +1,18 @@
 import React from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
 import Sorting from "../sorting/sorting";
 import PlacesList from "../places-list/places-list";
 import Map from "../map/map";
-import { projectPropTypes } from "../../utilites/project-prop-types";
-import { getCurrentCity } from "../../redux/app/selectors";
-import {
-  getHotelsSortedByForm,
-  getHotelsSortedByCity,
-} from "../../redux/data/selectors";
 import { PageType } from "../../utilites/const";
+import { useCurrentCity } from "../../redux/app/hooks/selectors";
+import {
+  useHotelsSortedByCity,
+  useHotelsSortedByForm,
+} from "../../redux/data/hooks/selectors";
 
-const PlacesContainer = ({ hotelsByCity, sortedHotels, currentCity }) => {
+const PlacesContainer = () => {
+  const hotelsByCity = useHotelsSortedByCity();
+  const sortedHotels = useHotelsSortedByForm();
+  const currentCity = useCurrentCity();
   const center = [
     hotelsByCity[0].city.location.latitude,
     hotelsByCity[0].city.location.longitude,
@@ -37,17 +37,4 @@ const PlacesContainer = ({ hotelsByCity, sortedHotels, currentCity }) => {
   );
 };
 
-PlacesContainer.propTypes = {
-  hotelsByCity: PropTypes.arrayOf(projectPropTypes.HOTEL.isRequired).isRequired,
-  sortedHotels: PropTypes.arrayOf(projectPropTypes.HOTEL.isRequired).isRequired,
-  currentCity: PropTypes.string.isRequired,
-};
-
-const mapStateToProps = (state) => ({
-  currentCity: getCurrentCity(state),
-  hotelsByCity: getHotelsSortedByCity(state),
-  sortedHotels: getHotelsSortedByForm(state),
-});
-
-export { PlacesContainer };
-export default connect(mapStateToProps, null)(PlacesContainer);
+export default PlacesContainer;
