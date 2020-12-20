@@ -1,18 +1,15 @@
-import React from "react";
+import React, { memo } from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
-import { connect } from "react-redux";
 import { projectPropTypes } from "../../utilites/project-prop-types";
-import { ActionCreator } from "../../redux/app/app";
-import {
-  Operation,
-  ActionCreator as ActionCreatorData,
-} from "../../redux/data/data";
 import { PageType, PagePath } from "../../utilites/const";
 import PlaceCardError from "../place-card-error/place-card-error";
-import { getErrorHotelIds } from "../../redux/data/selectors";
 import history from "../../history";
-import { getAuthorizationStatus } from "../../redux/user/selectors";
+import { useChangeHotelFavoriteStatus } from "../../redux/data/hooks/useChangeHotelFavoriteStatus";
+import { useGetHoveredHotelId } from "../../redux/app/hooks/useGetHoveredHotelId";
+import { useClearErrorIds } from "../../redux/data/hooks/useClearErrorIds";
+import { useErrorHotelIds } from "../../redux/data/hooks/selectors";
+import { useAuthorizationStatus } from "../../redux/user/hooks/selectors";
 
 const pageTypeToCardClass = {
   MAIN: `cities__place-card`,
@@ -26,16 +23,13 @@ const pageTypeToImageWrapperClass = {
   FAVORITES: `favorites__image-wrapper`,
 };
 
-const PlaceCard = ({
-  hotel,
-  onCardHover,
-  onButtonClick,
-  pageType,
-  errorHotelIds,
-  clearErrorHotelIds,
-  authorizationStatus,
-}) => {
+const PlaceCard = memo(({ hotel, pageType }) => {
   const styledRating = hotel.rating * 20;
+  const changeHotelFavoriteStatus = useChangeHotelFavoriteStatus();
+  const getHoveredHotelId = useGetHoveredHotelId();
+  const clearErrorHotelIds = useClearErrorIds();
+  const authorizationStatus = useAuthorizationStatus();
+  const errorHotelIds = useErrorHotelIds();
   const renderPremiumMark = () => {
     return hotel.isPremium ? (
       <div className="place-card__mark">
@@ -49,11 +43,11 @@ const PlaceCard = ({
     hotel.type.charAt(0).toUpperCase() + hotel.type.replace(`-`, ` `).slice(1);
 
   const onCardMouseEnter = () => {
-    onCardHover(hotel.id);
+    getHoveredHotelId(hotel.id);
   };
 
   const onCardMouseOut = () => {
-    onCardHover(-1);
+    getHoveredHotelId(-1);
   };
 
   const onCardClickHandler = () => {
@@ -63,13 +57,13 @@ const PlaceCard = ({
     }
   };
 
-  const onButtonClickHandler = (hotelId, isFavorite) => (evt) => {
+  const onFavoriteButtonClickHandler = (hotelId, isFavorite) => (evt) => {
     evt.preventDefault();
     if (!authorizationStatus) {
       history.push(PagePath.LOGIN);
       return;
     }
-    onButtonClick(hotelId, isFavorite);
+    changeHotelFavoriteStatus(hotelId, isFavorite);
   };
 
   return (
@@ -78,7 +72,7 @@ const PlaceCard = ({
         className={`${pageTypeToCardClass[pageType]} place-card`}
         key={`${hotel.id}`}
         onMouseEnter={onCardMouseEnter}
-        onMouseOut={onCardMouseOut}
+        onMouseLeave={onCardMouseOut}
       >
         {errorHotelIds.some((id) => id === hotel.id) && (
           <PlaceCardError hotelId={hotel.id} />
@@ -112,7 +106,10 @@ const PlaceCard = ({
                 hotel.isFavorite ? ` place-card__bookmark-button--active` : ``
               } button`}
               type="button"
-              onClick={onButtonClickHandler(hotel.id, !hotel.isFavorite)}
+              onClick={onFavoriteButtonClickHandler(
+                hotel.id,
+                !hotel.isFavorite
+              )}
             >
               <svg className="place-card__bookmark-icon" width="18" height="19">
                 <use xlinkHref="#icon-bookmark" />
@@ -134,34 +131,11 @@ const PlaceCard = ({
       </article>
     </>
   );
-};
+});
 
 PlaceCard.propTypes = {
   hotel: projectPropTypes.HOTEL.isRequired,
-  onCardHover: PropTypes.func.isRequired,
-  onButtonClick: PropTypes.func.isRequired,
   pageType: PropTypes.string.isRequired,
-  errorHotelIds: PropTypes.arrayOf(PropTypes.number).isRequired,
-  clearErrorHotelIds: PropTypes.func.isRequired,
-  authorizationStatus: PropTypes.bool.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  errorHotelIds: getErrorHotelIds(state),
-  authorizationStatus: getAuthorizationStatus(state),
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  onCardHover(hotel) {
-    dispatch(ActionCreator.getHoveredHotelId(hotel));
-  },
-  onButtonClick(hotelId, isFavorite) {
-    dispatch(Operation.changeHotelFavoriteStatus(hotelId, isFavorite));
-  },
-  clearErrorHotelIds() {
-    dispatch(ActionCreatorData.clearErrorHotelIds());
-  },
-});
-
-export { PlaceCard };
-export default connect(mapStateToProps, mapDispatchToProps)(PlaceCard);
+export default PlaceCard;
