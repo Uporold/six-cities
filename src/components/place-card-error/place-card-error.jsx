@@ -1,8 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import { ActionCreator } from "../../redux/data/data";
-import { getErrorMessage } from "../../redux/data/selectors";
+import { useErrorMessage } from "../../redux/data/hooks/selectors";
+import { useRemoveErrorHotelId } from "../../redux/data/hooks/useRemoveErrorHotelId";
 
 const styles = {
   position: "absolute",
@@ -20,9 +19,11 @@ const styles = {
   flexDirection: "column",
 };
 
-const PlaceCardError = ({ hotelId, errorMessage, onClose }) => {
+const PlaceCardError = ({ hotelId }) => {
+  const errorMessage = useErrorMessage();
+  const removeErrorHotelId = useRemoveErrorHotelId();
   const onCloseClickHandler = () => {
-    onClose(hotelId);
+    removeErrorHotelId(hotelId);
   };
   return (
     <div style={styles} onClick={onCloseClickHandler}>
@@ -33,20 +34,7 @@ const PlaceCardError = ({ hotelId, errorMessage, onClose }) => {
 };
 
 PlaceCardError.propTypes = {
-  errorMessage: PropTypes.string.isRequired,
   hotelId: PropTypes.number.isRequired,
-  onClose: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  errorMessage: getErrorMessage(state),
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  onClose(hotelId) {
-    dispatch(ActionCreator.removeErrorHotelId(hotelId));
-  },
-});
-
-export { PlaceCardError };
-export default connect(mapStateToProps, mapDispatchToProps)(PlaceCardError);
+export default PlaceCardError;
