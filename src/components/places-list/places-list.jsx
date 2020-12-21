@@ -1,4 +1,4 @@
-import React, { PureComponent } from "react";
+import React, { memo } from "react";
 import PropTypes from "prop-types";
 import PlaceCard from "../place-card/place-card";
 import { projectPropTypes } from "../../utilites/project-prop-types";
@@ -9,7 +9,7 @@ const pageTypeToListClass = {
   [PageType.PROPERTY]: `near-places__list`,
 };
 
-const PlacesList = ({ hotels, pageType }) => {
+const PlacesList = memo(({ hotels, pageType }) => {
   return (
     <div className={`${pageTypeToListClass[pageType]} places__list`}>
       {hotels.map((hotel) => (
@@ -17,7 +17,7 @@ const PlacesList = ({ hotels, pageType }) => {
       ))}
     </div>
   );
-};
+});
 
 PlacesList.propTypes = {
   hotels: PropTypes.arrayOf(projectPropTypes.HOTEL.isRequired).isRequired,

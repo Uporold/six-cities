@@ -1,22 +1,23 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import { ActionCreator } from "../../redux/app/app";
-import { getCurrentCity } from "../../redux/app/selectors";
-import { ActionCreator as ActionCreatorData } from "../../redux/data/data";
-import { getErrorHotelIds } from "../../redux/data/selectors";
+import React, { memo } from "react";
 import { cities } from "../../utilites/const";
+import { useCurrentCity } from "../../redux/app/hooks/selectors";
+import { useSetCity } from "../../redux/app/hooks/useSetCity";
+import { useClearErrorIds } from "../../redux/data/hooks/useClearErrorIds";
+import { useErrorHotelIds } from "../../redux/data/hooks/selectors";
+import { useSetDefaultSortType } from "../../redux/app/hooks/useSetDefaultSortType";
 
-const CitiesTabs = ({
-  currentCity,
-  onCityClick,
-  errorHotelIds,
-  clearErrorHotelIds,
-}) => {
+const CitiesTabs = memo(() => {
+  const currentCity = useCurrentCity();
+  const clearErrorHotelIds = useClearErrorIds();
+  const errorHotelIds = useErrorHotelIds();
+  const setCity = useSetCity();
+  const setDefaultSortType = useSetDefaultSortType();
+
   const onCityTabClickHandler = (city) => (evt) => {
     evt.preventDefault();
     if (currentCity !== city) {
-      onCityClick(city);
+      setCity(city);
+      setDefaultSortType();
     }
     if (errorHotelIds.length > 0) {
       clearErrorHotelIds();
@@ -44,29 +45,6 @@ const CitiesTabs = ({
       </section>
     </div>
   );
-};
-
-CitiesTabs.propTypes = {
-  currentCity: PropTypes.string.isRequired,
-  onCityClick: PropTypes.func.isRequired,
-  errorHotelIds: PropTypes.arrayOf(PropTypes.number).isRequired,
-  clearErrorHotelIds: PropTypes.func.isRequired,
-};
-
-const mapDispatchToProps = (dispatch) => ({
-  onCityClick(city) {
-    dispatch(ActionCreator.setCity(city));
-    dispatch(ActionCreator.setDefaultSortType());
-  },
-  clearErrorHotelIds() {
-    dispatch(ActionCreatorData.clearErrorHotelIds());
-  },
 });
 
-const mapStateToProps = (state) => ({
-  currentCity: getCurrentCity(state),
-  errorHotelIds: getErrorHotelIds(state),
-});
-
-export { CitiesTabs };
-export default connect(mapStateToProps, mapDispatchToProps)(CitiesTabs);
+export default CitiesTabs;
