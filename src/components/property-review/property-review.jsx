@@ -1,8 +1,8 @@
-import React from "react";
+import React, { memo } from "react";
 import { projectPropTypes } from "../../utilites/project-prop-types";
 import { getDate } from "../../utilites/util";
 
-const PropertyReview = ({ review }) => {
+const PropertyReview = memo(({ review }) => {
   const date = getDate(review.date);
   return (
     <li className="reviews__item">
@@ -36,7 +36,7 @@ const PropertyReview = ({ review }) => {
       </div>
     </li>
   );
-};
+});
 
 PropertyReview.propTypes = {
   review: projectPropTypes.REVIEW.isRequired,

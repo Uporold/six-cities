@@ -1,26 +1,24 @@
 import React from "react";
-import PropTypes from "prop-types";
 import { Router, Route, Switch, Redirect } from "react-router-dom";
-import { connect } from "react-redux";
 import Main from "../../pages/main/main";
 import Property from "../../pages/property/property";
 import history from "../../history";
-import { getLoadingStatus } from "../../redux/data/selectors";
 import LoaderSpinner from "../loader-spinner/loader-spinner";
 import Login from "../../pages/login/login";
-import {
-  getAuthorizationStatus,
-  getAuthorizationLoadingStatus,
-} from "../../redux/user/selectors";
 import Favorites from "../../pages/favorites/favorites";
 import PrivateRoute from "../private-route/private-route";
 import { PagePath } from "../../utilites/const";
+import {
+  useAuthorizationStatus,
+  useAuthorizationLoadingStatus,
+} from "../../redux/user/hooks/selectors";
+import { useLoadingStatus } from "../../redux/data/hooks/selectors";
 
-const App = ({
-  isDataLoading,
-  authorizationStatus,
-  isAuthorizationLoading,
-}) => {
+const App = () => {
+  const authorizationStatus = useAuthorizationStatus();
+  const isAuthorizationLoading = useAuthorizationLoadingStatus();
+  const isDataLoading = useLoadingStatus();
+
   return (
     <>
       {!isDataLoading && !isAuthorizationLoading ? (
@@ -53,17 +51,4 @@ const App = ({
   );
 };
 
-const mapStateToProps = (state) => ({
-  isDataLoading: getLoadingStatus(state),
-  authorizationStatus: getAuthorizationStatus(state),
-  isAuthorizationLoading: getAuthorizationLoadingStatus(state),
-});
-
-App.propTypes = {
-  isDataLoading: PropTypes.bool.isRequired,
-  authorizationStatus: PropTypes.bool.isRequired,
-  isAuthorizationLoading: PropTypes.bool.isRequired,
-};
-
-export { App };
-export default connect(mapStateToProps)(App);
+export default App;

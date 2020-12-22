@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React from "react";
 import Sorting from "../sorting/sorting";
 import PlacesList from "../places-list/places-list";
 import Map from "../map/map";
@@ -9,7 +9,7 @@ import {
   useHotelsSortedByForm,
 } from "../../redux/data/hooks/selectors";
 
-const PlacesContainer = memo(() => {
+const PlacesContainer = () => {
   const hotelsByCity = useHotelsSortedByCity();
   const sortedHotels = useHotelsSortedByForm();
   const currentCity = useCurrentCity();
@@ -35,6 +35,6 @@ const PlacesContainer = memo(() => {
       </div>
     </div>
   );
-});
+};
 
 export default PlacesContainer;

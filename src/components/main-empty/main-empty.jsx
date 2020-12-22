@@ -1,9 +1,8 @@
 import React from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import { getCurrentCity } from "../../redux/app/selectors";
+import { useCurrentCity } from "../../redux/app/hooks/selectors";
 
-const MainEmpty = ({ currentCity }) => {
+const MainEmpty = () => {
+  const currentCity = useCurrentCity();
   return (
     <div className="cities__places-container cities__places-container--empty container">
       <section className="cities__no-places">
@@ -20,13 +19,4 @@ const MainEmpty = ({ currentCity }) => {
   );
 };
 
-MainEmpty.propTypes = {
-  currentCity: PropTypes.string.isRequired,
-};
-
-const mapStateToProps = (state) => ({
-  currentCity: getCurrentCity(state),
-});
-
-export { MainEmpty };
-export default connect(mapStateToProps, null)(MainEmpty);
+export default MainEmpty;
