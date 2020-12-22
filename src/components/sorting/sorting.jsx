@@ -1,8 +1,7 @@
-import React, { useState, useEffect, memo } from "react";
+import React, { memo } from "react";
 import PropTypes from "prop-types";
-import { sortTypes, usePrevious } from "../../utilites/util";
-import { useCurrentSortType } from "../../redux/app/hooks/selectors";
-import { useSetSortType } from "../../redux/app/hooks/useSetSortType";
+import { sortTypes } from "../../utilites/util";
+import { useSort } from "../../hooks/useSort";
 
 const arrowActiveStyle = {
   transform: `rotate(180deg)`,
@@ -10,16 +9,12 @@ const arrowActiveStyle = {
 };
 
 const Sorting = memo(({ currentCity }) => {
-  const [isSortOpen, setSortFormOpenStatus] = useState(false);
-  const currentSortType = useCurrentSortType();
-  const setSortType = useSetSortType();
-  const previousCity = usePrevious(currentCity);
-
-  useEffect(() => {
-    if (previousCity && previousCity !== currentCity) {
-      setSortFormOpenStatus(false);
-    }
-  }, [currentCity, previousCity]);
+  const {
+    isSortOpen,
+    setSortFormOpenStatus,
+    currentSortType,
+    setSortType,
+  } = useSort(currentCity);
 
   const onSortFormClick = () => {
     setSortFormOpenStatus(!isSortOpen);
