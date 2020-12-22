@@ -101,7 +101,7 @@ exports[`Favorites locations 1`] = `
               <article
                 className="favorites__card place-card"
                 onMouseEnter={[Function]}
-                onMouseOut={[Function]}
+                onMouseLeave={[Function]}
               >
                 
                 <div
@@ -202,7 +202,7 @@ exports[`Favorites locations 1`] = `
               <article
                 className="favorites__card place-card"
                 onMouseEnter={[Function]}
-                onMouseOut={[Function]}
+                onMouseLeave={[Function]}
               >
                 
                 <div
@@ -303,7 +303,7 @@ exports[`Favorites locations 1`] = `
               <article
                 className="favorites__card place-card"
                 onMouseEnter={[Function]}
-                onMouseOut={[Function]}
+                onMouseLeave={[Function]}
               >
                 
                 <div
@@ -428,7 +428,7 @@ exports[`Favorites locations 1`] = `
               <article
                 className="favorites__card place-card"
                 onMouseEnter={[Function]}
-                onMouseOut={[Function]}
+                onMouseLeave={[Function]}
               >
                 
                 <div
@@ -553,7 +553,7 @@ exports[`Favorites locations 1`] = `
               <article
                 className="favorites__card place-card"
                 onMouseEnter={[Function]}
-                onMouseOut={[Function]}
+                onMouseLeave={[Function]}
               >
                 
                 <div

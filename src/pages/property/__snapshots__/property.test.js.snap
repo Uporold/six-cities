@@ -734,7 +734,7 @@ exports[`Should Property Page render correctly 1`] = `
           <article
             className="near-places__card place-card"
             onMouseEnter={[Function]}
-            onMouseOut={[Function]}
+            onMouseLeave={[Function]}
           >
             
             <div
@@ -835,7 +835,7 @@ exports[`Should Property Page render correctly 1`] = `
           <article
             className="near-places__card place-card"
             onMouseEnter={[Function]}
-            onMouseOut={[Function]}
+            onMouseLeave={[Function]}
           >
             
             <div
