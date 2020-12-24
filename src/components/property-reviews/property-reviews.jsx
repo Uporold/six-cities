@@ -5,7 +5,7 @@ import { projectPropTypes } from "../../utilites/project-prop-types";
 import AddReview from "../add-review/add-review";
 import { useAuthorizationStatus } from "../../redux/user/hooks/selectors";
 
-const PropertyReviews = memo(({ reviews, hotelId }) => {
+const PropertyReviews = memo(function PropertyReviews({ reviews, hotelId }) {
   const authorizationStatus = useAuthorizationStatus();
   return (
     <section className="property__reviews reviews">

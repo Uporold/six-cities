@@ -7,7 +7,7 @@ import {
   useUser,
 } from "../../redux/user/hooks/selectors";
 
-const Header = memo(({ isMain, isLogin }) => {
+const Header = memo(function Header({ isMain, isLogin }) {
   const authorizationStatus = useAuthorizationStatus();
   const user = useUser();
   return (

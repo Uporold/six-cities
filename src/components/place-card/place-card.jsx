@@ -23,7 +23,7 @@ const pageTypeToImageWrapperClass = {
   FAVORITES: `favorites__image-wrapper`,
 };
 
-const PlaceCard = memo(({ hotel, pageType }) => {
+const PlaceCard = memo(function PlaceCard({ hotel, pageType }) {
   const styledRating = hotel.rating * 20;
   const changeHotelFavoriteStatus = useChangeHotelFavoriteStatus();
   const getHoveredHotelId = useGetHoveredHotelId();

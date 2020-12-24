@@ -2,7 +2,7 @@ import React, { memo } from "react";
 import { projectPropTypes } from "../../utilites/project-prop-types";
 import { getDate } from "../../utilites/util";
 
-const PropertyReview = memo(({ review }) => {
+const PropertyReview = memo(function PropertyReview({ review }) {
   const date = getDate(review.date);
   return (
     <li className="reviews__item">

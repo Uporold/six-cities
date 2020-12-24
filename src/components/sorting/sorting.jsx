@@ -8,7 +8,7 @@ const arrowActiveStyle = {
   top: `45%`,
 };
 
-const Sorting = memo(({ currentCity }) => {
+const Sorting = memo(function Sorting({ currentCity }) {
   const {
     isSortOpen,
     setSortFormOpenStatus,

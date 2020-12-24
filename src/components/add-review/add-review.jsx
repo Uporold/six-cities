@@ -20,7 +20,7 @@ const ButtonText = {
   SUBMIT: `Submit`,
 };
 
-const AddReview = memo(({ hotelId }) => {
+const AddReview = memo(function AddReview({ hotelId }) {
   const [comment, setComment] = useState(``);
   const [stars, setStars] = useState(0);
 

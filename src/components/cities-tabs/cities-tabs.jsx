@@ -6,7 +6,7 @@ import { useClearErrorIds } from "../../redux/data/hooks/useClearErrorIds";
 import { useErrorHotelIds } from "../../redux/data/hooks/selectors";
 import { useSetDefaultSortType } from "../../redux/app/hooks/useSetDefaultSortType";
 
-const CitiesTabs = memo(() => {
+const CitiesTabs = memo(function CitiesTabs() {
   const currentCity = useCurrentCity();
   const clearErrorHotelIds = useClearErrorIds();
   const errorHotelIds = useErrorHotelIds();

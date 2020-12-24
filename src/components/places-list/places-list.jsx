@@ -9,7 +9,7 @@ const pageTypeToListClass = {
   [PageType.PROPERTY]: `near-places__list`,
 };
 
-const PlacesList = memo(({ hotels, pageType }) => {
+const PlacesList = memo(function PlacesList({ hotels, pageType }) {
   return (
     <div className={`${pageTypeToListClass[pageType]} places__list`}>
       {hotels.map((hotel) => (

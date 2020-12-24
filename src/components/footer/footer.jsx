@@ -2,7 +2,7 @@ import React, { memo } from "react";
 import { Link } from "react-router-dom";
 import { PagePath } from "../../utilites/const";
 
-const Footer = memo(() => {
+const Footer = memo(function Footer() {
   return (
     <footer className="footer container">
       <Link className="footer__logo-link" to={PagePath.MAIN}>

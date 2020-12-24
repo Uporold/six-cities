@@ -4,7 +4,7 @@ import PlaceCard from "../place-card/place-card";
 import { PageType } from "../../utilites/const";
 import { projectPropTypes } from "../../utilites/project-prop-types";
 
-const FavoritesLocations = memo(({ city, hotels }) => {
+const FavoritesLocations = memo(function FavoritesLocations({ city, hotels }) {
   return (
     <li key={city} className="favorites__locations-items">
       <div className="favorites__locations locations locations--current">
