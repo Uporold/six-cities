@@ -10,6 +10,8 @@
     "axios-mock-adapter": "^1.19.0",
     "classnames": "^2.2.6",
     "leaflet": "1.7.1",
+    "moxios": "^0.4.0",
+    "nock": "^13.0.5",
     "prop-types": "latest",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
@@ -45,6 +47,7 @@
     ]
   },
   "devDependencies": {
+    "@testing-library/react-hooks": "^3.7.0",
     "enzyme": "3.11.0",
     "enzyme-adapter-react-16": "1.15.3",
     "eslint-config-airbnb": "^18.2.0",
