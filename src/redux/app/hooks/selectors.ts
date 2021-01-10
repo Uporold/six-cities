@@ -5,14 +5,14 @@ import {
   getHoveredHotelId,
 } from "../selectors";
 
-export const useCurrentCity = () => {
+export const useCurrentCity = (): string => {
   return useSelector(getCurrentCity);
 };
 
-export const useCurrentSortType = () => {
+export const useCurrentSortType = (): string => {
   return useSelector(getCurrentSortType);
 };
 
-export const useHoveredHotelId = () => {
+export const useHoveredHotelId = (): number => {
   return useSelector(getHoveredHotelId);
 };

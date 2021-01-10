@@ -30,7 +30,7 @@ export const months = [
 
 export const PagePath = {
   MAIN: `/`,
-  PROPERTY: (id = `:id`) => `/offers/${id}`,
+  PROPERTY: (id: number | string = `:id`): string => `/offers/${id}`,
   FAVORITES: `/favorites`,
   LOGIN: `/login`,
 };
