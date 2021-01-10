@@ -1,10 +1,17 @@
 import React, { memo } from "react";
-import PropTypes from "prop-types";
 import PlaceCard from "../place-card/place-card";
 import { PageType } from "../../utilites/const";
-import { projectPropTypes } from "../../utilites/project-prop-types";
+import { Hotel, Page } from "../../utilites/types";
 
-const FavoritesLocations = memo(function FavoritesLocations({ city, hotels }) {
+interface Props {
+  city: string;
+  hotels: Array<Hotel>;
+}
+
+const FavoritesLocations: React.FC<Props> = memo(function FavoritesLocations({
+  city,
+  hotels,
+}): JSX.Element {
   return (
     <li key={city} className="favorites__locations-items">
       <div className="favorites__locations locations locations--current">
@@ -19,17 +26,12 @@ const FavoritesLocations = memo(function FavoritesLocations({ city, hotels }) {
           <PlaceCard
             key={`${PageType.FAVORITES} ${hotel.id} item`}
             hotel={hotel}
-            pageType={PageType.FAVORITES}
+            pageType={PageType.FAVORITES as Page}
           />
         ))}
       </div>
     </li>
   );
 });
-
-FavoritesLocations.propTypes = {
-  hotels: PropTypes.arrayOf(projectPropTypes.HOTEL.isRequired).isRequired,
-  city: PropTypes.string.isRequired,
-};
 
 export default FavoritesLocations;

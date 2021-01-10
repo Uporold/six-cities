@@ -20,7 +20,7 @@ const api = createAPI(onUnauthorized);
 
 const store = createStore(
   reducer,
-  composeWithDevTools(applyMiddleware(thunk.withExtraArgument(api)))
+  composeWithDevTools(applyMiddleware(thunk.withExtraArgument(api))),
 );
 
 store.dispatch(DataOperation.loadHotels());

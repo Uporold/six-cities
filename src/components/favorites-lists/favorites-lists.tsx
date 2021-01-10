@@ -2,11 +2,17 @@ import React, { memo } from "react";
 import PropTypes from "prop-types";
 import FavoritesLocations from "../favorites-locations/favorites-locations";
 import { projectPropTypes } from "../../utilites/project-prop-types";
+import { Hotel } from "../../utilites/types";
 
-const FavoritesLists = memo(function FavoritesLists({
+interface Props {
+  cities: Array<string>;
+  favoriteHotels: Array<Hotel>;
+}
+
+const FavoritesLists: React.FC<Props> = memo(function FavoritesLists({
   cities,
   favoriteHotels,
-}) {
+}): JSX.Element {
   return (
     <section className="favorites">
       <h1 className="favorites__title">Saved listing</h1>
@@ -22,11 +28,5 @@ const FavoritesLists = memo(function FavoritesLists({
     </section>
   );
 });
-
-FavoritesLists.propTypes = {
-  cities: PropTypes.arrayOf(PropTypes.string).isRequired,
-  favoriteHotels: PropTypes.arrayOf(projectPropTypes.HOTEL.isRequired)
-    .isRequired,
-};
 
 export default FavoritesLists;

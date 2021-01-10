@@ -1,8 +1,6 @@
 import React, { memo } from "react";
-import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
-import { projectPropTypes } from "../../utilites/project-prop-types";
-import { PageType, PagePath } from "../../utilites/const";
+import { PageType, PagePath} from "../../utilites/const";
 import PlaceCardError from "../place-card-error/place-card-error";
 import history from "../../history";
 import { useChangeHotelFavoriteStatus } from "../../redux/data/hooks/useChangeHotelFavoriteStatus";
@@ -10,6 +8,7 @@ import { useGetHoveredHotelId } from "../../redux/app/hooks/useGetHoveredHotelId
 import { useClearErrorIds } from "../../redux/data/hooks/useClearErrorIds";
 import { useErrorHotelIds } from "../../redux/data/hooks/selectors";
 import { useAuthorizationStatus } from "../../redux/user/hooks/selectors";
+import { Hotel, Page } from "../../utilites/types";
 
 const pageTypeToCardClass = {
   MAIN: `cities__place-card`,
@@ -23,7 +22,15 @@ const pageTypeToImageWrapperClass = {
   FAVORITES: `favorites__image-wrapper`,
 };
 
-const PlaceCard = memo(function PlaceCard({ hotel, pageType }) {
+interface Props {
+  hotel: Hotel;
+  pageType: Page;
+}
+
+const PlaceCard: React.FC<Props> = memo(function PlaceCard({
+  hotel,
+  pageType,
+}): JSX.Element {
   const styledRating = hotel.rating * 20;
   const changeHotelFavoriteStatus = useChangeHotelFavoriteStatus();
   const getHoveredHotelId = useGetHoveredHotelId();
@@ -57,7 +64,10 @@ const PlaceCard = memo(function PlaceCard({ hotel, pageType }) {
     }
   };
 
-  const onFavoriteButtonClickHandler = (hotelId, isFavorite) => (evt) => {
+  const onFavoriteButtonClickHandler = (
+    hotelId: number,
+    isFavorite: boolean,
+  ) => (evt: React.MouseEvent) => {
     evt.preventDefault();
     if (!authorizationStatus) {
       history.push(PagePath.LOGIN);
@@ -74,7 +84,7 @@ const PlaceCard = memo(function PlaceCard({ hotel, pageType }) {
         onMouseEnter={onCardMouseEnter}
         onMouseLeave={onCardMouseOut}
       >
-        {errorHotelIds.some((id) => id === hotel.id) && (
+        {errorHotelIds.some((id: number) => id === hotel.id) && (
           <PlaceCardError hotelId={hotel.id} />
         )}
         {renderPremiumMark()}
@@ -108,7 +118,7 @@ const PlaceCard = memo(function PlaceCard({ hotel, pageType }) {
               type="button"
               onClick={onFavoriteButtonClickHandler(
                 hotel.id,
-                !hotel.isFavorite
+                !hotel.isFavorite,
               )}
             >
               <svg className="place-card__bookmark-icon" width="18" height="19">
@@ -132,10 +142,5 @@ const PlaceCard = memo(function PlaceCard({ hotel, pageType }) {
     </>
   );
 });
-
-PlaceCard.propTypes = {
-  hotel: projectPropTypes.HOTEL.isRequired,
-  pageType: PropTypes.string.isRequired,
-};
 
 export default PlaceCard;
