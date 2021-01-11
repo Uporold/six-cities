@@ -5,20 +5,20 @@ import { useClearErrorIds } from "../../redux/data/hooks/useClearErrorIds";
 import { useCurrentCity } from "../../redux/app/hooks/selectors";
 import { useErrorHotelIds } from "../../redux/data/hooks/selectors";
 
-const Login = () => {
+const Login: React.FC = (): JSX.Element => {
   const onSubmit = useLogin();
   const clearErrorIds = useClearErrorIds();
-  const emailRef = useRef();
-  const passwordRef = useRef();
+  const emailRef = useRef<HTMLInputElement>(null);
+  const passwordRef = useRef<HTMLInputElement>(null);
   const currentCity = useCurrentCity();
   const errorHotelIds = useErrorHotelIds();
 
-  const handleSubmit = (evt) => {
+  const handleSubmit = (evt: React.FormEvent) => {
     evt.preventDefault();
 
     onSubmit({
-      email: emailRef.current.value,
-      password: passwordRef.current.value,
+      email: (emailRef.current as HTMLInputElement).value,
+      password: (passwordRef.current as HTMLInputElement).value,
     });
   };
 
@@ -49,7 +49,7 @@ const Login = () => {
                   type="email"
                   name="email"
                   placeholder="Email"
-                  required=""
+                  required
                   ref={emailRef}
                 />
               </div>
@@ -60,7 +60,7 @@ const Login = () => {
                   type="password"
                   name="password"
                   placeholder="Password"
-                  required=""
+                  required
                   ref={passwordRef}
                 />
               </div>
