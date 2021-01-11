@@ -7,7 +7,20 @@ import {
   useUser,
 } from "../../redux/user/hooks/selectors";
 
-const Header = memo(function Header({ isMain, isLogin }) {
+interface Props {
+  isMain?: boolean;
+  isLogin?: boolean;
+}
+
+const defaultProps: Props = {
+  isMain: false,
+  isLogin: false,
+};
+
+const Header: React.FC<Props> = memo(function Header({
+  isMain,
+  isLogin,
+}): JSX.Element {
   const authorizationStatus = useAuthorizationStatus();
   const user = useUser();
   return (
@@ -58,22 +71,6 @@ const Header = memo(function Header({ isMain, isLogin }) {
   );
 });
 
-Header.propTypes = {
-  isMain: PropTypes.bool,
-  isLogin: PropTypes.bool,
-  user: PropTypes.shape({
-    id: PropTypes.number,
-    email: PropTypes.string,
-    name: PropTypes.string,
-    avatar: PropTypes.string,
-    isPro: PropTypes.bool,
-  }),
-};
-
-Header.defaultProps = {
-  isMain: false,
-  isLogin: false,
-  user: null,
-};
+Header.defaultProps = defaultProps;
 
 export default Header;

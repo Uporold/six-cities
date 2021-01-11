@@ -12,7 +12,6 @@ import {
   useFavoriteHotels,
   useCitiesOfFavoriteHotels,
 } from "../../redux/data/hooks/selectors";
-import {useUser} from "../../redux/user/hooks/selectors";
 
 const Favorites: React.FC = (): JSX.Element => {
   const clearErrorIds = useClearErrorIds();
@@ -21,8 +20,6 @@ const Favorites: React.FC = (): JSX.Element => {
   const isFavoritesLoading = useFavoritesLoadingStatus();
   const favoriteHotels = useFavoriteHotels();
   const cities = useCitiesOfFavoriteHotels();
-  const user = useUser();
-  console.log(user)
 
   useEffect(() => {
     loadFavoritesHotels();

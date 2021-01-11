@@ -5,7 +5,7 @@ import MainEmpty from "../../components/main-empty/main-empty";
 import PlacesContainer from "../../components/places-container/places-container";
 import { useHotelsSortedByCity } from "../../redux/data/hooks/selectors";
 
-const Main = () => {
+const Main: React.FC = (): JSX.Element => {
   const hotels = useHotelsSortedByCity();
   return (
     <div
