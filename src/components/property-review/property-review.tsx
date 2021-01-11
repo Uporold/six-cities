@@ -1,8 +1,15 @@
 import React, { memo } from "react";
 import { projectPropTypes } from "../../utilites/project-prop-types";
 import { getDate } from "../../utilites/util";
+import { Review } from "../../utilites/types";
 
-const PropertyReview = memo(function PropertyReview({ review }) {
+interface Props {
+  review: Review;
+}
+
+const PropertyReview: React.FC<Props> = memo(function PropertyReview({
+  review,
+}): JSX.Element {
   const date = getDate(review.date);
   return (
     <li className="reviews__item">
@@ -37,9 +44,5 @@ const PropertyReview = memo(function PropertyReview({ review }) {
     </li>
   );
 });
-
-PropertyReview.propTypes = {
-  review: projectPropTypes.REVIEW.isRequired,
-};
 
 export default PropertyReview;

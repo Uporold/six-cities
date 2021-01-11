@@ -1,15 +1,22 @@
 import React, { memo } from "react";
-import PropTypes from "prop-types";
 import PlaceCard from "../place-card/place-card";
-import { projectPropTypes } from "../../utilites/project-prop-types";
 import { PageType } from "../../utilites/const";
+import { Hotel, Page } from "../../utilites/types";
 
 const pageTypeToListClass = {
   [PageType.MAIN]: `cities__places-list`,
   [PageType.PROPERTY]: `near-places__list`,
 };
 
-const PlacesList = memo(function PlacesList({ hotels, pageType }) {
+interface Props {
+  hotels: Array<Hotel>;
+  pageType: Page;
+}
+
+const PlacesList: React.FC<Props> = memo(function PlacesList({
+  hotels,
+  pageType,
+}): JSX.Element {
   return (
     <div className={`${pageTypeToListClass[pageType]} places__list`}>
       {hotels.map((hotel) => (
@@ -18,10 +25,5 @@ const PlacesList = memo(function PlacesList({ hotels, pageType }) {
     </div>
   );
 });
-
-PlacesList.propTypes = {
-  hotels: PropTypes.arrayOf(projectPropTypes.HOTEL.isRequired).isRequired,
-  pageType: PropTypes.string.isRequired,
-};
 
 export default PlacesList;

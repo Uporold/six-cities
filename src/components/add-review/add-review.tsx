@@ -1,5 +1,4 @@
 import React, { useState, memo } from "react";
-import PropTypes from "prop-types";
 import { useSendReview } from "../../redux/data/hooks/useSendReview";
 import {
   useReviewSendingStatus,
@@ -20,16 +19,22 @@ const ButtonText = {
   SUBMIT: `Submit`,
 };
 
-const AddReview = memo(function AddReview({ hotelId }) {
+interface Props {
+  hotelId: number;
+}
+
+const AddReview: React.FC<Props> = memo(function AddReview({
+  hotelId,
+}): JSX.Element {
   const [comment, setComment] = useState(``);
   const [stars, setStars] = useState(0);
 
-  const onCommentChange = (event) => {
-    setComment(event.target.value);
+  const onCommentChange = (evt: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setComment(evt.target.value);
   };
 
-  const onRatingChange = (event) => {
-    setStars(event.target.value);
+  const onRatingChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
+    setStars(+evt.target.value);
   };
 
   const sendReview = useSendReview();
@@ -37,18 +42,18 @@ const AddReview = memo(function AddReview({ hotelId }) {
   const isSendingError = useSendingErrorStatus();
   const setSendingErrorStatus = useSetSendingErrorStatus();
 
-  const onTextInputFocus = (status) => () => {
+  const onTextInputFocus = (status: boolean) => () => {
     setSendingErrorStatus(status);
   };
 
-  const onSubmitFormHandler = (event) => {
-    event.preventDefault();
+  const onSubmitFormHandler = (evt: React.FormEvent<HTMLFormElement>) => {
+    evt.preventDefault();
     const review = {
       comment,
       rating: stars,
     };
     sendReview(hotelId, review);
-    event.target.reset();
+    evt.currentTarget.reset();
     setComment(``);
     setStars(0);
   };
@@ -121,9 +126,5 @@ const AddReview = memo(function AddReview({ hotelId }) {
     </form>
   );
 });
-
-AddReview.propTypes = {
-  hotelId: PropTypes.number.isRequired,
-};
 
 export default AddReview;

@@ -1,11 +1,18 @@
 import React, { memo } from "react";
-import PropTypes from "prop-types";
 import PropertyReview from "../property-review/property-review";
-import { projectPropTypes } from "../../utilites/project-prop-types";
 import AddReview from "../add-review/add-review";
 import { useAuthorizationStatus } from "../../redux/user/hooks/selectors";
+import { Review } from "../../utilites/types";
 
-const PropertyReviews = memo(function PropertyReviews({ reviews, hotelId }) {
+interface Props {
+  reviews: Array<Review>;
+  hotelId: number;
+}
+
+const PropertyReviews: React.FC<Props> = memo(function PropertyReviews({
+  reviews,
+  hotelId,
+}): JSX.Element {
   const authorizationStatus = useAuthorizationStatus();
   return (
     <section className="property__reviews reviews">
@@ -22,10 +29,5 @@ const PropertyReviews = memo(function PropertyReviews({ reviews, hotelId }) {
     </section>
   );
 });
-
-PropertyReviews.propTypes = {
-  reviews: PropTypes.arrayOf(projectPropTypes.REVIEW.isRequired).isRequired,
-  hotelId: PropTypes.number.isRequired,
-};
 
 export default PropertyReviews;

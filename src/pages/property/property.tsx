@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import PropTypes from "prop-types";
+import { RouteComponentProps } from "react-router";
 import Header from "../../components/header/header";
 import PlacesList from "../../components/places-list/places-list";
 import PropertyReviews from "../../components/property-reviews/property-reviews";
@@ -13,8 +13,15 @@ import {
   useHotelReviews,
 } from "../../redux/data/hooks/selectors";
 import { PageType } from "../../utilites/const";
+import {Page} from "../../utilites/types";
 
-const Property = ({ match }) => {
+interface MatchParams {
+  id: string;
+}
+
+type Props = RouteComponentProps<MatchParams>;
+
+const Property: React.FC<Props> = ({ match }): JSX.Element => {
   const hotelId = match.params.id;
   const hotel = useCurrentHotel(hotelId);
   const changeHotelFavoriteStatus = useChangeHotelFavoriteStatus();
@@ -32,7 +39,10 @@ const Property = ({ match }) => {
     loadNearbyHotels(hotelId);
   }, [hotelId, loadHotelReviews, loadNearbyHotels]);
 
-  const onFavoriteButtonClickHandler = (id, isFavorite) => () => {
+  const onFavoriteButtonClickHandler = (
+    id: number,
+    isFavorite: boolean,
+  ) => () => {
     changeHotelFavoriteStatus(id, isFavorite);
   };
 
@@ -94,7 +104,7 @@ const Property = ({ match }) => {
                   type="button"
                   onClick={onFavoriteButtonClickHandler(
                     hotel.id,
-                    !hotel.isFavorite
+                    !hotel.isFavorite,
                   )}
                 >
                   <svg
@@ -177,20 +187,12 @@ const Property = ({ match }) => {
             <h2 className="near-places__title">
               Other places in the neighbourhood
             </h2>
-            <PlacesList hotels={nearbyHotels} pageType={PageType.PROPERTY} />
+            <PlacesList hotels={nearbyHotels} pageType={PageType.PROPERTY as Page} />
           </section>
         </div>
       </main>
     </div>
   );
-};
-
-Property.propTypes = {
-  match: PropTypes.shape({
-    params: PropTypes.shape({
-      id: PropTypes.string.isRequired,
-    }),
-  }).isRequired,
 };
 
 export default Property;
