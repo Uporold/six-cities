@@ -8,8 +8,9 @@ import {
   useHotelsSortedByCity,
   useHotelsSortedByForm,
 } from "../../redux/data/hooks/selectors";
+import { Page } from "../../utilites/types";
 
-const PlacesContainer = () => {
+const PlacesContainer: React.FC = (): JSX.Element => {
   const hotelsByCity = useHotelsSortedByCity();
   const sortedHotels = useHotelsSortedByForm();
   const currentCity = useCurrentCity();
@@ -26,7 +27,7 @@ const PlacesContainer = () => {
           {hotelsByCity.length} places to stay in {currentCity}
         </b>
         <Sorting currentCity={currentCity} />
-        <PlacesList hotels={sortedHotels} pageType={PageType.MAIN} />
+        <PlacesList hotels={sortedHotels} pageType={PageType.MAIN as Page} />
       </section>
       <div className="cities__right-section">
         <section className="cities__map map">

@@ -26,8 +26,12 @@ interface Props {
 const AddReview: React.FC<Props> = memo(function AddReview({
   hotelId,
 }): JSX.Element {
-  const [comment, setComment] = useState(``);
-  const [stars, setStars] = useState(0);
+  const [comment, setComment] = useState<string>(``);
+  const [stars, setStars] = useState<number>(0);
+
+  const test = () => {
+    setStars(5);
+  }
 
   const onCommentChange = (evt: React.ChangeEvent<HTMLTextAreaElement>) => {
     setComment(evt.target.value);

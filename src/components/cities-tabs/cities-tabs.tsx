@@ -6,14 +6,14 @@ import { useClearErrorIds } from "../../redux/data/hooks/useClearErrorIds";
 import { useErrorHotelIds } from "../../redux/data/hooks/selectors";
 import { useSetDefaultSortType } from "../../redux/app/hooks/useSetDefaultSortType";
 
-const CitiesTabs = memo(function CitiesTabs() {
+const CitiesTabs: React.FC = memo(function CitiesTabs(): JSX.Element {
   const currentCity = useCurrentCity();
   const clearErrorHotelIds = useClearErrorIds();
   const errorHotelIds = useErrorHotelIds();
   const setCity = useSetCity();
   const setDefaultSortType = useSetDefaultSortType();
 
-  const onCityTabClickHandler = (city) => (evt) => {
+  const onCityTabClickHandler = (city: string) => (evt: React.MouseEvent) => {
     evt.preventDefault();
     if (currentCity !== city) {
       setCity(city);

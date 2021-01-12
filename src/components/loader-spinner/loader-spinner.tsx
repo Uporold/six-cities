@@ -9,7 +9,7 @@ const style = {
   minHeight: `100vh`,
 };
 
-const LoaderSpinner = () => {
+const LoaderSpinner: React.FC = (): JSX.Element => {
   return (
     <div className="page" style={style}>
       <Loader type="Watch" color="#4481C3" height={100} width={100} />

@@ -1,7 +1,7 @@
 import React from "react";
 import { useCurrentCity } from "../../redux/app/hooks/selectors";
 
-const MainEmpty = () => {
+const MainEmpty: React.FC = (): JSX.Element => {
   const currentCity = useCurrentCity();
   return (
     <div className="cities__places-container cities__places-container--empty container">

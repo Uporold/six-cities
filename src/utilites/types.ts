@@ -27,12 +27,17 @@ export interface Hotel {
   };
 }
 
-export interface Review {
+export interface Review extends ReviewPure {
   id: number;
   user: User;
-  rating: number;
-  comment: string;
+  // rating: number;
+  // comment: string;
   date: string;
+}
+
+export interface ReviewPure {
+  comment: string;
+  rating: number;
 }
 
 export interface User {
@@ -47,3 +52,9 @@ export interface UserLogged extends User {
 }
 
 export type Page = `MAIN` | `PROPERTY` | `FAVORITES`;
+
+export type Sort =
+  | `Popular`
+  | `Price: low to high`
+  | `Price: high to low`
+  | `Top rated first`;

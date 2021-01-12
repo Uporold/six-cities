@@ -1,5 +1,4 @@
 import React, { memo } from "react";
-import { projectPropTypes } from "../../utilites/project-prop-types";
 import { getDate } from "../../utilites/util";
 import { Review } from "../../utilites/types";
 

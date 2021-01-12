@@ -28,6 +28,13 @@ export const months = [
   `December`,
 ];
 
+export const sortTypes = [
+  `Popular`,
+  `Price: low to high`,
+  `Price: high to low`,
+  `Top rated first`,
+];
+
 export const PagePath = {
   MAIN: `/`,
   PROPERTY: (id: number | string = `:id`): string => `/offers/${id}`,
