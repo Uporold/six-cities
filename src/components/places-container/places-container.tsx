@@ -18,7 +18,7 @@ const PlacesContainer: React.FC = (): JSX.Element => {
     hotelsByCity[0].city.location.latitude,
     hotelsByCity[0].city.location.longitude,
   ];
-  const zoom = [hotelsByCity[0].city.location.zoom];
+  const { zoom } = hotelsByCity[0].city.location;
   return (
     <div className="cities__places-container container">
       <section className="cities__places places">

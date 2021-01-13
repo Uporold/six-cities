@@ -1,6 +1,6 @@
 import React, { memo } from "react";
 import { Link } from "react-router-dom";
-import { PageType, PagePath} from "../../utilites/const";
+import { PageType, PagePath } from "../../utilites/const";
 import PlaceCardError from "../place-card-error/place-card-error";
 import history from "../../history";
 import { useChangeHotelFavoriteStatus } from "../../redux/data/hooks/useChangeHotelFavoriteStatus";

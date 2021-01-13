@@ -1,14 +1,18 @@
 import { useEffect, useRef } from "react";
 import { months } from "./const";
+import { Hotel, Sort } from "./types";
 
-export const getHotelsByCity = (hotels, city) => {
+export const getHotelsByCity = (
+  hotels: Array<Hotel>,
+  city: string,
+): Array<Hotel> => {
   return hotels.filter((hotel) => hotel.city.name === city);
 };
 
-export const getHotelReviews = (hotel, reviews) => {
-  const hotelReviews = reviews.find((review) => review.offerId === hotel.id);
-  return hotelReviews ? hotelReviews.comments : [];
-};
+// export const getHotelReviews = (hotel, reviews) => {
+//   const hotelReviews = reviews.find((review) => review.offerId === hotel.id);
+//   return hotelReviews ? hotelReviews.comments : [];
+// };
 
 export const sortTypes = {
   SORT_POPULAR: `Popular`,
@@ -17,7 +21,10 @@ export const sortTypes = {
   SORT_TOP_RATED: `Top rated first`,
 };
 
-export const getSortedHotels = (hotels, sortType) => {
+export const getSortedHotels = (
+  hotels: Array<Hotel>,
+  sortType: Sort,
+): Array<Hotel> => {
   switch (sortType) {
     case sortTypes.SORT_PRICE_LOW_TO_HIGH:
       return hotels.slice().sort((a, b) => a.price - b.price);
@@ -30,7 +37,7 @@ export const getSortedHotels = (hotels, sortType) => {
   }
 };
 
-export const getHotelsCities = (hotels) => {
+export const getHotelsCities = (hotels: Array<Hotel>): Array<string> => {
   return [
     ...new Set(
       hotels
@@ -39,19 +46,19 @@ export const getHotelsCities = (hotels) => {
           if (a < b) return -1;
           if (a > b) return 1;
           return 0;
-        })
+        }),
     ),
   ];
 };
 
-export const getDate = (date) => {
+export const getDate = (date: string): string => {
   return `${months[new Date(date).getMonth()]} ${new Date(date).getFullYear()}`;
 };
 
-export const usePrevious = (value) => {
-  const ref = useRef();
+export const usePrevious = <T>(value: T): T => {
+  const ref = useRef<T>();
   useEffect(() => {
     ref.current = value;
   });
-  return ref.current;
+  return ref.current as T;
 };

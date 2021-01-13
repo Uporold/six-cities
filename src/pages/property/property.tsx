@@ -13,7 +13,7 @@ import {
   useHotelReviews,
 } from "../../redux/data/hooks/selectors";
 import { PageType } from "../../utilites/const";
-import {Page} from "../../utilites/types";
+import { Page } from "../../utilites/types";
 
 interface MatchParams {
   id: string;
@@ -32,7 +32,7 @@ const Property: React.FC<Props> = ({ match }): JSX.Element => {
 
   const styledRating = hotel.rating * 20;
   const center = [hotel.city.location.latitude, hotel.city.location.longitude];
-  const zoom = [hotel.city.location.zoom];
+  const { zoom } = hotel.city.location;
 
   useEffect(() => {
     loadHotelReviews(hotelId);
@@ -187,7 +187,10 @@ const Property: React.FC<Props> = ({ match }): JSX.Element => {
             <h2 className="near-places__title">
               Other places in the neighbourhood
             </h2>
-            <PlacesList hotels={nearbyHotels} pageType={PageType.PROPERTY as Page} />
+            <PlacesList
+              hotels={nearbyHotels}
+              pageType={PageType.PROPERTY as Page}
+            />
           </section>
         </div>
       </main>

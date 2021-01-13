@@ -25,6 +25,11 @@ export interface Hotel {
       zoom: number;
     };
   };
+  location: {
+    latitude: number;
+    longitude: number;
+    zoom: number;
+  };
 }
 
 export interface Review extends ReviewPure {
