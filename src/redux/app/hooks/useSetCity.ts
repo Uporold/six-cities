@@ -2,13 +2,13 @@ import { useCallback } from "react";
 import { useDispatch } from "react-redux";
 import { ActionCreator } from "../app";
 
-export const useGetHoveredHotelId = () => {
+export const useSetCity = (): ((city: string) => void) => {
   const dispatch = useDispatch();
 
   return useCallback(
-    (hotelId) => {
-      dispatch(ActionCreator.getHoveredHotelId(hotelId));
+    (city) => {
+      dispatch(ActionCreator.setCity(city));
     },
-    [dispatch]
+    [dispatch],
   );
 };
