@@ -22,7 +22,7 @@ interface MatchParams {
 type Props = RouteComponentProps<MatchParams>;
 
 const Property: React.FC<Props> = ({ match }): JSX.Element => {
-  const hotelId = match.params.id;
+  const hotelId = Number(match.params.id);
   const hotel = useCurrentHotel(hotelId);
   const changeHotelFavoriteStatus = useChangeHotelFavoriteStatus();
   const loadHotelReviews = useLoadHotelReviews();

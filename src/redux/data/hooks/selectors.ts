@@ -69,6 +69,6 @@ export const useHotelsSortedByForm = (): Array<Hotel> => {
   return useSelector(getHotelsSortedByForm);
 };
 
-export const useCurrentHotel = (id: string): Hotel => {
+export const useCurrentHotel = (id: number): Hotel => {
   return useSelector(getCurrentHotel(id));
 };
