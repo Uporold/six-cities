@@ -1,4 +1,13 @@
-export const hotelAdapter = (data) => {
+import {
+  Hotel,
+  HotelBackend,
+  Review,
+  ReviewBackend,
+  UserBackend,
+  UserLogged,
+} from "../../utilites/types";
+
+export const hotelAdapter = (data: HotelBackend): Hotel => {
   return {
     id: data.id,
     city: {
@@ -35,7 +44,7 @@ export const hotelAdapter = (data) => {
   };
 };
 
-export const reviewAdapter = (data) => {
+export const reviewAdapter = (data: ReviewBackend): Review => {
   return {
     id: data.id,
     user: {
@@ -50,7 +59,7 @@ export const reviewAdapter = (data) => {
   };
 };
 
-export const createUser = (data) => {
+export const createUser = (data: UserBackend): UserLogged => {
   return {
     id: data.id,
     email: data.email,

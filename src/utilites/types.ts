@@ -13,6 +13,7 @@ export interface Hotel {
   goods: Array<string>;
   description: string;
   host: {
+    id: number;
     name: string;
     isPro: boolean;
     avatarUrl: string;
@@ -32,17 +33,63 @@ export interface Hotel {
   };
 }
 
+export interface HotelBackend {
+  id: number;
+  city: {
+    name: string;
+    location: {
+      latitude: number;
+      longitude: number;
+      zoom: number;
+    };
+  };
+  title: string;
+  [`preview_image`]: string;
+  images: Array<string>;
+  price: number;
+  type: string;
+  rating: number;
+  [`is_premium`]: boolean;
+  [`is_favorite`]: boolean;
+  bedrooms: number;
+  description: string;
+  [`max_adults`]: number;
+  goods: Array<string>;
+  host: {
+    id: number;
+    name: string;
+    [`is_pro`]: boolean;
+    [`avatar_url`]: string;
+  };
+  location: {
+    latitude: number;
+    longitude: number;
+    zoom: number;
+  };
+}
+
 export interface Review extends ReviewPure {
   id: number;
   user: User;
-  // rating: number;
-  // comment: string;
   date: string;
 }
 
 export interface ReviewPure {
   comment: string;
   rating: number;
+}
+
+export interface ReviewBackend {
+  id: number;
+  user: {
+    id: number;
+    [`is_pro`]: boolean;
+    name: string;
+    avatar_url: string;
+  };
+  rating: number;
+  comment: string;
+  date: string;
 }
 
 export interface User {
@@ -54,6 +101,14 @@ export interface User {
 
 export interface UserLogged extends User {
   email: string;
+}
+
+export interface UserBackend {
+  id: number;
+  email: string;
+  name: string;
+  avatar_url: string;
+  [`is_pro`]: boolean;
 }
 
 export type Page = `MAIN` | `PROPERTY` | `FAVORITES`;
