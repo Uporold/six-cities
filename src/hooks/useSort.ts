@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useCurrentSortType } from "../redux/app/hooks/selectors";
 import { useSetSortType } from "../redux/app/hooks/useSetSortType";
 import { usePrevious } from "../utilites/util";
+import { Sort } from "../utilites/types";
 
 interface UseSortReturn {
   isSortOpen: boolean;
@@ -9,7 +10,7 @@ interface UseSortReturn {
     value: ((prevState: boolean) => boolean) | boolean,
   ) => void;
   currentSortType: string;
-  setSortType: (sortType: string) => void;
+  setSortType: (sortType: Sort) => void;
 }
 
 export const useSort = (currentCity: string): UseSortReturn => {

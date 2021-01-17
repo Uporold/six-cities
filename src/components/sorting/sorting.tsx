@@ -1,6 +1,7 @@
 import React, { memo } from "react";
 import { sortTypes } from "../../utilites/const";
 import { useSort } from "../../hooks/useSort";
+import { Sort } from "../../utilites/types";
 
 const arrowActiveStyle = {
   transform: `rotate(180deg)`,
@@ -25,9 +26,7 @@ const Sorting: React.FC<Props> = memo(function Sorting({
     setSortFormOpenStatus(!isSortOpen);
   };
 
-  const sortItemClickHandler = (sortType: string) => (
-    evt: React.MouseEvent,
-  ) => {
+  const sortItemClickHandler = (sortType: Sort) => (evt: React.MouseEvent) => {
     evt.preventDefault();
     if (sortType && sortType !== currentSortType) {
       setSortType(sortType);

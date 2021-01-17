@@ -1,3 +1,5 @@
+import { Sort } from "./types";
+
 export const PageType = {
   MAIN: `MAIN`,
   PROPERTY: `PROPERTY`,
@@ -28,7 +30,7 @@ export const months = [
   `December`,
 ];
 
-export const sortTypes = [
+export const sortTypes: Sort[] = [
   `Popular`,
   `Price: low to high`,
   `Price: high to low`,
