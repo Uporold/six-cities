@@ -1,9 +1,27 @@
 import history from "../../history";
 import { createUser } from "../adapter/adapter";
+import { UserLogged } from "../../utilites/types";
 
-export const initialState = {
+interface UserActionInterface {
+  type?: string;
+  payload: boolean | UserLogged;
+}
+
+interface InitialStateInterface {
+  authorizationStatus: boolean;
+  user: UserLogged;
+  isAuthorizationLoading: boolean;
+}
+
+export const initialState: InitialStateInterface = {
   authorizationStatus: false,
-  user: {},
+  user: {
+    id: -1,
+    email: ``,
+    isPro: false,
+    avatar: ``,
+    name: ``,
+  },
   isAuthorizationLoading: true,
 };
 
@@ -14,21 +32,21 @@ export const ActionType = {
 };
 
 export const ActionCreator = {
-  finishAuthorizationLoading: () => {
+  finishAuthorizationLoading: (): UserActionInterface => {
     return {
       type: ActionType.FINISH_AUTHORIZATION,
       payload: false,
     };
   },
 
-  setAuthorizationStatus: (status) => {
+  setAuthorizationStatus: (status: boolean): UserActionInterface => {
     return {
       type: ActionType.SET_AUTHORIZATION_STATUS,
       payload: status,
     };
   },
 
-  getUserData: (userData) => {
+  getUserData: (userData: UserLogged): UserActionInterface => {
     return {
       type: ActionType.GET_USER_DATA,
       payload: userData,
@@ -36,19 +54,23 @@ export const ActionCreator = {
   },
 };
 
-export const reducer = (state = initialState, action) => {
+export const reducer = (
+  state = initialState,
+  action: UserActionInterface,
+): InitialStateInterface => {
   switch (action.type) {
     case ActionType.SET_AUTHORIZATION_STATUS:
-      return { ...state, authorizationStatus: action.payload };
+      return { ...state, authorizationStatus: action.payload as boolean };
     case ActionType.GET_USER_DATA:
-      return { ...state, user: action.payload };
+      return { ...state, user: action.payload as UserLogged };
     case ActionType.FINISH_AUTHORIZATION:
-      return { ...state, isAuthorizationLoading: action.payload };
+      return { ...state, isAuthorizationLoading: action.payload as boolean };
     default:
       return state;
   }
 };
 
+// TODO operation ts
 export const Operation = {
   checkAuth: () => (dispatch, getState, api) => {
     return api
