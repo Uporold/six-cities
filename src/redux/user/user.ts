@@ -1,9 +1,11 @@
+import { AxiosPromise } from "axios";
+import { Dispatch } from "redux";
 import history from "../../history";
 import { createUser } from "../adapter/adapter";
-import { UserLogged } from "../../utilites/types";
+import { LoginData, UserLogged } from "../../utilites/types";
 
 interface UserActionInterface {
-  type?: string;
+  type: string;
   payload: boolean | UserLogged;
 }
 
@@ -70,32 +72,41 @@ export const reducer = (
   }
 };
 
-// TODO operation ts
 export const Operation = {
-  checkAuth: () => (dispatch, getState, api) => {
-    return api
-      .get(`/login`)
-      .then((response) => {
-        dispatch(ActionCreator.setAuthorizationStatus(true));
-        dispatch(ActionCreator.getUserData(createUser(response.data)));
-        dispatch(ActionCreator.finishAuthorizationLoading());
-      })
-      .catch(() => {
-        dispatch(ActionCreator.setAuthorizationStatus(false));
-        dispatch(ActionCreator.finishAuthorizationLoading());
-      });
+  checkAuth: () => async (
+    dispatch: Dispatch<UserActionInterface>,
+    _getState: InitialStateInterface,
+    api: { get: (arg0: string) => AxiosPromise },
+  ): Promise<void> => {
+    try {
+      const response = await api.get(`/login`);
+      dispatch(ActionCreator.setAuthorizationStatus(true));
+      dispatch(ActionCreator.getUserData(createUser(response.data)));
+      dispatch(ActionCreator.finishAuthorizationLoading());
+    } catch (e) {
+      dispatch(ActionCreator.setAuthorizationStatus(false));
+      dispatch(ActionCreator.finishAuthorizationLoading());
+    }
   },
 
-  login: (authData) => (dispatch, getState, api) => {
-    return api
-      .post(`/login`, {
-        email: authData.email,
-        password: authData.password,
-      })
-      .then((response) => {
-        dispatch(ActionCreator.setAuthorizationStatus(true));
-        dispatch(ActionCreator.getUserData(createUser(response.data)));
-        history.push(`/`);
-      });
+  login: (authData: LoginData) => async (
+    dispatch: Dispatch<UserActionInterface>,
+    _getState: InitialStateInterface,
+    api: {
+      post: (
+        arg0: string,
+        arg1: { email: string; password: string },
+      ) => AxiosPromise;
+    },
+  ): Promise<void> => {
+    const response = await api.post(`/login`, {
+      email: authData.email,
+      password: authData.password,
+    });
+    dispatch(ActionCreator.setAuthorizationStatus(true));
+    dispatch(ActionCreator.getUserData(createUser(response.data)));
+    history.push(`/`);
   },
 };
+
+// TODO дополнить типизацию _getState
