@@ -1,15 +1,17 @@
-import { AxiosPromise } from "axios";
+import { AxiosInstance, AxiosPromise } from "axios";
 import { Dispatch } from "redux";
+import {ThunkAction, ThunkDispatch} from "redux-thunk";
 import history from "../../history";
 import { createUser } from "../adapter/adapter";
 import { LoginData, UserLogged } from "../../utilites/types";
+import { GlobalState } from "../reducer";
 
 interface UserActionInterface {
   type: string;
   payload: boolean | UserLogged;
 }
 
-interface InitialStateInterface {
+export interface InitialStateInterface {
   authorizationStatus: boolean;
   user: UserLogged;
   isAuthorizationLoading: boolean;
@@ -73,9 +75,14 @@ export const reducer = (
 };
 
 export const Operation = {
-  checkAuth: () => async (
-    dispatch: Dispatch<UserActionInterface>,
-    _getState: InitialStateInterface,
+  checkAuth: (): ThunkAction<
+    void,
+    GlobalState,
+    AxiosInstance,
+    UserActionInterface
+  > => async (
+    dispatch: ThunkDispatch<GlobalState, AxiosInstance, UserActionInterface>,
+    getState: () => GlobalState,
     api: { get: (arg0: string) => AxiosPromise },
   ): Promise<void> => {
     try {
@@ -89,9 +96,16 @@ export const Operation = {
     }
   },
 
-  login: (authData: LoginData) => async (
-    dispatch: Dispatch<UserActionInterface>,
-    _getState: InitialStateInterface,
+  login: (
+    authData: LoginData,
+  ): ThunkAction<
+    void,
+    GlobalState,
+    AxiosInstance,
+    UserActionInterface
+  > => async (
+    dispatch: ThunkDispatch<GlobalState, AxiosInstance, UserActionInterface>,
+    getState: () => GlobalState,
     api: {
       post: (
         arg0: string,
@@ -108,5 +122,3 @@ export const Operation = {
     history.push(`/`);
   },
 };
-
-// TODO дополнить типизацию _getState

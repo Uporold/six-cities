@@ -4,7 +4,7 @@ import thunk from "redux-thunk";
 import { AxiosError } from "axios";
 import { ActionCreator, Operation as UserOperation } from "./redux/user/user";
 import { createAPI } from "./api";
-import reducer from "./redux/reducer";
+import { rootReducer } from "./redux/reducer";
 import { Operation as DataOperation } from "./redux/data/data";
 
 const Error = {
@@ -20,7 +20,7 @@ const onUnauthorized = (err: AxiosError) => {
 const api = createAPI(onUnauthorized);
 
 const store = createStore(
-  reducer,
+  rootReducer,
   composeWithDevTools(applyMiddleware(thunk.withExtraArgument(api))),
 );
 

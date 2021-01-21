@@ -1,11 +1,11 @@
 import { Sort } from "../../utilites/types";
 
 interface AppActionInterface {
-  type?: string;
+  type: string;
   payload: string | number;
 }
 
-interface InitialStateInterface {
+export interface InitialStateInterface {
   currentCity: string;
   currentSortType: Sort;
   hoveredHotelId: number;

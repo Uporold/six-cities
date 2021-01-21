@@ -4,8 +4,10 @@ import { reducer as app } from "./app/app";
 import { reducer as user } from "./user/user";
 import NameSpace from "./name-space";
 
-export default combineReducers({
+export const rootReducer = combineReducers({
   [NameSpace.DATA]: data,
   [NameSpace.APP]: app,
   [NameSpace.USER]: user,
 });
+
+export type GlobalState = ReturnType<typeof rootReducer>;
