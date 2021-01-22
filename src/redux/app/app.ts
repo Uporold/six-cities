@@ -1,9 +1,8 @@
 import { Sort } from "../../utilites/types";
+// eslint-disable-next-line import/no-cycle
+import { InferActionsTypes } from "../reducer";
 
-interface AppActionInterface {
-  type: string;
-  payload: string | number;
-}
+type AppActionTypes = ReturnType<InferActionsTypes<typeof ActionCreator>>;
 
 export interface InitialStateInterface {
   currentCity: string;
@@ -25,31 +24,31 @@ export const ActionType = {
   SET_SORT_TYPE: `SET_SORT_TYPE`,
   SET_DEFAULT_SORT_TYPE: `SET_DEFAULT_SORT_TYPE`,
   GET_HOVERED_HOTEL_ID: `GET_HOVERED_HOTEL_ID`,
-};
+} as const;
 
 export const ActionCreator = {
-  setCity: (city: string): AppActionInterface => {
+  setCity: (city: string) => {
     return {
       type: ActionType.SET_CITY,
       payload: city,
     };
   },
 
-  setSort: (sortType: Sort): AppActionInterface => {
+  setSort: (sortType: Sort) => {
     return {
       type: ActionType.SET_SORT_TYPE,
       payload: sortType,
     };
   },
 
-  setDefaultSortType: (): AppActionInterface => {
+  setDefaultSortType: () => {
     return {
       type: ActionType.SET_DEFAULT_SORT_TYPE,
       payload: DEFAULT_SORT,
     };
   },
 
-  getHoveredHotelId: (hotelId: number): AppActionInterface => {
+  getHoveredHotelId: (hotelId: number) => {
     return {
       type: ActionType.GET_HOVERED_HOTEL_ID,
       payload: hotelId,
@@ -59,7 +58,7 @@ export const ActionCreator = {
 
 export const reducer = (
   state = initialState,
-  action: AppActionInterface,
+  action: AppActionTypes,
 ): InitialStateInterface => {
   switch (action.type) {
     case ActionType.SET_CITY:

@@ -1,15 +1,11 @@
-import { AxiosInstance, AxiosPromise } from "axios";
-import { Dispatch } from "redux";
-import {ThunkAction, ThunkDispatch} from "redux-thunk";
 import history from "../../history";
 import { createUser } from "../adapter/adapter";
 import { LoginData, UserLogged } from "../../utilites/types";
-import { GlobalState } from "../reducer";
+// eslint-disable-next-line import/no-cycle
+import { BaseThunkActionType, InferActionsTypes } from "../reducer";
 
-interface UserActionInterface {
-  type: string;
-  payload: boolean | UserLogged;
-}
+type UserActionTypes = ReturnType<InferActionsTypes<typeof ActionCreator>>;
+type ThunkActionType = BaseThunkActionType<UserActionTypes>;
 
 export interface InitialStateInterface {
   authorizationStatus: boolean;
@@ -33,24 +29,24 @@ export const ActionType = {
   SET_AUTHORIZATION_STATUS: `SET_AUTHORIZATION_STATUS`,
   GET_USER_DATA: `GET_USER_DATA`,
   FINISH_AUTHORIZATION: `FINISH_AUTHORIZATION`,
-};
+} as const;
 
 export const ActionCreator = {
-  finishAuthorizationLoading: (): UserActionInterface => {
+  finishAuthorizationLoading: () => {
     return {
       type: ActionType.FINISH_AUTHORIZATION,
       payload: false,
     };
   },
 
-  setAuthorizationStatus: (status: boolean): UserActionInterface => {
+  setAuthorizationStatus: (status: boolean) => {
     return {
       type: ActionType.SET_AUTHORIZATION_STATUS,
       payload: status,
     };
   },
 
-  getUserData: (userData: UserLogged): UserActionInterface => {
+  getUserData: (userData: UserLogged) => {
     return {
       type: ActionType.GET_USER_DATA,
       payload: userData,
@@ -58,32 +54,11 @@ export const ActionCreator = {
   },
 };
 
-export const reducer = (
-  state = initialState,
-  action: UserActionInterface,
-): InitialStateInterface => {
-  switch (action.type) {
-    case ActionType.SET_AUTHORIZATION_STATUS:
-      return { ...state, authorizationStatus: action.payload as boolean };
-    case ActionType.GET_USER_DATA:
-      return { ...state, user: action.payload as UserLogged };
-    case ActionType.FINISH_AUTHORIZATION:
-      return { ...state, isAuthorizationLoading: action.payload as boolean };
-    default:
-      return state;
-  }
-};
-
 export const Operation = {
-  checkAuth: (): ThunkAction<
-    void,
-    GlobalState,
-    AxiosInstance,
-    UserActionInterface
-  > => async (
-    dispatch: ThunkDispatch<GlobalState, AxiosInstance, UserActionInterface>,
-    getState: () => GlobalState,
-    api: { get: (arg0: string) => AxiosPromise },
+  checkAuth: (): ThunkActionType => async (
+    dispatch,
+    getState,
+    api,
   ): Promise<void> => {
     try {
       const response = await api.get(`/login`);
@@ -96,22 +71,10 @@ export const Operation = {
     }
   },
 
-  login: (
-    authData: LoginData,
-  ): ThunkAction<
-    void,
-    GlobalState,
-    AxiosInstance,
-    UserActionInterface
-  > => async (
-    dispatch: ThunkDispatch<GlobalState, AxiosInstance, UserActionInterface>,
-    getState: () => GlobalState,
-    api: {
-      post: (
-        arg0: string,
-        arg1: { email: string; password: string },
-      ) => AxiosPromise;
-    },
+  login: (authData: LoginData): ThunkActionType => async (
+    dispatch,
+    getState,
+    api,
   ): Promise<void> => {
     const response = await api.post(`/login`, {
       email: authData.email,
@@ -121,4 +84,20 @@ export const Operation = {
     dispatch(ActionCreator.getUserData(createUser(response.data)));
     history.push(`/`);
   },
+};
+
+export const reducer = (
+  state = initialState,
+  action: UserActionTypes,
+): InitialStateInterface => {
+  switch (action.type) {
+    case ActionType.SET_AUTHORIZATION_STATUS:
+      return { ...state, authorizationStatus: action.payload };
+    case ActionType.GET_USER_DATA:
+      return { ...state, user: action.payload };
+    case ActionType.FINISH_AUTHORIZATION:
+      return { ...state, isAuthorizationLoading: action.payload };
+    default:
+      return state;
+  }
 };

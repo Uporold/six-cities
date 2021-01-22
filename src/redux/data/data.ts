@@ -1,5 +1,4 @@
-import { AxiosInstance, AxiosPromise, AxiosResponse } from "axios";
-import { ThunkAction, ThunkDispatch } from "redux-thunk";
+import { AxiosResponse } from "axios";
 import { hotelAdapter, reviewAdapter } from "../adapter/adapter";
 import {
   Hotel,
@@ -8,50 +7,11 @@ import {
   ReviewBackend,
   ReviewPure,
 } from "../../utilites/types";
-import { GlobalState } from "../reducer";
+// eslint-disable-next-line import/no-cycle
+import { InferActionsTypes, BaseThunkActionType } from "../reducer";
 
-interface DataActionInterface {
-  type: string;
-  payload: boolean | number | string | Hotel | Array<Hotel> | Array<Review>;
-}
-
-interface BooleanActionInterface {
-  type: string;
-  payload: boolean;
-}
-
-interface NumberActionInterface {
-  type: string;
-  payload: number;
-}
-
-interface StringActionInterface {
-  type: string;
-  payload: string;
-}
-
-interface HotelActionInterface {
-  type: string;
-  payload: Hotel;
-}
-
-interface HotelsActionInterface {
-  type: string;
-  payload: Array<Hotel>;
-}
-
-interface ReviewsActionInterface {
-  type: string;
-  payload: Array<Review>;
-}
-
-type DataActionTypes =
-  | BooleanActionInterface
-  | NumberActionInterface
-  | StringActionInterface
-  | HotelActionInterface
-  | HotelsActionInterface
-  | ReviewsActionInterface;
+type DataActionTypes = ReturnType<InferActionsTypes<typeof ActionCreator>>;
+type ThunkActionType = BaseThunkActionType<DataActionTypes>;
 
 export interface InitialStateInterface {
   hotels: Array<Hotel>;
@@ -93,94 +53,94 @@ export const ActionType = {
   SET_ERROR_HOTEL_ID: `SET_ERROR_HOTEL_ID`,
   REMOVE_FROM_ERROR_HOTEL_ID: `REMOVE_FROM_ERROR_HOTEL_ID`,
   CLEAR_ERROR_HOTEL_IDS: `CLEAR_ERROR_HOTEL_IDS`,
-};
+} as const;
 
 export const ActionCreator = {
-  loadHotels: (data: Array<Hotel>): DataActionInterface => {
+  loadHotels: (data: Array<Hotel>) => {
     return {
       type: ActionType.LOAD_HOTELS,
       payload: data,
     };
   },
 
-  loadFavoriteHotels: (data: Array<Hotel>): DataActionInterface => {
+  loadFavoriteHotels: (data: Array<Hotel>) => {
     return {
       type: ActionType.LOAD_FAVORITE_HOTELS,
       payload: data,
     };
   },
 
-  loadHotelReviews: (data: Array<Review>): DataActionInterface => {
-    return {
-      type: ActionType.LOAD_HOTEL_REVIEWS,
-      payload: data,
-    };
-  },
-
-  loadNearbyHotels: (data: Array<Hotel>): DataActionInterface => {
+  loadNearbyHotels: (data: Array<Hotel>) => {
     return {
       type: ActionType.LOAD_NEARBY_HOTELS,
       payload: data,
     };
   },
 
-  finishLoading: (): DataActionInterface => {
+  loadHotelReviews: (data: Array<Review>) => {
+    return {
+      type: ActionType.LOAD_HOTEL_REVIEWS,
+      payload: data,
+    };
+  },
+
+  finishLoading: () => {
     return {
       type: ActionType.FINISH_LOADING,
       payload: false,
     };
   },
 
-  setFavoritesLoadingStatus: (status: boolean): DataActionInterface => {
+  setFavoritesLoadingStatus: (status: boolean) => {
     return {
       type: ActionType.SET_FAVORITES_LOADING_STATUS,
       payload: status,
     };
   },
 
-  updateFavoriteStatus: (hotel: Hotel): HotelActionInterface => {
+  updateFavoriteStatus: (hotel: Hotel) => {
     return {
       type: ActionType.UPDATE_FAVORITE_STATUS,
       payload: hotel,
     };
   },
 
-  setSendingErrorStatus: (status: boolean): DataActionInterface => {
+  setSendingErrorStatus: (status: boolean) => {
     return {
       type: ActionType.SET_SENDING_ERROR_STATUS,
       payload: status,
     };
   },
 
-  setReviewSendingStatus: (status: boolean): DataActionInterface => {
+  setReviewSendingStatus: (status: boolean) => {
     return {
       type: ActionType.SET_REVIEW_SENDING_STATUS,
       payload: status,
     };
   },
 
-  setErrorMessage: (message: string): DataActionInterface => {
+  setErrorMessage: (message: string) => {
     return {
       type: ActionType.SET_ERROR_MESSAGE,
       payload: message,
     };
   },
 
-  setErrorHotelId: (id: number): DataActionInterface => {
+  setErrorHotelId: (id: number) => {
     return {
       type: ActionType.SET_ERROR_HOTEL_ID,
       payload: id,
     };
   },
 
-  removeErrorHotelId: (id: number): DataActionInterface => {
+  removeErrorHotelId: (id: number) => {
     return {
       type: ActionType.REMOVE_FROM_ERROR_HOTEL_ID,
       payload: id,
     };
   },
 
-  clearErrorHotelIds: (): DataActionInterface => {
+  clearErrorHotelIds: () => {
     return {
       type: ActionType.CLEAR_ERROR_HOTEL_IDS,
       payload: [],
@@ -189,16 +149,7 @@ export const ActionCreator = {
 };
 
 export const Operation = {
-  loadHotels: (): ThunkAction<
-    void,
-    GlobalState,
-    AxiosInstance,
-    DataActionInterface
-  > => async (
-    dispatch: ThunkDispatch<GlobalState, AxiosInstance, DataActionInterface>,
-    getState: () => GlobalState,
-    api: { get: (arg0: string) => AxiosPromise },
-  ): Promise<void> => {
+  loadHotels: (): ThunkActionType => async (dispatch, getState, api) => {
     const response: AxiosResponse<Array<HotelBackend>> = await api.get(
       `/hotels`,
     );
@@ -207,16 +158,11 @@ export const Operation = {
     dispatch(ActionCreator.finishLoading());
   },
 
-  loadFavoriteHotels: (): ThunkAction<
-    void,
-    GlobalState,
-    AxiosInstance,
-    DataActionInterface
-  > => async (
-    dispatch: ThunkDispatch<GlobalState, AxiosInstance, DataActionInterface>,
-    getState: () => GlobalState,
-    api: { get: (arg0: string) => AxiosPromise },
-  ): Promise<void> => {
+  loadFavoriteHotels: (): ThunkActionType => async (
+    dispatch,
+    getState,
+    api,
+  ) => {
     dispatch(ActionCreator.setFavoritesLoadingStatus(true));
     const response: AxiosResponse<Array<HotelBackend>> = await api.get(
       `/favorite`,
@@ -226,18 +172,11 @@ export const Operation = {
     dispatch(ActionCreator.setFavoritesLoadingStatus(false));
   },
 
-  loadHotelReviews: (
-    hotelId: number,
-  ): ThunkAction<
-    void,
-    GlobalState,
-    AxiosInstance,
-    DataActionInterface
-  > => async (
-    dispatch: ThunkDispatch<GlobalState, AxiosInstance, DataActionInterface>,
-    getState: () => GlobalState,
-    api: { get: (arg0: string) => AxiosPromise },
-  ): Promise<void> => {
+  loadHotelReviews: (hotelId: number): ThunkActionType => async (
+    dispatch,
+    getState,
+    api,
+  ) => {
     const response: AxiosResponse<Array<ReviewBackend>> = await api.get(
       `/comments/${hotelId}`,
     );
@@ -247,18 +186,11 @@ export const Operation = {
     dispatch(ActionCreator.loadHotelReviews(loadedComments));
   },
 
-  loadNearbyHotels: (
-    hotelId: number,
-  ): ThunkAction<
-    void,
-    GlobalState,
-    AxiosInstance,
-    DataActionInterface
-  > => async (
-    dispatch: ThunkDispatch<GlobalState, AxiosInstance, DataActionInterface>,
-    getState: () => GlobalState,
-    api: { get: (arg0: string) => AxiosPromise },
-  ): Promise<void> => {
+  loadNearbyHotels: (hotelId: number): ThunkActionType => async (
+    dispatch,
+    getState,
+    api,
+  ) => {
     const response: AxiosResponse<Array<HotelBackend>> = await api.get(
       `/hotels/${hotelId}/nearby`,
     );
@@ -268,21 +200,11 @@ export const Operation = {
     dispatch(ActionCreator.loadNearbyHotels(loadedNearbyHotels));
   },
 
-  sendReview: (
-    hotelId: number,
-    review: ReviewPure,
-  ): ThunkAction<
-    void,
-    GlobalState,
-    AxiosInstance,
-    DataActionInterface
-  > => async (
-    dispatch: ThunkDispatch<GlobalState, AxiosInstance, DataActionInterface>,
-    getState: () => GlobalState,
-    api: {
-      post: (arg0: string, arg1: ReviewPure) => AxiosPromise;
-    },
-  ): Promise<void> => {
+  sendReview: (hotelId: number, review: ReviewPure): ThunkActionType => async (
+    dispatch,
+    getState,
+    api,
+  ) => {
     dispatch(ActionCreator.setReviewSendingStatus(true));
     try {
       const response: AxiosResponse<Array<ReviewBackend>> = await api.post(
@@ -306,16 +228,7 @@ export const Operation = {
   changeHotelFavoriteStatus: (
     hotelId: number,
     isFavorite: boolean,
-  ): ThunkAction<
-    void,
-    GlobalState,
-    AxiosInstance,
-    DataActionInterface
-  > => async (
-    dispatch: ThunkDispatch<GlobalState, AxiosInstance, DataActionInterface>,
-    getState: () => GlobalState,
-    api: { post: (arg0: string) => AxiosPromise },
-  ): Promise<void> => {
+  ): ThunkActionType => async (dispatch, getState, api) => {
     try {
       const response = await api.post(
         `/favorite/${hotelId}/${isFavorite ? 1 : 0}`,
@@ -343,35 +256,35 @@ export const reducer = (
     case ActionType.LOAD_HOTEL_REVIEWS:
       return { ...state, hotelReviews: action.payload };
     case ActionType.LOAD_NEARBY_HOTELS:
-      return { ...state, nearbyHotels: action.payload as Array<Hotel> };
+      return { ...state, nearbyHotels: action.payload };
     case ActionType.FINISH_LOADING:
-      return { ...state, isDataLoading: action.payload as boolean };
+      return { ...state, isDataLoading: action.payload };
     case ActionType.SET_FAVORITES_LOADING_STATUS:
-      return { ...state, isFavoritesLoading: action.payload as boolean };
+      return { ...state, isFavoritesLoading: action.payload };
     case ActionType.UPDATE_FAVORITE_STATUS: {
       return {
         ...state,
         hotels: state.hotels.map((item) =>
           item.id === action.payload.id ? action.payload : item,
-        ) as Array<Hotel>,
+        ),
         favoriteHotels: state.favoriteHotels.filter(
           (item) => item.id !== action.payload.id,
         ),
         nearbyHotels: state.nearbyHotels.map((item) =>
           item.id === action.payload.id ? action.payload : item,
-        ) as Array<Hotel>,
+        ),
       };
     }
     case ActionType.SET_SENDING_ERROR_STATUS:
-      return { ...state, isSendingError: action.payload as boolean };
+      return { ...state, isSendingError: action.payload };
     case ActionType.SET_REVIEW_SENDING_STATUS:
-      return { ...state, isReviewSending: action.payload as boolean };
+      return { ...state, isReviewSending: action.payload };
     case ActionType.SET_ERROR_MESSAGE:
-      return { ...state, errorMessage: action.payload as string };
+      return { ...state, errorMessage: action.payload };
     case ActionType.SET_ERROR_HOTEL_ID:
       return {
         ...state,
-        errorHotelIds: state.errorHotelIds.concat(action.payload as number),
+        errorHotelIds: state.errorHotelIds.concat(action.payload),
       };
     case ActionType.REMOVE_FROM_ERROR_HOTEL_ID:
       return {
@@ -381,10 +294,8 @@ export const reducer = (
         ),
       };
     case ActionType.CLEAR_ERROR_HOTEL_IDS:
-      return { ...state, errorHotelIds: action.payload as Array<never> };
+      return { ...state, errorHotelIds: action.payload };
     default:
       return state;
   }
 };
-
-// TODO fix payload id
