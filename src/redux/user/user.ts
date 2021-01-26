@@ -7,23 +7,19 @@ import { BaseThunkActionType, InferActionsTypes } from "../reducer";
 type UserActionTypes = ReturnType<InferActionsTypes<typeof ActionCreator>>;
 type ThunkActionType = BaseThunkActionType<UserActionTypes>;
 
-export interface InitialStateInterface {
-  authorizationStatus: boolean;
-  user: UserLogged;
-  isAuthorizationLoading: boolean;
-}
-
-export const initialState: InitialStateInterface = {
-  authorizationStatus: false,
+export const initialState = {
+  authorizationStatus: false as boolean,
   user: {
     id: -1,
     email: ``,
     isPro: false,
     avatar: ``,
     name: ``,
-  },
-  isAuthorizationLoading: true,
+  } as UserLogged,
+  isAuthorizationLoading: true as boolean,
 };
+
+type InitialStateType = typeof initialState;
 
 export const ActionType = {
   SET_AUTHORIZATION_STATUS: `SET_AUTHORIZATION_STATUS`,
@@ -89,7 +85,7 @@ export const Operation = {
 export const reducer = (
   state = initialState,
   action: UserActionTypes,
-): InitialStateInterface => {
+): InitialStateType => {
   switch (action.type) {
     case ActionType.SET_AUTHORIZATION_STATUS:
       return { ...state, authorizationStatus: action.payload };

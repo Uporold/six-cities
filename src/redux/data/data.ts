@@ -13,31 +13,20 @@ import { InferActionsTypes, BaseThunkActionType } from "../reducer";
 type DataActionTypes = ReturnType<InferActionsTypes<typeof ActionCreator>>;
 type ThunkActionType = BaseThunkActionType<DataActionTypes>;
 
-export interface InitialStateInterface {
-  hotels: Array<Hotel>;
-  favoriteHotels: Array<Hotel>;
-  hotelReviews: Array<Review>;
-  nearbyHotels: Array<Hotel>;
-  isDataLoading: boolean;
-  isFavoritesLoading: boolean;
-  isSendingError: boolean;
-  isReviewSending: boolean;
-  errorMessage: string;
-  errorHotelIds: Array<number>;
-}
-
-export const initialState: InitialStateInterface = {
-  hotels: [],
-  favoriteHotels: [],
-  hotelReviews: [],
-  nearbyHotels: [],
-  isDataLoading: true,
-  isFavoritesLoading: true,
-  isSendingError: false,
-  isReviewSending: false,
-  errorMessage: ``,
-  errorHotelIds: [],
+export const initialState = {
+  hotels: [] as Array<Hotel>,
+  favoriteHotels: [] as Array<Hotel>,
+  hotelReviews: [] as Array<Review>,
+  nearbyHotels: [] as Array<Hotel>,
+  isDataLoading: true as boolean,
+  isFavoritesLoading: true as boolean,
+  isSendingError: false as boolean,
+  isReviewSending: false as boolean,
+  errorMessage: `` as string,
+  errorHotelIds: [] as Array<number>,
 };
+
+type InitialStateType = typeof initialState;
 
 export const ActionType = {
   LOAD_HOTELS: `LOAD_HOTELS`,
@@ -247,7 +236,7 @@ export const Operation = {
 export const reducer = (
   state = initialState,
   action: DataActionTypes,
-): InitialStateInterface => {
+): InitialStateType => {
   switch (action.type) {
     case ActionType.LOAD_HOTELS:
       return { ...state, hotels: action.payload };

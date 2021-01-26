@@ -1,10 +1,10 @@
 import { applyMiddleware, createStore } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
-import thunk from "redux-thunk";
-import { AxiosError } from "axios";
+import thunk, { ThunkMiddleware } from "redux-thunk";
+import { AxiosError, AxiosInstance } from "axios";
 import { ActionCreator, Operation as UserOperation } from "./redux/user/user";
 import { createAPI } from "./api";
-import { rootReducer } from "./redux/reducer";
+import { AllReduxActions, GlobalState, rootReducer } from "./redux/reducer";
 import { Operation as DataOperation } from "./redux/data/data";
 
 const Error = {
@@ -21,10 +21,15 @@ const api = createAPI(onUnauthorized);
 
 const store = createStore(
   rootReducer,
-  composeWithDevTools(applyMiddleware(thunk.withExtraArgument(api))),
+  composeWithDevTools(
+    applyMiddleware(
+      thunk.withExtraArgument(api) as ThunkMiddleware<
+        GlobalState,
+        AllReduxActions,
+        AxiosInstance
+      >,
+    ),
+  ),
 );
 
-store.dispatch(DataOperation.loadHotels());
-store.dispatch(UserOperation.checkAuth());
-
-export { store as default };
+export default store;

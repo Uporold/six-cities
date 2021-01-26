@@ -98,8 +98,8 @@ describe(`Action creators work correctly`, () => {
   });
 
   it(`Action creator for get hovered hotel id returns correct action`, () => {
-    expect(ActionCreator.getHoveredHotelId(0)).toEqual({
-      type: ActionType.GET_HOVERED_HOTEL_ID,
+    expect(ActionCreator.setHoveredHotelId(0)).toEqual({
+      type: ActionType.SET_HOVERED_HOTEL_ID,
       payload: 0,
     });
   });

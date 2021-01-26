@@ -4,7 +4,7 @@ import { PageType, PagePath } from "../../utilites/const";
 import PlaceCardError from "../place-card-error/place-card-error";
 import history from "../../history";
 import { useChangeHotelFavoriteStatus } from "../../redux/data/hooks/useChangeHotelFavoriteStatus";
-import { useGetHoveredHotelId } from "../../redux/app/hooks/useGetHoveredHotelId";
+import { useSetHoveredHotelId } from "../../redux/app/hooks/useSetHoveredHotelId";
 import { useClearErrorIds } from "../../redux/data/hooks/useClearErrorIds";
 import { useErrorHotelIds } from "../../redux/data/hooks/selectors";
 import { useAuthorizationStatus } from "../../redux/user/hooks/selectors";
@@ -33,7 +33,7 @@ const PlaceCard: React.FC<Props> = memo(function PlaceCard({
 }): JSX.Element {
   const styledRating = hotel.rating * 20;
   const changeHotelFavoriteStatus = useChangeHotelFavoriteStatus();
-  const getHoveredHotelId = useGetHoveredHotelId();
+  const setHoveredHotelId = useSetHoveredHotelId();
   const clearErrorHotelIds = useClearErrorIds();
   const authorizationStatus = useAuthorizationStatus();
   const errorHotelIds = useErrorHotelIds();
@@ -50,11 +50,11 @@ const PlaceCard: React.FC<Props> = memo(function PlaceCard({
     hotel.type.charAt(0).toUpperCase() + hotel.type.replace(`-`, ` `).slice(1);
 
   const onCardMouseEnter = () => {
-    getHoveredHotelId(hotel.id);
+    setHoveredHotelId(hotel.id);
   };
 
   const onCardMouseOut = () => {
-    getHoveredHotelId(-1);
+    setHoveredHotelId(-1);
   };
 
   const onCardClickHandler = () => {
