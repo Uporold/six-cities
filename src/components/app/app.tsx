@@ -40,7 +40,7 @@ const App: React.FC = (): JSX.Element => {
             <PrivateRoute
               exact
               path={PagePath.FAVORITES}
-              render={() => <Favorites />}
+              component={Favorites}
             />
           </Switch>
         </Router>
