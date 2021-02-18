@@ -9,7 +9,7 @@ it(`Footer component renders correctly`, () => {
     .create(
       <Router history={history}>
         <Footer />
-      </Router>
+      </Router>,
     )
     .toJSON();
 

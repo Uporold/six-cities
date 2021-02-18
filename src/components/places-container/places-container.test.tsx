@@ -1,30 +1,39 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import configureStore from "redux-mock-store";
+import { BrowserRouter as Router } from "react-router-dom";
 import { Provider } from "react-redux";
-import Map from "./map";
+import configureStore from "redux-mock-store";
+import PlacesContainer from "./places-container";
 import { hotels } from "../../mock/offers";
-import NameSpace from "../../redux/name-space";
 
 const mockStore = configureStore([]);
 
-it(`Should Map render correctly`, () => {
+it(`PlacesContainer render correctly`, () => {
   const store = mockStore({
-    [NameSpace.APP]: {
+    APP: {
       currentCity: `Paris`,
-      hoveredHotelId: -1,
+      currentSortType: `Popular`,
+    },
+    DATA: {
+      hotels,
+      errorHotelIds: [],
+    },
+    USER: {
+      authorizationStatus: true,
     },
   });
   const tree = renderer
     .create(
       <Provider store={store}>
-        <Map hotels={hotels} center={[52.38333, 4.9]} zoom={[12]} />
+        <Router>
+          <PlacesContainer />
+        </Router>
       </Provider>,
       {
         createNodeMock: () => {
           return document.createElement(`div`);
         },
-      }
+      },
     )
     .toJSON();
 

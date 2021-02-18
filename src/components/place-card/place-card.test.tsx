@@ -5,18 +5,19 @@ import { Provider } from "react-redux";
 import configureStore from "redux-mock-store";
 import PlaceCard from "./place-card";
 import { hotels } from "../../mock/offers";
-import NameSpace from "../../redux/name-space";
 import { PageType } from "../../utilites/const";
+import { Store, AnyAction } from "redux";
+import {Page} from "../../utilites/types";
 
 describe(`Place Card tests`, () => {
-  let store = null;
+  let store: any = null;
   const mockStore = configureStore([]);
   beforeEach(() => {
     store = mockStore({
-      [NameSpace.DATA]: {
+      DATA: {
         errorHotelIds: [],
       },
-      [NameSpace.USER]: {
+      USER: {
         authorizationStatus: true,
       },
     });
@@ -28,13 +29,11 @@ describe(`Place Card tests`, () => {
         <Provider store={store}>
           <Router>
             <PlaceCard
-              pageType={PageType.MAIN}
+              pageType={PageType.MAIN as Page}
               hotel={hotels[0]}
-              onHover={() => {}}
-              onHotelCardOut={() => {}}
             />
           </Router>
-        </Provider>
+        </Provider>,
       )
       .toJSON();
 
@@ -47,13 +46,11 @@ describe(`Place Card tests`, () => {
         <Provider store={store}>
           <Router>
             <PlaceCard
-              pageType={PageType.PROPERTY}
+              pageType={PageType.PROPERTY as Page}
               hotel={hotels[0]}
-              onHover={() => {}}
-              onHotelCardOut={() => {}}
             />
           </Router>
-        </Provider>
+        </Provider>,
       )
       .toJSON();
 
@@ -66,13 +63,11 @@ describe(`Place Card tests`, () => {
         <Provider store={store}>
           <Router>
             <PlaceCard
-              pageType={PageType.FAVORITES}
+              pageType={PageType.FAVORITES as Page}
               hotel={hotels[0]}
-              onHover={() => {}}
-              onHotelCardOut={() => {}}
             />
           </Router>
-        </Provider>
+        </Provider>,
       )
       .toJSON();
 

@@ -191,13 +191,13 @@ exports[`Render App 1`] = `
             <span
               className="places__sorting-type"
               onClick={[Function]}
-              tabIndex="0"
+              tabIndex={0}
             >
               Popular
               <svg
                 className="places__sorting-arrow"
                 height="4"
-                style={null}
+                style={Object {}}
                 width="7"
               >
                 <use
@@ -210,33 +210,29 @@ exports[`Render App 1`] = `
             >
               <li
                 className="places__option places__option--active"
-                data-sort-type="Popular"
                 onClick={[Function]}
-                tabIndex="0"
+                tabIndex={0}
               >
                 Popular
               </li>
               <li
                 className="places__option "
-                data-sort-type="Price: low to high"
                 onClick={[Function]}
-                tabIndex="0"
+                tabIndex={0}
               >
                 Price: low to high
               </li>
               <li
                 className="places__option "
-                data-sort-type="Price: high to low"
                 onClick={[Function]}
-                tabIndex="0"
+                tabIndex={0}
               >
                 Price: high to low
               </li>
               <li
                 className="places__option "
-                data-sort-type="Top rated first"
                 onClick={[Function]}
-                tabIndex="0"
+                tabIndex={0}
               >
                 Top rated first
               </li>

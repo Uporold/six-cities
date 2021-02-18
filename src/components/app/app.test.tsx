@@ -2,41 +2,40 @@ import React from "react";
 import renderer from "react-test-renderer";
 import configureStore from "redux-mock-store";
 import { Provider } from "react-redux";
-import { BrowserRouter as Router } from "react-router-dom";
-import Main from "./main";
+import App from "./app";
 import { hotels } from "../../mock/offers";
-import NameSpace from "../../redux/name-space";
-
-const DEFAULT_CITY = `Amsterdam`;
 
 const mockStore = configureStore([]);
 
-it(`Should Main render correctly`, () => {
+it(`Render App`, () => {
   const store = mockStore({
-    [NameSpace.DATA]: {
+    APP: {
+      currentCity: `Paris`,
+      currentSortType: `Popular`,
+    },
+    USER: {
+      authorizationStatus: false,
+      isAuthorizationLoading: false,
+    },
+    DATA: {
       hotels,
+      isDataLoading: false,
       errorHotelIds: [],
     },
-    [NameSpace.APP]: {
-      currentCity: DEFAULT_CITY,
-    },
-    [NameSpace.USER]: {
-      authorizationStatus: false,
-    },
   });
+
+  store.dispatch = jest.fn();
 
   const tree = renderer
     .create(
       <Provider store={store}>
-        <Router>
-          <Main />
-        </Router>
+        <App />
       </Provider>,
       {
         createNodeMock: () => {
-          return {};
+          return document.createElement(`div`);
         },
-      }
+      },
     )
     .toJSON();
 

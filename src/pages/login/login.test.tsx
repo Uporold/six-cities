@@ -4,19 +4,18 @@ import configureStore from "redux-mock-store";
 import { Provider } from "react-redux";
 import { BrowserRouter as Router } from "react-router-dom";
 import Login from "./login";
-import NameSpace from "../../redux/name-space";
 
 const mockStore = configureStore([]);
 
 it(`Sign in page component render`, () => {
   const store = mockStore({
-    [NameSpace.USER]: {
+    USER: {
       authorizationStatus: false,
     },
-    [NameSpace.APP]: {
+    APP: {
       currentCity: "Paris",
     },
-    [NameSpace.DATA]: {
+    DATA: {
       errorHotelIds: [],
     },
   });
@@ -32,7 +31,7 @@ it(`Sign in page component render`, () => {
         createNodeMock: () => {
           return {};
         },
-      }
+      },
     )
     .toJSON();
 

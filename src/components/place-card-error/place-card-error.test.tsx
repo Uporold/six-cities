@@ -2,22 +2,25 @@ import React from "react";
 import renderer from "react-test-renderer";
 import configureStore from "redux-mock-store";
 import { Provider } from "react-redux";
-import Sorting from "./sorting";
-import NameSpace from "../../redux/name-space";
+import PlaceCardError from "./place-card-error";
 
 const mockStore = configureStore([]);
 
-it(`Should Places List render correctly`, () => {
+it(`PlaceCardError render correctly`, () => {
   const store = mockStore({
-    [NameSpace.APP]: {
-      currentSortType: `Popular`,
+    DATA: {
+      errorHotelIds: [0, 1, 2, 3],
+      errorMessage: `Test error`,
+    },
+    USER: {
+      authorizationStatus: true,
     },
   });
   const tree = renderer
     .create(
       <Provider store={store}>
-        <Sorting />
-      </Provider>
+        <PlaceCardError hotelId={0} />
+      </Provider>,
     )
     .toJSON();
 

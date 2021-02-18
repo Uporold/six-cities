@@ -1,10 +1,11 @@
-import { reducer, ActionCreator, ActionType } from "./app";
+import { reducer, ActionCreator, ActionType, AppActionTypes } from "./app";
+import {sortTypes} from "../../utilites/const";
 
 const DEFAULT_CITY = `Brussels`;
 const DEFAULT_SORT = `Popular`;
 
 it(`Reducer without additional parameters should return initial state`, () => {
-  expect(reducer(undefined, {})).toEqual({
+  expect(reducer(undefined, {} as AppActionTypes)).toEqual({
     currentCity: DEFAULT_CITY,
     currentSortType: DEFAULT_SORT,
     hoveredHotelId: -1,
@@ -20,8 +21,8 @@ it(`Reducer should change current city by a given value`, () => {
       {
         type: ActionType.SET_CITY,
         payload: `Paris`,
-      }
-    )
+      },
+    ),
   ).toEqual({
     currentCity: `Paris`,
   });
@@ -35,11 +36,11 @@ it(`Reducer should change sort type by a given value`, () => {
       },
       {
         type: ActionType.SET_SORT_TYPE,
-        payload: `New sort`,
-      }
-    )
+        payload: `Top rated first`,
+      },
+    ),
   ).toEqual({
-    currentSortType: `New sort`,
+    currentSortType: `Top rated first`,
   });
 });
 
@@ -47,13 +48,13 @@ it(`Reducer should set default sort type`, () => {
   expect(
     reducer(
       {
-        currentSortType: `New sort`,
+        currentSortType: sortTypes[1],
       },
       {
         type: ActionType.SET_DEFAULT_SORT_TYPE,
         payload: DEFAULT_SORT,
-      }
-    )
+      },
+    ),
   ).toEqual({
     currentSortType: DEFAULT_SORT,
   });
@@ -66,10 +67,10 @@ it(`Reducer should change hovered hotel id by a given value`, () => {
         hoveredHotelId: -1,
       },
       {
-        type: ActionType.GET_HOVERED_HOTEL_ID,
+        type: ActionType.SET_HOVERED_HOTEL_ID,
         payload: 0,
-      }
-    )
+      },
+    ),
   ).toEqual({
     hoveredHotelId: 0,
   });
@@ -84,9 +85,9 @@ describe(`Action creators work correctly`, () => {
   });
 
   it(`Action creator for set sort returns correct action`, () => {
-    expect(ActionCreator.setSort(`New sort`)).toEqual({
+    expect(ActionCreator.setSort(`Top rated first`)).toEqual({
       type: ActionType.SET_SORT_TYPE,
-      payload: `New sort`,
+      payload: `Top rated first`,
     });
   });
 

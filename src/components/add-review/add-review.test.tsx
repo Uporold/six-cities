@@ -3,7 +3,6 @@ import renderer from "react-test-renderer";
 import configureStore from "redux-mock-store";
 import { Provider } from "react-redux";
 import AddReview from "./add-review";
-import NameSpace from "../../redux/name-space";
 import { hotels } from "../../mock/offers";
 
 const userData = {
@@ -20,18 +19,17 @@ describe(`Add Review tests`, () => {
 
   beforeEach(() => {
     store = mockStore({
-      [NameSpace.USER]: {
+      USER: {
         authorizationStatus: true,
         isAuthorizationLoading: false,
         user: userData,
       },
-      [NameSpace.DATA]: {
+      DATA: {
         hotels,
         isSendingError: false,
         isReviewSending: false,
       },
     });
-    store.dispatch = jest.fn();
     addReviewComponent = renderer.create(
       <Provider store={store}>
         <AddReview hotelId={1} />
@@ -40,7 +38,7 @@ describe(`Add Review tests`, () => {
         createNodeMock: () => {
           return {};
         },
-      }
+      },
     );
   });
 

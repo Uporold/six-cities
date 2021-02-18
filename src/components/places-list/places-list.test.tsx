@@ -6,16 +6,16 @@ import { Provider } from "react-redux";
 import PlacesList from "./places-list";
 import { hotels } from "../../mock/offers";
 import { PageType } from "../../utilites/const";
-import NameSpace from "../../redux/name-space";
+import {Page} from "../../utilites/types";
 
 const mockStore = configureStore([]);
 
 it(`Should Places List render correctly`, () => {
   const store = mockStore({
-    [NameSpace.DATA]: {
+    DATA: {
       errorHotelIds: [],
     },
-    [NameSpace.USER]: {
+    USER: {
       authorizationStatus: true,
     },
   });
@@ -23,14 +23,14 @@ it(`Should Places List render correctly`, () => {
     .create(
       <Provider store={store}>
         <Router>
-          <PlacesList hotels={hotels} pageType={PageType.MAIN} />
+          <PlacesList hotels={hotels} pageType={PageType.MAIN as Page} />
         </Router>
       </Provider>,
       {
         createNodeMock: () => {
           return document.createElement(`div`);
         },
-      }
+      },
     )
     .toJSON();
 

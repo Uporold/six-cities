@@ -2,10 +2,9 @@ import { applyMiddleware, createStore } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
 import thunk, { ThunkMiddleware } from "redux-thunk";
 import { AxiosError, AxiosInstance } from "axios";
-import { ActionCreator, Operation as UserOperation } from "./redux/user/user";
+import { ActionCreator } from "./redux/user/user";
 import { createAPI } from "./api";
 import { AllReduxActions, GlobalState, rootReducer } from "./redux/reducer";
-import { Operation as DataOperation } from "./redux/data/data";
 
 const Error = {
   UNAUTHORIZED: 401,

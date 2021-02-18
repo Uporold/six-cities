@@ -9,11 +9,6 @@ export const getHotelsByCity = (
   return hotels.filter((hotel) => hotel.city.name === city);
 };
 
-// export const getHotelReviews = (hotel, reviews) => {
-//   const hotelReviews = reviews.find((review) => review.offerId === hotel.id);
-//   return hotelReviews ? hotelReviews.comments : [];
-// };
-
 export const sortTypes = {
   SORT_POPULAR: `Popular`,
   SORT_PRICE_LOW_TO_HIGH: `Price: low to high`,

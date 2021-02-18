@@ -4,7 +4,6 @@ import configureStore from "redux-mock-store";
 import { Provider } from "react-redux";
 import { Router } from "react-router-dom";
 import Header from "./header";
-import NameSpace from "../../redux/name-space";
 import history from "../../history";
 
 const mockStore = configureStore([]);
@@ -19,7 +18,7 @@ const userData = {
 describe(`Header tests`, () => {
   it(`Render Header on Main Page or Movie Page without login`, () => {
     const store = mockStore({
-      [NameSpace.USER]: {
+      USER: {
         authorizationStatus: false,
       },
     });
@@ -30,7 +29,7 @@ describe(`Header tests`, () => {
           <Provider store={store}>
             <Header />
           </Provider>
-        </Router>
+        </Router>,
       )
       .toJSON();
 
@@ -39,7 +38,7 @@ describe(`Header tests`, () => {
 
   it(`Render Header on Main Page or Movie Page with login`, () => {
     const store = mockStore({
-      [NameSpace.USER]: {
+      USER: {
         authorizationStatus: true,
         user: userData,
       },
@@ -51,7 +50,7 @@ describe(`Header tests`, () => {
           <Provider store={store}>
             <Header />
           </Provider>
-        </Router>
+        </Router>,
       )
       .toJSON();
 
@@ -60,7 +59,7 @@ describe(`Header tests`, () => {
 
   it(`Render Header on Login Page`, () => {
     const store = mockStore({
-      [NameSpace.USER]: {
+      USER: {
         authorizationStatus: false,
       },
     });
@@ -71,7 +70,7 @@ describe(`Header tests`, () => {
           <Provider store={store}>
             <Header isLoginPage />
           </Provider>
-        </Router>
+        </Router>,
       )
       .toJSON();
 

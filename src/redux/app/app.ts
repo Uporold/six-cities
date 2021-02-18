@@ -2,7 +2,7 @@ import { Sort } from "../../utilites/types";
 // eslint-disable-next-line import/no-cycle
 import { InferActionsTypes } from "../reducer";
 
-type AppActionTypes = ReturnType<InferActionsTypes<typeof ActionCreator>>;
+export type AppActionTypes = ReturnType<InferActionsTypes<typeof ActionCreator>>;
 
 const DEFAULT_CITY = `Brussels`;
 const DEFAULT_SORT = `Popular` as Sort;
@@ -19,7 +19,7 @@ export const ActionType = {
   SET_CITY: `SET_CITY`,
   SET_SORT_TYPE: `SET_SORT_TYPE`,
   SET_DEFAULT_SORT_TYPE: `SET_DEFAULT_SORT_TYPE`,
-  SET_HOVERED_HOTEL_ID: `GET_HOVERED_HOTEL_ID`,
+  SET_HOVERED_HOTEL_ID: `SET_HOVERED_HOTEL_ID`,
 } as const;
 
 export const ActionCreator = {

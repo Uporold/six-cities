@@ -116,8 +116,8 @@ it(`Reducer should update hotels by load hotels`, () => {
       {
         type: ActionType.LOAD_HOTELS,
         payload: hotels,
-      }
-    )
+      },
+    ),
   ).toEqual({
     hotels,
   });
@@ -132,8 +132,8 @@ it(`Reducer should update favorite hotels by load favorite hotels`, () => {
       {
         type: ActionType.LOAD_FAVORITE_HOTELS,
         payload: hotels,
-      }
-    )
+      },
+    ),
   ).toEqual({
     favoriteHotels: hotels,
   });
@@ -148,8 +148,8 @@ it(`Reducer should update hotel reviews by load hotel reviews`, () => {
       {
         type: ActionType.LOAD_HOTEL_REVIEWS,
         payload: reviews,
-      }
-    )
+      },
+    ),
   ).toEqual({
     hotelReviews: reviews,
   });
@@ -164,8 +164,8 @@ it(`Reducer should update nearby hotels by load nearby hotels`, () => {
       {
         type: ActionType.LOAD_NEARBY_HOTELS,
         payload: hotels,
-      }
-    )
+      },
+    ),
   ).toEqual({
     nearbyHotels: hotels,
   });
@@ -180,8 +180,8 @@ it(`Reducer should finish hotels loading correctly`, () => {
       {
         type: ActionType.FINISH_LOADING,
         payload: false,
-      }
-    )
+      },
+    ),
   ).toEqual({
     isDataLoading: false,
   });
@@ -196,8 +196,8 @@ it(`Reducer should finish favorite hotels loading correctly`, () => {
       {
         type: ActionType.SET_FAVORITES_LOADING_STATUS,
         payload: false,
-      }
-    )
+      },
+    ),
   ).toEqual({
     isFavoritesLoading: false,
   });
@@ -214,8 +214,8 @@ it(`Reducer should update favorite hotels`, () => {
       {
         type: ActionType.UPDATE_FAVORITE_STATUS,
         payload: hotels[0],
-      }
-    )
+      },
+    ),
   ).toEqual({
     hotels,
     nearbyHotels: [],
@@ -232,8 +232,8 @@ it(`Reducer should send error status correctly`, () => {
       {
         type: ActionType.SET_SENDING_ERROR_STATUS,
         payload: true,
-      }
-    )
+      },
+    ),
   ).toEqual({
     isSendingError: true,
   });
@@ -248,8 +248,8 @@ it(`Reducer should send review sending status correctly`, () => {
       {
         type: ActionType.SET_REVIEW_SENDING_STATUS,
         payload: true,
-      }
-    )
+      },
+    ),
   ).toEqual({
     isReviewSending: true,
   });
@@ -264,8 +264,8 @@ it(`Reducer should load error message`, () => {
       {
         type: ActionType.SET_ERROR_MESSAGE,
         payload: `Testing error message`,
-      }
-    )
+      },
+    ),
   ).toEqual({
     errorMessage: `Testing error message`,
   });
@@ -280,8 +280,8 @@ it(`Reducer should set error hotel id`, () => {
       {
         type: ActionType.SET_ERROR_HOTEL_ID,
         payload: 1,
-      }
-    )
+      },
+    ),
   ).toEqual({
     errorHotelIds: [].concat(1),
   });
@@ -296,8 +296,8 @@ it(`Reducer should remove error hotel id`, () => {
       {
         type: ActionType.REMOVE_FROM_ERROR_HOTEL_ID,
         payload: 1,
-      }
-    )
+      },
+    ),
   ).toEqual({
     errorHotelIds: [1, 2, 3].filter((item) => item !== 1),
   });
@@ -312,8 +312,8 @@ it(`Reducer should clear error hotel ids`, () => {
       {
         type: ActionType.CLEAR_ERROR_HOTEL_IDS,
         payload: [],
-      }
-    )
+      },
+    ),
   ).toEqual({
     errorHotelIds: [],
   });
@@ -370,16 +370,16 @@ describe(`Action creators work correctly`, () => {
   });
 
   it(`Action creator for set sending status returns correct action`, () => {
-    expect(ActionCreator.setSendingErrorStatus(`Test error`)).toEqual({
+    expect(ActionCreator.setSendingErrorStatus(true)).toEqual({
       type: ActionType.SET_SENDING_ERROR_STATUS,
-      payload: `Test error`,
+      payload: true,
     });
   });
 
   it(`Action creator for set review sending status returns correct action`, () => {
-    expect(ActionCreator.setReviewSendingStatus(`Test error`)).toEqual({
+    expect(ActionCreator.setReviewSendingStatus(true)).toEqual({
       type: ActionType.SET_REVIEW_SENDING_STATUS,
-      payload: `Test error`,
+      payload: true,
     });
   });
 
@@ -488,7 +488,7 @@ describe(`Operations work correctly`, () => {
   it(`Operation should check POST to /comments/0`, () => {
     const apiMock = new MockAdapter(api);
     const dispatch = jest.fn();
-    const fakeReview = { comment: `Test comment`, email: `test@test.ru` };
+    const fakeReview = { comment: `Test comment`, rating: 5 };
     const sendReview = Operation.sendReview(0, fakeReview);
 
     apiMock.onPost(`/comments/0`).reply(200, [{ fake: true }]);

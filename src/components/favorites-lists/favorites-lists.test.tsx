@@ -6,7 +6,6 @@ import { Router } from "react-router-dom";
 import FavoritesLists from "./favorites-lists";
 import { hotels } from "../../mock/offers";
 import history from "../../history";
-import NameSpace from "../../redux/name-space";
 
 const cities = [
   `Paris`,
@@ -21,10 +20,10 @@ const mockStore = configureStore([]);
 
 it(`Favorites section`, () => {
   const store = mockStore({
-    [NameSpace.DATA]: {
+    DATA: {
       errorHotelIds: [],
     },
-    [NameSpace.USER]: {
+    USER: {
       authorizationStatus: true,
     },
   });
@@ -35,7 +34,7 @@ it(`Favorites section`, () => {
         <Provider store={store}>
           <FavoritesLists favoriteHotels={hotels} cities={cities} />
         </Provider>
-      </Router>
+      </Router>,
     )
     .toJSON();
 

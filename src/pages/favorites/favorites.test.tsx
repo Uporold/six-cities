@@ -3,22 +3,29 @@ import renderer from "react-test-renderer";
 import configureStore from "redux-mock-store";
 import { Provider } from "react-redux";
 import { Router } from "react-router-dom";
-import FavoritesLocations from "./favorites-locations";
+import Favorites from "./favorites";
 import { hotels } from "../../mock/offers";
 import history from "../../history";
-import NameSpace from "../../redux/name-space";
 
-const city = `Paris`;
+const userData = {
+  id: 1,
+  email: `test@gmail.com`,
+  name: `test`,
+  avatar: `https://assets.htmlacademy.ru/intensives/javascript-3/avatar/4.jpg`,
+};
 
 const mockStore = configureStore([]);
 
 it(`Favorites locations`, () => {
   const store = mockStore({
-    [NameSpace.DATA]: {
+    DATA: {
+      favoriteHotels: hotels,
+      isFavoritesLoading: false,
       errorHotelIds: [],
     },
-    [NameSpace.USER]: {
+    USER: {
       authorizationStatus: true,
+      user: userData,
     },
   });
 
@@ -26,7 +33,7 @@ it(`Favorites locations`, () => {
     .create(
       <Router history={history}>
         <Provider store={store}>
-          <FavoritesLocations hotels={hotels} city={city} />
+          <Favorites />
         </Provider>
       </Router>
     )
