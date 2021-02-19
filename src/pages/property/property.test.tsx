@@ -35,11 +35,18 @@ it(`Should Property Page render correctly`, () => {
     },
   });
 
+  const match = {
+    params: { id: `1` },
+    isExact: false,
+    url: `/offers/1`,
+    path: `/offers/:id`,
+  };
   const tree = renderer
     .create(
       <Provider store={store}>
         <Router>
-          <Property match={{ params: { id: `1` } } }/>
+          {/* @ts-ignore */}
+          <Property match={match} />
         </Router>
       </Provider>,
       {
